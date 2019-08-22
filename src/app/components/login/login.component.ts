@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { BoundAttribute } from '@angular/compiler/src/render3/r3_ast';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers:[UserService]
 })
 export class LoginComponent implements OnInit {
   autorizar:boolean;
+  error:boolean;
 
   public  form = {
     usuario:null,
@@ -17,15 +19,30 @@ export class LoginComponent implements OnInit {
     autorizacion:null
   }
 
-  constructor() {
+  constructor(
+    private _service:UserService
+  ) {
     //variable para activar los formularios
     this.autorizar=false;
+    this.error=false;
   }
 
   ngOnInit() {
   }
+
   onSubmit(){
-    console.log(this.form);
+    this._service.login(this.form).subscribe(
+      response=>{
+        if(response['code'] == 200){
+          localStorage.setItem('sesion',JSON.stringify(response['result']));
+        }else{
+          this.error = true;
+        }
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    )
   }
 
   //Evento que valida el logeo por auntorizacion mv
