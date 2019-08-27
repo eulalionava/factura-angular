@@ -1,0 +1,81 @@
+<div class="card" >
+  <div class="card-header bg-primary">
+      Selecciona las prefacturas sobre las que subiras tus CFDI
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="alert alert-info">
+          Seleccionar por:
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="alert alert-info">
+          Seleccionadas: {{cont}}
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="alert alert-info">
+          Suma antes de impuestos: {{importe}}
+        </div>
+      </div>
+    </div>
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Prefactura</th>
+          <th>Folio</th>
+          <th>Empresa</th>
+          <th>A cargo de</th>
+          <th>Lesionado</th>
+          <th>Fecha</th>
+          <th>Importe antes de impuesto</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let factura of facturas">
+        <tr>
+          <td>
+              <input type="checkbox" name="options" value="{{factura.Doc_clave}}"
+              [(ngModel)]="factura.checked" (change)=seleccionado(aseg,$event)>
+          </td>
+          <td>{{factura.Doc_serie}}_{{factura.Doc_clave}}</td>
+          <td>{{factura.REG_folio}}</td>
+          <td>{{factura.ASE_nomCorto}}</td>
+          <td>{{factura.ASE_razonSocial}}</td>
+          <td>{{factura.REG_nombrecompleto}}</td>
+          <td>{{factura.Doc_fecreg}}</td>
+          <td>{{factura.Doc_importe}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <input type="button" class="btn btn-success" (click)="verifica()" value="Siguiente paso">
+
+  </div>
+</div>
+
+<!-- <div class="col-lg-12">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4 alert alert-info">
+          Seleccionar por:
+          <select name="" id="">
+            <option value="1">Banorte</option>
+            <option value="2">Bancomer</option>
+            <option value="3">Afire</option>
+          </select>
+        </div>
+        <div class="col-md-4 alert alert-info">
+          Seleccionadas
+        </div>
+        <div class="col-md-4 alert alert-info">
+          Suma antes de impuesto:
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div> -->

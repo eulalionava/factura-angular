@@ -5,7 +5,7 @@ import { Observable} from 'rxjs/Observable';
 import { GLOBAL } from './global';
 
 @Injectable()
-export class UserService{
+export class HomeService{
   public url:string;
 
   constructor(
@@ -15,27 +15,22 @@ export class UserService{
     this.url = GLOBAL.url;
   }
 
-  Auth(){
-    //COMPRUEBA SI EXISTE UNA VARIABLE DE SESION
-    if(sessionStorage.getItem('sesion') || localStorage.getItem('sesion')){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
   //Servicio de logeo
-  login(user){
-    let json = JSON.stringify(user);
+  getfacturas(pro_clave){
+    let json = JSON.stringify({clave:pro_clave});
     let params = 'json='+json;
     let headers = new HttpHeaders();
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
-    return this._http.post(this.url+'usuario/login', params,{headers: headers});
+    return this._http.post(this.url+'home/facturas', params,{headers: headers});
   }
 
-  getAsegu(){
-    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this._http.get(this.url+'home/aseguradoras',{headers: headers}).pipe(res=>res);
+  buscarFactura(clave){
+    let json = JSON.stringify({clave:clave});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'home/buscarfactura', params,{headers: headers});
   }
 }

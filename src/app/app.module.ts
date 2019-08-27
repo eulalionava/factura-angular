@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './estructura/header/header.component';
 import { BodyComponent } from './estructura/body/body.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HeaderComponent,
-    BodyComponent
+    BodyComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(
-    private _service:UserService
+    private _service:UserService,
+    private _router:Router
   ) {
     //variable para activar los formularios
     this.autorizar=false;
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
       response=>{
         if(response['code'] == 200){
           localStorage.setItem('sesion',JSON.stringify(response['result']));
+          this._router.navigate(['home']);
         }else{
           this.error = true;
         }
