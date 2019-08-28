@@ -1,0 +1,112 @@
+<div class="card">
+  <div class="card-header bg-primary">
+    <h6>Prefacturas que se relaciona con tu (CFDI)</h6>
+  </div>
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Prefacturas Selecionadas
+          </div>
+          <div class="card-body">
+            <h2>{{totalPre}}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Total de Importe
+          </div>
+          <div class="card-body">
+            <h2>$1</h2>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br>
+
+  <!-- Modal -->
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+        Ver prefacturas
+    </button>
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Prefacturas seleccionadas</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Prefactura</th>
+                    <th>Lesionado</th>
+                    <th>Folio</th>
+                    <th>Fecha</th>
+                    <th>Importe antes de impuesto</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let factura of prefacturas">
+                  <tr>
+                    <td>{{factura[0].Doc_serie}}_{{factura[0].Doc_clave}}</td>
+                    <td>{{factura[0].REG_nombrecompleto}}</td>
+                    <td>{{factura[0].REG_folio}}</td>
+                    <td>{{factura[0].Doc_fecreg}}</td>
+                    <td>{{factura[0].Doc_importe}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  <!-- Fin modal -->
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="">Archivo xml</label>
+        <input type="file" class="form-control" >
+      </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+          <label for="">Archivo PDF</label>
+          <input type="file" class="form-control" >
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <input type="button" value="Regresar" class="btn btn-danger form-control">
+    </div>
+    <div class="col-md-4">
+      <input type="button" value="Validar documentos" class="btn btn-primary form-control" >
+    </div>
+    <div class="col-md-4">
+        <input type="button" value="Finalizar" class="btn btn-success form-control">
+    </div>
+  </div>
+  </div>
+</div>

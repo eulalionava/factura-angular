@@ -2,13 +2,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { routing, appRoutingProviders } from './app.routing';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
-
+//Componentes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './estructura/header/header.component';
 import { BodyComponent } from './estructura/body/body.component';
 import { HomeComponent } from './components/home/home.component';
+
+//Pipes
+import { FiltroXempresa } from './pipes/filtroXempresa.pipe';
+import { FiltroXcampos } from './pipes/filtroXcampos.pipe';
+import { CargandoComponent } from './components/cargando/cargando.component';
+
 
 @NgModule({
   declarations: [
@@ -16,13 +23,17 @@ import { HomeComponent } from './components/home/home.component';
     LoginComponent,
     HeaderComponent,
     BodyComponent,
-    HomeComponent
+    HomeComponent,
+    FiltroXempresa,
+    FiltroXcampos,
+    CargandoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     routing,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

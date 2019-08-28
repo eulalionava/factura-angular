@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../services/home.service';
+import { Router } from '@angular/router';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -7,19 +9,28 @@ import { HomeService } from '../../services/home.service';
   providers:[HomeService]
 })
 export class HomeComponent implements OnInit {
-  aseguradoras = [];
-  facturas = [];
-  usuario = [];
-  opciones = [];
-  cont = 0;
-  importe =0;
+  aseguradoras  = [];
+  provedores    = [];
+  facturas      = [];
+  usuario       = [];
+  opciones      = [];
+  cont    = 0;
+  importe = 0;
   indice:number;
+  porempresa = '';
+  busqueda = '';
+  //Numero de paginas
+  pageNum:number=1;
 
-  constructor(private _service:HomeService) {
+  constructor(
+    private _service:HomeService,
+    private _router:Router
+  ) {
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
   }
 
   ngOnInit() {
+    this.proveedores();
     this.Facturas();
   }
 
@@ -30,7 +41,6 @@ export class HomeComponent implements OnInit {
       if(! this.opciones.includes(event.target.value) ){
         //Guarda todas la claves de factura
         this.opciones.push(event.target.value);
-        console.log(this.opciones);
         //LLama el servicio
         this._service.buscarFactura(event.target.value).subscribe(
           response=>{
@@ -55,6 +65,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  //Obtener la facturas
   Facturas(){
     this._service.getfacturas(this.usuario[0]['Pro_clave']).subscribe(
       response=>{
@@ -66,9 +77,22 @@ export class HomeComponent implements OnInit {
     )
   }
 
+  //Obtener los proveedores
+  proveedores(){
+    this._service.getEmpresas().subscribe(
+      response=>{
+        this.provedores = response['data'];
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    )
+  }
+
 
   verifica(){
-    console.log(this.opciones);
+    localStorage.setItem('claves',JSON.stringify(this.opciones));
+    this._router.navigate(['cargar']);
   }
 
 

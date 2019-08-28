@@ -4,12 +4,14 @@ import { Routes, RouterModule } from '@angular/router';
 //Componentes
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { CargandoComponent } from './components/cargando/cargando.component';
 
 //Rutas
 const appRoutes:Routes = [
   {path:'', component:LoginComponent},
-  {path:'home', component:HomeComponent},
-  {path:'login', component:LoginComponent},
+  {path:'login' , component:LoginComponent},
+  {path:'home'  , component:HomeComponent},
+  {path:'cargar', component:CargandoComponent},
   {path:'**', component:LoginComponent}
 
 ];
