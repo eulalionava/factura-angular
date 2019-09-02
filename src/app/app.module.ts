@@ -15,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FiltroXempresa } from './pipes/filtroXempresa.pipe';
 import { FiltroXcampos } from './pipes/filtroXcampos.pipe';
 import { CargandoComponent } from './components/cargando/cargando.component';
+import { TramiteComponent } from './components/tramite/tramite.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CargandoComponent } from './components/cargando/cargando.component';
     HomeComponent,
     FiltroXempresa,
     FiltroXcampos,
-    CargandoComponent
+    CargandoComponent,
+    TramiteComponent
   ],
   imports: [
     BrowserModule,

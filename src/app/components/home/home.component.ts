@@ -14,11 +14,11 @@ export class HomeComponent implements OnInit {
   facturas      = [];
   usuario       = [];
   opciones      = [];
-  cont    = 0;
-  importe = 0;
+  cont          = 0;
+  importe       = 0;
   indice:number;
-  porempresa = '';
-  busqueda = '';
+  porempresa  = '';
+  busqueda    = '';
   //Numero de paginas
   pageNum:number=1;
 
