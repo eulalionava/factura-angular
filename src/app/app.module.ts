@@ -16,6 +16,7 @@ import { FiltroXempresa } from './pipes/filtroXempresa.pipe';
 import { FiltroXcampos } from './pipes/filtroXcampos.pipe';
 import { CargandoComponent } from './components/cargando/cargando.component';
 import { TramiteComponent } from './components/tramite/tramite.component';
+import { DetalleComponent } from './components/detalle/detalle.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { TramiteComponent } from './components/tramite/tramite.component';
     FiltroXempresa,
     FiltroXcampos,
     CargandoComponent,
-    TramiteComponent
+    TramiteComponent,
+    DetalleComponent
   ],
   imports: [
     BrowserModule,

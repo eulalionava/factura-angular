@@ -32,6 +32,7 @@ export class CargandoService{
     return this._http.post(this.url_servidor, formData);
   }
 
+  //Servicio que valida los documentos
   validadDoc(docs){
     let json = JSON.stringify({info:docs});
     let params = 'json='+json;
@@ -39,6 +40,17 @@ export class CargandoService{
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url+'cargando/validar',params,{headers: headers});
+  }
+
+  //Servicio que inserta el tramite
+  insertramite(tramite){
+    let claves = JSON.parse(localStorage.getItem('claves'));
+    let json = JSON.stringify({datos:tramite,claves:claves});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'cargando/tramite',params,{headers: headers});
   }
 
 }

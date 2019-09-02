@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   indice:number;
   porempresa  = '';
   busqueda    = '';
+  cargando = true;
   //Numero de paginas
   pageNum:number=1;
 
@@ -49,6 +50,7 @@ export class HomeComponent implements OnInit {
           }
         )
       }
+      localStorage.setItem('claves',JSON.stringify(this.opciones));
     }else{
       this.cont = this.cont - 1;
       //Numero de posicion
@@ -70,6 +72,7 @@ export class HomeComponent implements OnInit {
     this._service.getfacturas(this.usuario[0]['Pro_clave']).subscribe(
       response=>{
         this.facturas = response['data'];
+        this.cargando= false;
       },
       error=>{
         console.log(<any>error);
@@ -91,8 +94,9 @@ export class HomeComponent implements OnInit {
 
 
   verifica(){
-    localStorage.setItem('claves',JSON.stringify(this.opciones));
-    this._router.navigate(['cargar']);
+    if(localStorage.getItem('claves')){
+      this._router.navigate(['cargar']);
+    }
   }
 
 

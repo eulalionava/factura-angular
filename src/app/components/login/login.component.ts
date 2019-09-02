@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   autorizar:boolean;
   error:boolean;
+  cargando = false;
 
   public  form = {
     usuario:null,
     password:null
   };
-  public auto ={
+  public auto = {
     autorizacion:null
   }
 
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    this.cargando = true;
     this._service.login(this.form).subscribe(
       response=>{
         if(response['code'] == 200){
@@ -40,6 +42,7 @@ export class LoginComponent implements OnInit {
           this._router.navigate(['home']);
         }else{
           this.error = true;
+          this.cargando = false;
         }
       },
       error=>{

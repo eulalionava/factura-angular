@@ -10,6 +10,7 @@ import { CargandoService } from '../../services/cargando.service';
 export class CargandoComponent implements OnInit {
   public errorXml:boolean;
   public errorPdf:boolean;
+  public finaliza:boolean;
   public xml:any;
   public pdf:any;
   claves = [];
@@ -31,6 +32,7 @@ export class CargandoComponent implements OnInit {
   ) {
     this.errorXml = false;
     this.errorPdf = false;
+    this.finaliza = false;
    }
 
   ngOnInit() {
@@ -103,6 +105,21 @@ export class CargandoComponent implements OnInit {
       )
     }else{
       alert("Debes seleccionar los archivos");
+    }
+  }
+
+  //Evento que finaliza y guarda el tramite
+  finalizar(){
+    if(localStorage.getItem('validacion')){
+      let datos:any = JSON.parse(localStorage.getItem('validacion'));
+      this._service.insertramite(datos).subscribe(
+        response=>{
+          console.log(response);
+        },
+        error=>{
+          console.log(<any>error);
+        }
+      )
     }
   }
 

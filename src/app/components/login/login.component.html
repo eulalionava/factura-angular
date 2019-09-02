@@ -27,6 +27,9 @@
               </div>
             </div>
           </form>
+          <div class="form-group" *ngIf="cargando" style="text-align: center;">
+            <img src="../../../assets/cargando.gif" alt="Imagen" width="200">
+          </div>
           <hr>
           <div class="form-group" *ngIf="!autorizar">
             <a href="#" (click)="verAutorizacion()">Ingresar Por Autorizacion MV</a>

@@ -1,3 +1,32 @@
-<p>
-  tramite works!
-</p>
+<div class="card">
+  <div class="card-header bg-primary">
+    Tramites
+  </div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Folio fiscal</th>
+          <th>RFC(emisor)</th>
+          <th>RFC(receptor)</th>
+          <th>Fecha emision</th>
+          <th>Importe</th>
+          <th>Estatus</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let tramite of tramites">
+        <tr>
+          <td>{{tramite.Folio_fiscal}}</td>
+          <td>{{tramite.Emisor}}</td>
+          <td>{{tramite.Receptor}}</td>
+          <td>{{tramite.Fecha_emision}}</td>
+          <td>{{tramite.Importe}}</td>
+          <td>{{tramite.status}}</td>
+          <td>
+            <input type="button" value="detalle" class="btn btn-info btn-sm" (click)="detalle(tramite.Folio_fiscal)">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
