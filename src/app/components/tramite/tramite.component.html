@@ -23,7 +23,9 @@
           <td>{{tramite.Importe}}</td>
           <td>{{tramite.status}}</td>
           <td>
-            <input type="button" value="detalle" class="btn btn-info btn-sm" (click)="detalle(tramite.Folio_fiscal)">
+            <a [routerLink]="['/detalle',tramite.Folio_fiscal]">
+              <input type="button" value="detalle" class="btn btn-info btn-sm">
+            </a>
           </td>
         </tr>
       </tbody>

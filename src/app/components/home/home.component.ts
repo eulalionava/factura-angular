@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit {
 
 
   verifica(){
-    if(localStorage.getItem('claves')){
+    if(this.cont != 0){
       this._router.navigate(['cargar']);
     }
   }

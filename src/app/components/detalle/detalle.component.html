@@ -1,3 +1,116 @@
-<p>
-  detalle works!
-</p>
+<div class="card">
+  <div class="card-header bg-primary">
+    <a [routerLink]="['/tramite']">
+      <input type="button" value="Regresar" class="btn btn-info">
+    </a>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-md-10">
+                Informacion Detallada del Tramite
+              </div>
+              <div class="col-md-2">Tramite: {{tramite.cveTramite}}</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <b>Datos Generales</b>
+            <hr>
+            <table class="table">
+              <tr>
+                <td>Folio fiscal</td><td>{{tramite.Folio_fiscal}}</td>
+              </tr>
+              <tr>
+                <td>Usuario que emitio el tramite</td><td></td>
+              </tr>
+              <tr>
+                <td>Fecha trámite</td><td>{{tramite.Fecha_emision}}</td>
+              </tr>
+              <tr>
+                <td>Importe</td><td>{{tramite.Importe}}</td>
+              </tr>
+              <tr>
+                <td>Tipo</td>
+                <td>{{tramite.Tipo_descripcion}}</td>
+              </tr>
+              <tr>
+                <td>Estatus</td><td>{{tramite.status}}</td>
+              </tr>
+            </table>
+            <hr>
+            <b>Datos Emisor</b>
+            <hr>
+
+            <table class="table">
+              <tr>
+                <td>Emisor</td><td>{{tramite.Emisor}}</td>
+              </tr>
+              <tr>
+                <td>RFC</td><td>{{tramite.E_rfc}}</td>
+              </tr>
+            </table>
+            <hr>
+            <b>Datos Receptor</b>
+            <hr>
+            <table class="table">
+              <tr>
+                <td>Receptor</td><td>{{tramite.Receptor}}</td>
+              </tr>
+              <tr>
+                <td>RFC</td><td>{{tramite.R_rfc}}</td>
+              </tr>
+            </table>
+            <hr>
+            <b>Listado de prefacturas relacionadas con el tramite</b>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>N.</th>
+                    <th>Prefactura</th>
+                    <th>Folio</th>
+                    <th>Fecha</th>
+                    <th>Importe</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let pref of prefacturas;let i=index">
+                  <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{pref.Doc_clave}}</td>
+                    <td>{{pref.REG_folio}}</td>
+                    <td>{{pref.Doc_fecreg}}</td>
+                    <td>{{pref.Doc_importe}}</td>
+                    <td>
+                        <input type="button" value="Ver" class="btn btn-info btn-sm" (click)="archivo(pref.Doc_clave)">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">Documentos relacionados</div>
+        </div>
+        <div class="card-body">
+          <a href="{{tramite.urlPDF}}" target="_blank">
+            <img src="../../../assets/pdf.png" alt="imagen" width="50" height="50">
+            ver
+          </a>
+          <hr>
+          <a href="{{tramite.urlXML}}" target="_blank">
+            <img src="../../../assets/xml.png" alt="imagen" width="50" height="50">
+            ver
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

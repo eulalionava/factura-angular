@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { CargandoComponent } from './components/cargando/cargando.component';
 import { TramiteComponent } from './components/tramite/tramite.component';
+import { DetalleComponent } from './components/detalle/detalle.component';
 
 //Rutas
 const appRoutes:Routes = [
@@ -14,6 +15,7 @@ const appRoutes:Routes = [
   {path:'home'  , component:HomeComponent},
   {path:'cargar', component:CargandoComponent},
   {path:'tramite', component:TramiteComponent},
+  {path:'detalle/:folio', component:DetalleComponent},
   {path:'**', component:LoginComponent}
 
 ];

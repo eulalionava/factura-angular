@@ -25,5 +25,34 @@ export class TramiteService{
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url+'tramites/tramites', params,{headers: headers});
   }
+  //Servicio que muestra el detalle de un tramite
+  detalleTramite(folio){
+    let json = JSON.stringify({folio:folio});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'tramites/detalle', params,{headers: headers});
+  }
+
+  //Servicio que obtiene las prefacturas que van ligadas con el tramite
+  getPrefacturas(folio){
+    let json = JSON.stringify({folio:folio});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'tramites/prefacturas', params,{headers: headers});
+
+  }
+
+  getArchivo(clave){
+    let json = JSON.stringify({clave:clave});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'tramites/archivo', params,{headers: headers});
+  }
 
 }
