@@ -38,4 +38,14 @@ export class UserService{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url+'home/aseguradoras',{headers: headers}).pipe(res=>res);
   }
+
+  //Servicio de logeo por autorizacion
+  autorizacion(user){
+    let json = JSON.stringify(user);
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'usuario/autorizacion', params,{headers: headers});
+  }
 }

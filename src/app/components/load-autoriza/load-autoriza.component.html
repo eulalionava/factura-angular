@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-header bg-primary">
+    <h4>Subir xml y pdf</h4>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="alert alert-danger" *ngIf="errorXml">
+          Archivo seleccionado incorrectamente
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="alert alert-danger" *ngIf="errorPdf">
+          Archivo seleccionado incorrectamente
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Archivo xml:</label>
+          <br>
+          <input type="file" id="xml" class="btn btn-outline-secondary" [(ngModel)]="xml" (change)="cargarxml($event.target.files)" multiple required>
+        </div>
+      </div>
+      <div class="col-md-6">
+          <div class="form-group">
+            <label>Archivo pdf:</label>
+            <br>
+            <input type="file" id="pdf"  class="btn btn-outline-secondary" [(ngModel)]="pdf" (change)="cargarpdf($event.target.files)" multiple required >
+          </div>
+      </div>
+          <div class="col-md-2">
+            <input type="button" value="Regresar" class="form-control" (click)="regresar()">
+          </div>
+          <div class="col-md-4">
+            <input type="button" value="Validar documentos" class="form-control" (click)="validar()">
+          </div>
+          <div class="col-md-4">
+            <input type="button" value="Finalizar" class="form-control" *ngIf="valido" (click)="finaliza()">
+            <input type="button" value="Finalizar" class="form-control" *ngIf="!valido" disabled>
+          </div>
+    </div>
+  </div>
+</div>

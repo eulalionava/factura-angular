@@ -18,6 +18,7 @@ import { CargandoComponent } from './components/cargando/cargando.component';
 import { TramiteComponent } from './components/tramite/tramite.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
 import { AutorizacionComponent } from './components/autorizacion/autorizacion.component';
+import { LoadAutorizaComponent } from './components/load-autoriza/load-autoriza.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AutorizacionComponent } from './components/autorizacion/autorizacion.co
     CargandoComponent,
     TramiteComponent,
     DetalleComponent,
-    AutorizacionComponent
+    AutorizacionComponent,
+    LoadAutorizaComponent
   ],
   imports: [
     BrowserModule,

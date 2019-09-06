@@ -1,3 +1,82 @@
-<p>
-  autorizacion works!
-</p>
+<div class="card">
+  <div class="card-header bg-primary">
+    Ingresaste por autorización
+  </div>
+  <div class="card-body">
+    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#myModal">
+        Ver prefacturas
+    </button>
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Movimientos por autorización</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Autorizaciones</th>
+                      <th>Movimientos</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let movi of movimientos">
+                    <tr>
+                      <td>{{movi.AUM_clave}}</td>
+                      <td>{{movi.MOA_claveint}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    <!-- Fin modal -->
+    <hr>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>N de autorización</th>
+            <th>N de movimiento</th>
+            <th>Tipo de movimiento</th>
+            <th>Lesionado</th>
+            <th>Fecha</th>
+            <th>Detalle</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let factura of facturas">
+          <tr>
+            <td>
+              <a [routerLink]="['/autoriza',factura.AUM_clave]">
+                {{factura.AUM_clave}}
+              </a>
+            </td>
+            <td>{{factura.MOA_claveint}}</td>
+            <td>{{factura.TIM_nombre}}</td>
+            <td>{{factura.AUM_lesionado}}</td>
+            <td>{{factura.MOA_fecha}}</td>
+            <td>{{factura.MOA_texto}}</td>
+            <td>
+              <input type="button" value="ver" class="btn btn-primary btn-sm">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

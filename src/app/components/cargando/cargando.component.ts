@@ -92,7 +92,6 @@ export class CargandoComponent implements OnInit {
     if(this.files.namexml != '' && this.files.namepdf != ''){
       this._service.validadDoc(this.files).subscribe(
         response=>{
-          console.log(response);
           if(response['status']=='success'){
             localStorage.setItem('validacion',JSON.stringify(response['data']));
           }else{

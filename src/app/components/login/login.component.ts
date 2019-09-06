@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
   providers:[UserService]
 })
 export class LoginComponent implements OnInit {
   autorizar:boolean;
   error:boolean;
+  public errorAuto:boolean=false;
   cargando = false;
 
   public  form = {
@@ -53,11 +53,21 @@ export class LoginComponent implements OnInit {
 
   //Evento que valida el logeo por auntorizacion mv
   ingresar(){
-    if(this.auto.autorizacion != null){
-      alert(this.auto.autorizacion);
-    }else{
-      alert("Debes digitar en numero de autorizacion");
-    }
+    this._service.autorizacion(this.auto.autorizacion).subscribe(
+      response=>{
+        console.log(response);
+        if(response['status']=='success'){
+          localStorage.setItem('autorizacion',JSON.stringify(response['data']));
+          this._router.navigate(['autorizacion']);
+        }else{
+          this.errorAuto = true;
+        }
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    )
+
   }
 
   verAutorizacion(){

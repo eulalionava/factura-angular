@@ -7,6 +7,8 @@ import { HomeComponent } from './components/home/home.component';
 import { CargandoComponent } from './components/cargando/cargando.component';
 import { TramiteComponent } from './components/tramite/tramite.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
+import { AutorizacionComponent } from './components/autorizacion/autorizacion.component';
+import { LoadAutorizaComponent } from './components/load-autoriza/load-autoriza.component';
 
 //Rutas
 const appRoutes:Routes = [
@@ -16,6 +18,9 @@ const appRoutes:Routes = [
   {path:'cargar', component:CargandoComponent},
   {path:'tramite', component:TramiteComponent},
   {path:'detalle/:folio', component:DetalleComponent},
+  {path:'autorizacion', component:AutorizacionComponent},
+  {path:'autoriza/:clave', component:LoadAutorizaComponent},
+
   {path:'**', component:LoginComponent}
 
 ];
