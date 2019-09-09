@@ -9,11 +9,14 @@ import { TramiteService } from '../../services/tramite.service';
 })
 export class TramiteComponent implements OnInit {
   public tramites:any=[];
+  public cargando:boolean;
 
   constructor(
     private _router:Router,
     private _service:TramiteService
-  ) { }
+  ){
+    this.cargando = true;
+  }
 
   ngOnInit() {
     this.vertramites();
@@ -25,6 +28,7 @@ export class TramiteComponent implements OnInit {
     this._service.getTramites(datos[0]['Pro_clave']).subscribe(
       response=>{
         console.log(response);
+        this.cargando = false;
         this.tramites = response
       },
       error=>{

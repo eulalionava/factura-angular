@@ -1,11 +1,19 @@
-<nav id="sidebar">
+<nav id="sidebar" *ngIf="_service.Auth()">
   <div class="sidebar-header">
       <h2>Menú</h2>
   </div>
 
-  <ul class="list-unstyled components">
+  <ul class="list-unstyled components" *ngIf="_service.authTipo() == '1' ">
       <li>
-          <a [routerLink]="['home']">Subir facturas</a>
+          <a [routerLink]="['home']">Subir facturassssssss</a>
+      </li>
+      <li>
+          <a [routerLink]="['tramite']">Tramitessssssss</a>
+      </li>
+  </ul>
+  <ul class="list-unstyled components" *ngIf="_service.authTipo() == '2'">
+      <li>
+          <a [routerLink]="['autorizacion']">Subir facturas</a>
       </li>
       <li>
           <a [routerLink]="['tramite']">Tramites</a>

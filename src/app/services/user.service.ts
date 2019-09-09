@@ -14,13 +14,29 @@ export class UserService{
   ){
     this.url = GLOBAL.url;
   }
-
+  //Servicio que solo verifica si existe la variable de sesion
   Auth(){
     //COMPRUEBA SI EXISTE UNA VARIABLE DE SESION
-    if(sessionStorage.getItem('sesion') || localStorage.getItem('sesion')){
+    if( sessionStorage.getItem('sesion') || localStorage.getItem('sesion')){
+      return true;
+    }else if(sessionStorage.getItem('autorizacion')|| localStorage.getItem('autorizacion')){
       return true;
     }else{
       return false;
+    }
+  }
+
+  //Servicio que trae el tipo de sesion iniciada
+  authTipo(){
+    //COMPRUEBA SI EXISTE UNA VARIABLE DE SESION
+    if( sessionStorage.getItem('sesion') || localStorage.getItem('sesion')){
+      //Por proveedor
+      return 1;
+    }else if(sessionStorage.getItem('autorizacion')|| localStorage.getItem('autorizacion')){
+      //Por autorizacion
+      return 2;
+    }else{
+      return 0;
     }
   }
 
