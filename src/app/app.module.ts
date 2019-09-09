@@ -19,6 +19,7 @@ import { TramiteComponent } from './components/tramite/tramite.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
 import { AutorizacionComponent } from './components/autorizacion/autorizacion.component';
 import { LoadAutorizaComponent } from './components/load-autoriza/load-autoriza.component';
+import { TramitePorAutoComponent } from './components/tramite-por-auto/tramite-por-auto.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { LoadAutorizaComponent } from './components/load-autoriza/load-autoriza.
     TramiteComponent,
     DetalleComponent,
     AutorizacionComponent,
-    LoadAutorizaComponent
+    LoadAutorizaComponent,
+    TramitePorAutoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,35 @@
+<div class="card">
+    <div class="card-header bg-primary">
+      Tramites por autorizacion
+    </div>
+    <div class="card-body">
+      <!-- <div class="fa-3x" *ngIf="cargando">
+        <i class="fas fa-spinner fa-pulse"></i>
+      </div> -->
+      <div *ngIf="tramites == '' ">
+        <div class="alert alert-danger">No Hay Tramites realizados por autorización</div>
+      </div>
+      <div *ngIf="tramites != ''">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Folio fiscal</th>
+                <th>Autorización</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let factura of facturas">
+              <tr>
+                <td>{{factura.folioFiscal}}</td>
+                <td>{{factura.useInicio}}</td>
+                <td>{{factura.fechaTramite}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+

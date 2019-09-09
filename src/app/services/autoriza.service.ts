@@ -49,7 +49,7 @@ export class AutorizaService{
   insertTramite(datos){
     //Datos de usuario por autorizacion
     let usuario:any = JSON.parse(localStorage.getItem('autorizacion'));
-
+    //Parametros
     let json = JSON.stringify({
       datos:datos,
       autoriza:usuario[0]['AUM_clave'],
@@ -62,6 +62,12 @@ export class AutorizaService{
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url+'autorizaciones/insertar',params,{headers: headers});
 
+  }
+
+  //Servicio que obtiene tramites por autorizacion
+  tramites(){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url +'autorizaciones/tramites',{headers:headers});
   }
 
 

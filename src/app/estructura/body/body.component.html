@@ -5,10 +5,10 @@
 
   <ul class="list-unstyled components" *ngIf="_service.authTipo() == '1' ">
       <li>
-          <a [routerLink]="['home']">Subir facturassssssss</a>
+          <a [routerLink]="['home']">Subir facturas</a>
       </li>
       <li>
-          <a [routerLink]="['tramite']">Tramitessssssss</a>
+          <a [routerLink]="['tramite']">Tramites</a>
       </li>
   </ul>
   <ul class="list-unstyled components" *ngIf="_service.authTipo() == '2'">
@@ -16,7 +16,7 @@
           <a [routerLink]="['autorizacion']">Subir facturas</a>
       </li>
       <li>
-          <a [routerLink]="['tramite']">Tramites</a>
+          <a [routerLink]="['tramiteAutorizacion']">Tramites</a>
       </li>
   </ul>
 </nav>

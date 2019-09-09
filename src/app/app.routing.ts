@@ -9,6 +9,7 @@ import { TramiteComponent } from './components/tramite/tramite.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
 import { AutorizacionComponent } from './components/autorizacion/autorizacion.component';
 import { LoadAutorizaComponent } from './components/load-autoriza/load-autoriza.component';
+import { TramitePorAutoComponent } from './components/tramite-por-auto/tramite-por-auto.component';
 
 //Rutas
 const appRoutes:Routes = [
@@ -17,6 +18,7 @@ const appRoutes:Routes = [
   {path:'home'  , component:HomeComponent},
   {path:'cargar', component:CargandoComponent},
   {path:'tramite', component:TramiteComponent},
+  {path:'tramiteAutorizacion', component:TramitePorAutoComponent},
   {path:'detalle/:folio', component:DetalleComponent},
   {path:'autorizacion', component:AutorizacionComponent},
   {path:'autoriza/:clave', component:LoadAutorizaComponent},
