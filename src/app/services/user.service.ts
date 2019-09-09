@@ -21,6 +21,8 @@ export class UserService{
       return true;
     }else if(sessionStorage.getItem('autorizacion')|| localStorage.getItem('autorizacion')){
       return true;
+    }else if(sessionStorage.getItem('admin')|| localStorage.getItem('admin')){
+      return true;
     }else{
       return false;
     }
@@ -35,6 +37,8 @@ export class UserService{
     }else if(sessionStorage.getItem('autorizacion')|| localStorage.getItem('autorizacion')){
       //Por autorizacion
       return 2;
+    }else if(sessionStorage.getItem('admin')|| localStorage.getItem('admin')){
+      return 3;
     }else{
       return 0;
     }

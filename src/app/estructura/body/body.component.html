@@ -19,4 +19,12 @@
           <a [routerLink]="['tramiteAutorizacion']">Tramites</a>
       </li>
   </ul>
+  <ul class="list-unstyled components" *ngIf="_service.authTipo() == '3'">
+      <li>
+          <a [routerLink]="['administrador']">Listado</a>
+      </li>
+      <li>
+          <a [routerLink]="['estatus']">Estatus</a>
+      </li>
+  </ul>
 </nav>

@@ -20,6 +20,8 @@ import { DetalleComponent } from './components/detalle/detalle.component';
 import { AutorizacionComponent } from './components/autorizacion/autorizacion.component';
 import { LoadAutorizaComponent } from './components/load-autoriza/load-autoriza.component';
 import { TramitePorAutoComponent } from './components/tramite-por-auto/tramite-por-auto.component';
+import { AdministradorComponent } from './admin/administrador/administrador.component';
+import { EstatusComponent } from './admin/estatus/estatus.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { TramitePorAutoComponent } from './components/tramite-por-auto/tramite-p
     DetalleComponent,
     AutorizacionComponent,
     LoadAutorizaComponent,
-    TramitePorAutoComponent
+    TramitePorAutoComponent,
+    AdministradorComponent,
+    EstatusComponent
   ],
   imports: [
     BrowserModule,

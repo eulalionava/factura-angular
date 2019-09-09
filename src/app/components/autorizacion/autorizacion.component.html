@@ -25,12 +25,24 @@
                     <tr>
                       <th>Autorizaciones</th>
                       <th>Movimientos</th>
+                      <th>Factura</th>
+
                     </tr>
                   </thead>
                   <tbody *ngFor="let movi of movimientos">
                     <tr>
                       <td>{{movi.AUM_clave}}</td>
                       <td>{{movi.MOA_claveint}}</td>
+                      <td *ngIf="movi.MOA_xml == 0">
+                        <div class="fa-2x">
+                            <i class="fa fa-times"></i>
+                        </div>
+                      </td>
+                      <td *ngIf="movi.MOA_xml == 1">
+                        <div class="fa-2x">
+                            <i class="fa fa-check-square"></i>
+                        </div>
+                      </td>
                     </tr>
                   </tbody>
                 </table>

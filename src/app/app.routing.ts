@@ -10,6 +10,8 @@ import { DetalleComponent } from './components/detalle/detalle.component';
 import { AutorizacionComponent } from './components/autorizacion/autorizacion.component';
 import { LoadAutorizaComponent } from './components/load-autoriza/load-autoriza.component';
 import { TramitePorAutoComponent } from './components/tramite-por-auto/tramite-por-auto.component';
+import { AdministradorComponent } from './admin/administrador/administrador.component';
+import { EstatusComponent } from './admin/estatus/estatus.component';
 
 //Rutas
 const appRoutes:Routes = [
@@ -22,6 +24,8 @@ const appRoutes:Routes = [
   {path:'detalle/:folio', component:DetalleComponent},
   {path:'autorizacion', component:AutorizacionComponent},
   {path:'autoriza/:clave', component:LoadAutorizaComponent},
+  {path:'administrador', component:AdministradorComponent},
+  {path:'estatus', component:EstatusComponent},
 
   {path:'**', component:LoginComponent}
 

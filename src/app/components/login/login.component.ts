@@ -37,9 +37,16 @@ export class LoginComponent implements OnInit {
     this.cargando = true;
     this._service.login(this.form).subscribe(
       response=>{
+        //correcto
         if(response['code'] == 200){
-          localStorage.setItem('sesion',JSON.stringify(response['result']));
-          this._router.navigate(['home']);
+          //verifica el tipo de sesion
+          if(response['tipo'] == 'prove'){
+            localStorage.setItem('sesion',JSON.stringify(response['result']));
+            this._router.navigate(['home']);
+          }else{
+            localStorage.setItem('admin',JSON.stringify(response['result']));
+            this._router.navigate(['administrador']);
+          }
         }else{
           this.error = true;
           this.cargando = false;
