@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { AutorizaService } from '../../services/autoriza.service';
-import { Route } from '@angular/compiler/src/core';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-load-autoriza',
@@ -40,9 +40,8 @@ export class LoadAutorizaComponent implements OnInit {
             this.valido =  true;
             //Variable de sesion que almacena los datos del xml
             localStorage.setItem('datos',JSON.stringify(response['data']));
-            alert(response['msj']);
           }else{
-            alert(response['msj']);
+            swal.fire('Error',response['msj'],'error');
           }
         },
         error=>{

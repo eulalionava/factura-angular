@@ -9,10 +9,12 @@ import { AutorizaService } from '../../services/autoriza.service';
 export class AutorizacionComponent implements OnInit {
   public facturas:any=[];
   public movimientos:any=[];
+  public cargando:boolean;
 
   constructor(
     private _service:AutorizaService
   ) {
+    this.cargando = true;
    }
 
   ngOnInit() {
@@ -24,7 +26,7 @@ export class AutorizacionComponent implements OnInit {
     let factura = JSON.parse(localStorage.getItem('autorizacion'));
     this._service.facXautoriza(factura[0]['AUM_clave'],factura[0]['MOA_claveint']).subscribe(
       response=>{
-        console.log(response);
+        this.cargando = false;
         this.facturas = response['autoriza'];
         this.movimientos = response['movimiento'];
       },
