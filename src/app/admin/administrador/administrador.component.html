@@ -5,22 +5,33 @@
   <div class="card-body">
     <div class="table-resposive">
       <table class="table">
-        <tr>
-          <th>RFC</th>
-          <th>Importe</th>
-          <th>Iva</th>
-          <th>Total</th>
-          <th>Diferencia</th>
-          <th>Fecha documento</th>
-          <th>Fecha carga</th>
-          <th>Metodo pago</th>
-          <th>Tipo</th>
-          <th>Estatus</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>RFC</th>
+            <th>Importe</th>
+            <th>Iva</th>
+            <th>Total</th>
+            <th>Diferencia</th>
+            <th>Fecha documento</th>
+            <th>Fecha carga</th>
+            <th>Metodo pago</th>
+            <th>Estatus</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let lista of listas">
+          <tr>
+            <td>{{lista.E_rfc}}</td>
+            <td>{{lista.Importe}}</td>
+            <td>{{lista.Importe}}</td>
+            <td>{{lista.Total}}</td>
+            <td>0</td>
+            <td>{{lista.Fecha_emision}}</td>
+            <td>{{lista.fechaTramite}}</td>
+            <td>{{lista.MetodoPago}}</td>
+            <td>{{lista.statusTramite_desc}}</td>
+          </tr>
+        </tbody>
       </table>
-      <tbody>
-
-      </tbody>
     </div>
   </div>
 </div>
