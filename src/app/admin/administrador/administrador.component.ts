@@ -9,11 +9,14 @@ import { AdminService } from '../../services/admin.service';
 })
 export class AdministradorComponent implements OnInit {
   public listas:any;
+  public cargando:boolean;
 
   constructor(
     private _router:Router,
     private _service:AdminService
-  ){ }
+  ){
+    this.cargando = true;
+  }
 
   ngOnInit() {
     this.listado();
@@ -22,7 +25,7 @@ export class AdministradorComponent implements OnInit {
   listado(){
     this._service.listado().subscribe(
       response=>{
-        console.log(response);
+        this.cargando = false;
         this.listas= response;
       },
       error=>{

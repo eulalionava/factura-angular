@@ -27,7 +27,6 @@ export class TramiteComponent implements OnInit {
 
     this._service.getTramites(datos[0]['Pro_clave']).subscribe(
       response=>{
-        console.log(response);
         this.cargando = false;
         this.tramites = response
       },

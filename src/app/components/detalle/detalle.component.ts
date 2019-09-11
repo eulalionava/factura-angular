@@ -41,7 +41,6 @@ export class DetalleComponent implements OnInit {
     let folio = this._route.snapshot.paramMap.get('folio');
     this._service.detalleTramite(folio).subscribe(
       response=>{
-        console.log(response);
         this.tramite = response[0];
       },
       error=>{

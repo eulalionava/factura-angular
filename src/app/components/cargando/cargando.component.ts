@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CargandoService } from '../../services/cargando.service';
+import swal from 'sweetalert2'
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-cargando',
@@ -10,13 +12,16 @@ import { CargandoService } from '../../services/cargando.service';
 export class CargandoComponent implements OnInit {
   public errorXml:boolean;
   public errorPdf:boolean;
-  public finaliza:boolean;
+  public validado:boolean;
+  public cargando:boolean;
   public xml:any;
   public pdf:any;
   claves = [];
   usuario = [];
   prefacturas = [];
   totalPre = 0;
+  total = 0;
+  public prueba;
 
   files = {
     'namexml':'',
@@ -32,7 +37,7 @@ export class CargandoComponent implements OnInit {
   ) {
     this.errorXml = false;
     this.errorPdf = false;
-    this.finaliza = false;
+    this.validado = false;
    }
 
   ngOnInit() {
@@ -90,12 +95,16 @@ export class CargandoComponent implements OnInit {
   //Validar los documentos
   validar(){
     if(this.files.namexml != '' && this.files.namepdf != ''){
+      this.cargando = true;
       this._service.validadDoc(this.files).subscribe(
         response=>{
+          this.cargando = false;
           if(response['status']=='success'){
+            this.validado = true;
             localStorage.setItem('validacion',JSON.stringify(response['data']));
+            swal.fire('',response['msj'],'success');
           }else{
-            alert(response['msj']);
+            swal.fire('Error',response['msj'],'error');
           }
         },
         error=>{
@@ -103,19 +112,30 @@ export class CargandoComponent implements OnInit {
         }
       )
     }else{
-      alert("Debes seleccionar los archivos");
+      swal.fire('','Debes seleccionar tus archivos','warning');
     }
   }
 
   //Evento que finaliza y guarda el tramite
   finalizar(){
     if(localStorage.getItem('validacion')){
+      this.cargando = true;
+      //obtiene la variable de sesion
       let datos:any = JSON.parse(localStorage.getItem('validacion'));
-      this._service.insertramite(datos).subscribe(
+      //llama el servicio
+      this._service.insertramite(datos,this.total,this.usuario[0].Pro_clave).subscribe(
         response=>{
-          console.log(response);
+          this.cargando = false;
+          // peticion correcta
+          if(response['status']=='success'){
+            swal.fire('',response['msj'],'success');
+            this._router.navigate(['home']);
+          }else{
+            swal.fire('Error','El tramite no se pudo realizar','error');
+          }
         },
         error=>{
+          this.cargando = false;
           console.log(<any>error);
         }
       )
@@ -127,6 +147,11 @@ export class CargandoComponent implements OnInit {
     this._service.getPrefacturaSeleccionadas(this.claves).subscribe(
       response=>{
         this.prefacturas = response['data'];
+        //recorremos los datos
+        for(let i=0; i < response['data'].length; i++){
+          //contador
+          this.total += response['data'][i][0]['Doc_importe']
+        }
       },
       error=>{
         console.log(<any>error);
