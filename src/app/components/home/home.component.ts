@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private _service:HomeService,
     private _router:Router
-  ) {
+  ){
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
   }
 

@@ -66,6 +66,10 @@
                     <td>{{factura[0].REG_folio}}</td>
                     <td>{{factura[0].Doc_fecreg}}</td>
                     <td>{{factura[0].Doc_importe}}</td>
+                    <td>
+                      <input type="checkbox" name="check" class="checkbox" value="{{factura[0].Doc_clave}}"
+                      [(ngModel)]="factura.checked" (click)="seleccion($event)">
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -74,7 +78,8 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-danger" *ngIf="quitar" (click)="eliminar()">Quitar</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
           </div>
 
         </div>

@@ -14,13 +14,16 @@ export class CargandoComponent implements OnInit {
   public errorPdf:boolean;
   public validado:boolean;
   public cargando:boolean;
+  public quitar:boolean;
+  public seleccionadas = [];
   public xml:any;
   public pdf:any;
-  claves = [];
-  usuario = [];
+  claves      = [];
+  usuario     = [];
   prefacturas = [];
-  totalPre = 0;
-  total = 0;
+  totalPre    = 0;
+  total       = 0;
+
   public prueba;
 
   files = {
@@ -38,6 +41,7 @@ export class CargandoComponent implements OnInit {
     this.errorXml = false;
     this.errorPdf = false;
     this.validado = false;
+    this.quitar   = false;
    }
 
   ngOnInit() {
@@ -141,8 +145,66 @@ export class CargandoComponent implements OnInit {
       )
     }
   }
+  //OPCIONES SELECCIONADAS
+  seleccion(event){
+    if(event.target.checked){
+      this.quitar = true;
+      if( this.claves.includes(event.target.value) ){
+        this.seleccionadas.push(event.target.value);
+      }
+    }else{
+      //Numero de posicion
+      let indice  = this.seleccionadas.indexOf(event.target.value);
+      //elimina del array
+      this.seleccionadas.splice(indice,1);
 
-  //datos de prefacturas
+      //Ninguna seleccionada
+      if(this.seleccionadas.length == 0){
+        this.quitar = false;
+      }
+
+    }
+  }
+
+  //ELIMINA PREFACTURAS SELECCIONADAS
+  eliminar(){
+      for(let i=0; i < this.seleccionadas.length; i++){
+        //Numero de posicion
+        let indice  = this.claves.indexOf(this.seleccionadas[i]);
+        //elimina del array
+        this.claves.splice(indice,1);
+      }
+      this.deletePrefacturas();
+      this.quitar = false;
+  }
+
+  //BORRAR PREFACTURAS YA SELECCIONADAS
+  deletePrefacturas(){
+    this._service.getPrefacturaSeleccionadas(this.seleccionadas).subscribe(
+      response=>{
+
+        // recorremos las seleccionadas
+        for(let i=0; i < response['data'].length; i++){
+            this.totalPre -=1;
+          //contador
+          this.total -= response['data'][i][0]['Doc_importe']
+        }
+
+        //Actualizamos nuevamente el listado de prefacturas
+        this._service.getPrefacturaSeleccionadas(this.claves).subscribe(
+          response=>{
+            this.prefacturas = response['data'];
+          }
+        )
+
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    )
+  }
+
+  //DATOS DE PREFACTURAS
   verprefacturas(){
     this._service.getPrefacturaSeleccionadas(this.claves).subscribe(
       response=>{
