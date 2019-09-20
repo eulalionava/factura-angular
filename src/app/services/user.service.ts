@@ -44,6 +44,38 @@ export class UserService{
     }
   }
 
+  //SERVICIO QUE OBTIENE LOS DATOS DE LA SESION
+  authDatos(){
+
+    //COMPRUEBA SI EXISTE UNA VARIABLE DE SESION
+    if( sessionStorage.getItem('sesion') || localStorage.getItem('sesion')){
+      //Por proveedor
+      let datos = JSON.parse(localStorage.getItem('sesion'));
+      return datos[0]['Pro_rc'];
+
+    }else if(sessionStorage.getItem('autorizacion')|| localStorage.getItem('autorizacion')){
+      //Por autorizacion
+      let datos =JSON.parse(localStorage.getItem('autorizacion'));
+      return "Por Autorización";
+
+    }else{
+      let datos =JSON.parse(localStorage.getItem('admin'));
+      return datos[0]['Nombre']+" "+datos[0]['ApellidoP']+" "+datos[0]['ApellidoM'];
+    }
+
+    // if(this._service.authTipo() == 1){
+
+    //   this.tipoAcceso = datos[0]['Pro_rc'];
+    // }else if(this._service.authTipo() == 2){
+
+    //   console.log("por auto");
+    //   this.tipoAcceso = "Por Autorización";
+    // }else{
+
+    //   this.tipoAcceso = datos[0]['Nombre']+" "+datos[0]['ApellidoP']+" "+datos[0]['ApellidoM'];
+    // }
+  }
+
   //Servicio de logeo
   login(user){
     let json = JSON.stringify(user);

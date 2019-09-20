@@ -8,19 +8,26 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./header.component.css'],
   providers:[UserService]
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit{
+  public tipoAcceso:string;
 
   constructor(
     private _router:Router,
     private _service:UserService
-  ){ }
+  ){
+    this.tipoAcceso = '';
+  }
 
   ngOnInit() {
+
   }
+
+
 
   logout(){
     localStorage.clear();
     this._router.navigate(['login']);
   }
+
 
 }

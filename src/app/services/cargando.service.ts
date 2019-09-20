@@ -7,8 +7,8 @@ import { GLOBAL } from './global';
 @Injectable()
 export class CargandoService{
   public url:string;
-  public url_servidor = "http://localhost:8080/facturaAppi/app/cargarArchivo.php";
-
+  // public url_servidor = "http://localhost:8080/facturaAppi/app/cargarArchivo.php";
+  public url_servidor = "http://appfacturando.orthofam.com.mx/app/cargarArchivo.php";
   constructor(
     private _router:Router,
     private _http:HttpClient

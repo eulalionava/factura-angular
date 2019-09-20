@@ -10,13 +10,40 @@
           <i class="fas fa-align-justify"></i>
       </button>
 
+      <!-- Navbar -->
+
+      <!-- End Navbar -->
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item active" (click)="logout()" style="cursor: pointer;">
+              <!-- <li class="nav-item active" (click)="logout()" style="cursor: pointer;">
                   <a class="nav-link">
                     Cerrar sesion
                   </a>
-              </li>
+              </li> -->
+
+                <div class="container-fluid" style="margin: 10px;">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li>
+                    <div class="dropdown">
+                      {{_service.authDatos()}}
+                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownmenu1" data-toggle="dropdown" aria-extented="true">
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="nemu" aria-labelledby="dropdownmenu1">
+                        <li>
+                          <a>Cambiar Contraseña.</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li (click)="logout()" style="cursor: pointer;">
+                          <a>Salir.</a>
+                        </li>
+                      </ul>
+                    </div>
+                    </li>
+                  </ul>
+
+                </div>
           </ul>
       </div>
   </div>

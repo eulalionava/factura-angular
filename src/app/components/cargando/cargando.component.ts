@@ -49,6 +49,10 @@ export class CargandoComponent implements OnInit {
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
     this.totalPre = this.claves.length;
     this.verprefacturas();
+
+    if(! localStorage.getItem('sesion')){
+      this._router.navigate(['login']);
+    }
   }
 
   regresar(){
@@ -96,22 +100,27 @@ export class CargandoComponent implements OnInit {
     }
 
   }
+
   //Validar los documentos
   validar(){
     if(this.files.namexml != '' && this.files.namepdf != ''){
       this.cargando = true;
       this._service.validadDoc(this.files).subscribe(
         response=>{
+          console.log(response);
           this.cargando = false;
-          if(response['status']=='success'){
-            this.validado = true;
-            localStorage.setItem('validacion',JSON.stringify(response['data']));
-            swal.fire('',response['msj'],'success');
-          }else{
-            swal.fire('Error',response['msj'],'error');
-          }
+          // if(response['status']=='success'){
+          //   this.validado = true;
+          //   localStorage.setItem('validacion',JSON.stringify(response['data']));
+          //   swal.fire('',response['msj'],'success');
+          // }else{
+          //   this.cargando = false;
+          //   swal.fire('Error',response['msj'],'error');
+          // }
         },
         error=>{
+          this.cargando = false;
+          swal.fire('Error','Upps, algo salio mal !!','error');
           console.log(<any>error);
         }
       )
@@ -149,21 +158,23 @@ export class CargandoComponent implements OnInit {
   seleccion(event){
     if(event.target.checked){
       this.quitar = true;
-      if( this.claves.includes(event.target.value) ){
+      //Buscar y agrega
+      if( ! this.seleccionadas.includes(event.target.value) ){
         this.seleccionadas.push(event.target.value);
       }
+
     }else{
       //Numero de posicion
       let indice  = this.seleccionadas.indexOf(event.target.value);
       //elimina del array
       this.seleccionadas.splice(indice,1);
-
       //Ninguna seleccionada
       if(this.seleccionadas.length == 0){
         this.quitar = false;
       }
 
     }
+
   }
 
   //ELIMINA PREFACTURAS SELECCIONADAS
@@ -171,18 +182,21 @@ export class CargandoComponent implements OnInit {
       for(let i=0; i < this.seleccionadas.length; i++){
         //Numero de posicion
         let indice  = this.claves.indexOf(this.seleccionadas[i]);
-        //elimina del array
+        //elimina el elemento del array
         this.claves.splice(indice,1);
       }
+      //Llamamos la funcion
       this.deletePrefacturas();
+
       this.quitar = false;
+      //vaciamos el array
+      this.seleccionadas = [];
   }
 
   //BORRAR PREFACTURAS YA SELECCIONADAS
   deletePrefacturas(){
     this._service.getPrefacturaSeleccionadas(this.seleccionadas).subscribe(
       response=>{
-
         // recorremos las seleccionadas
         for(let i=0; i < response['data'].length; i++){
             this.totalPre -=1;
@@ -212,7 +226,7 @@ export class CargandoComponent implements OnInit {
         //recorremos los datos
         for(let i=0; i < response['data'].length; i++){
           //contador
-          this.total += response['data'][i][0]['Doc_importe']
+          this.total += parseInt(response['data'][i][0]['Doc_importe']);
         }
       },
       error=>{

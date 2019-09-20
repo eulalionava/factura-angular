@@ -12,6 +12,7 @@ export class LoadAutorizaComponent implements OnInit {
   public errorXml:boolean;
   public errorPdf:boolean;
   public valido:boolean;
+  public cargando:boolean;
 
   files = {
     'namexml':'',
@@ -29,12 +30,14 @@ export class LoadAutorizaComponent implements OnInit {
   ngOnInit() {
 
   }
+
   //evento que valida la informacion
   validar(){
     if(this.files.namepdf != '' && this.files.namexml != '' ){
+      this.cargando = true;
       this._service.validaDoc(this.files).subscribe(
         response=>{
-          console.log(response['msj']);
+          this.cargando = false;
           if(response['status']=='success'){
             //tramite valido
             this.valido =  true;
@@ -45,11 +48,12 @@ export class LoadAutorizaComponent implements OnInit {
           }
         },
         error=>{
+          this.cargando = false;
           console.log(<any>error);
         }
       )
     }else{
-      alert("debes seleccionar tus archivos");
+      swal.fire('Aviso','debes seleccionar tus archivos','warning');
     }
   }
 

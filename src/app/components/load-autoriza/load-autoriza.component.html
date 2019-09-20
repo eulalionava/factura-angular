@@ -6,12 +6,12 @@
     <div class="row">
       <div class="col-md-6">
         <div class="alert alert-danger" *ngIf="errorXml">
-          Archivo seleccionado incorrectamente
+          Archivo xml seleccionado incorrectamente
         </div>
       </div>
       <div class="col-md-6">
         <div class="alert alert-danger" *ngIf="errorPdf">
-          Archivo seleccionado incorrectamente
+          Archivo pdf seleccionado incorrectamente
         </div>
       </div>
       <div class="col-md-6">
@@ -28,16 +28,20 @@
             <input type="file" id="pdf"  class="btn btn-outline-secondary" [(ngModel)]="pdf" (change)="cargarpdf($event.target.files)" multiple required >
           </div>
       </div>
-          <div class="col-md-2">
-            <input type="button" value="Regresar" class="form-control" (click)="regresar()">
-          </div>
-          <div class="col-md-4">
-            <input type="button" value="Validar documentos" class="form-control" (click)="validar()">
-          </div>
-          <div class="col-md-4">
-            <input type="button" value="Finalizar" class="form-control" *ngIf="valido" (click)="finaliza()">
-            <input type="button" value="Finalizar" class="form-control" *ngIf="!valido" disabled>
-          </div>
+        <div class="fa-5x col-md-12" *ngIf="cargando" style="text-align: center;">
+          <i class="fa fa-spinner fa-pulse"></i>
+        </div>
+
+        <div class="col-md-2">
+          <input type="button" value="Regresar" class="form-control" (click)="regresar()">
+        </div>
+        <div class="col-md-4">
+          <input type="button" value="Validar documentos" class="form-control" (click)="validar()">
+        </div>
+        <div class="col-md-4">
+          <input type="button" value="Finalizar" class="form-control" *ngIf="valido" (click)="finaliza()">
+          <input type="button" value="Finalizar" class="form-control" *ngIf="!valido" disabled>
+        </div>
     </div>
   </div>
 

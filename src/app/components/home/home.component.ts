@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   usuario       = [];
   opciones      = [];
   cont          = 0;
-  importe       = 0;
+  importe: any = 0;
   indice:number;
   porempresa  = '';
   busqueda    = '';
@@ -28,6 +28,10 @@ export class HomeComponent implements OnInit {
     private _router:Router
   ){
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
+    //Verifica si existe la sesion
+    if(! localStorage.getItem('sesion')){
+      this._router.navigate(['login']);
+    }
   }
 
   ngOnInit() {
@@ -46,11 +50,11 @@ export class HomeComponent implements OnInit {
         this._service.buscarFactura(event.target.value).subscribe(
           response=>{
             //Suma el importe
-            this.importe += response['data'][0].Doc_importe;
+            this.importe = this.importe + parseInt(response['data'][0].Doc_importe);
           }
         )
       }
-      localStorage.setItem('claves',JSON.stringify(this.opciones));
+
     }else{
       this.cont = this.cont - 1;
       //Numero de posicion
@@ -63,8 +67,8 @@ export class HomeComponent implements OnInit {
           this.importe -= response['data'][0].Doc_importe;
         }
       )
-      console.log(this.opciones);
     }
+    localStorage.setItem('claves',JSON.stringify(this.opciones));
   }
 
   //Obtener la facturas

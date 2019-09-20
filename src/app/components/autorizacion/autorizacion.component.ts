@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AutorizaService } from '../../services/autoriza.service';
 
 @Component({
@@ -12,9 +13,13 @@ export class AutorizacionComponent implements OnInit {
   public cargando:boolean;
 
   constructor(
+    private _router:Router,
     private _service:AutorizaService
   ) {
     this.cargando = true;
+    if(!localStorage.getItem('autorizacion')){
+      this._router.navigate(['login']);
+    }
    }
 
   ngOnInit() {
