@@ -22,6 +22,7 @@ import { LoadAutorizaComponent } from './components/load-autoriza/load-autoriza.
 import { TramitePorAutoComponent } from './components/tramite-por-auto/tramite-por-auto.component';
 import { AdministradorComponent } from './admin/administrador/administrador.component';
 import { EstatusComponent } from './admin/estatus/estatus.component';
+import { PasswordComponent } from './components/password/password.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { EstatusComponent } from './admin/estatus/estatus.component';
     LoadAutorizaComponent,
     TramitePorAutoComponent,
     AdministradorComponent,
-    EstatusComponent
+    EstatusComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,

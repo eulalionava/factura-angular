@@ -46,7 +46,6 @@ export class UserService{
 
   //SERVICIO QUE OBTIENE LOS DATOS DE LA SESION
   authDatos(){
-
     //COMPRUEBA SI EXISTE UNA VARIABLE DE SESION
     if( sessionStorage.getItem('sesion') || localStorage.getItem('sesion')){
       //Por proveedor
@@ -62,18 +61,6 @@ export class UserService{
       let datos =JSON.parse(localStorage.getItem('admin'));
       return datos[0]['Nombre']+" "+datos[0]['ApellidoP']+" "+datos[0]['ApellidoM'];
     }
-
-    // if(this._service.authTipo() == 1){
-
-    //   this.tipoAcceso = datos[0]['Pro_rc'];
-    // }else if(this._service.authTipo() == 2){
-
-    //   console.log("por auto");
-    //   this.tipoAcceso = "Por Autorización";
-    // }else{
-
-    //   this.tipoAcceso = datos[0]['Nombre']+" "+datos[0]['ApellidoP']+" "+datos[0]['ApellidoM'];
-    // }
   }
 
   //Servicio de logeo
@@ -99,5 +86,15 @@ export class UserService{
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url+'usuario/autorizacion', params,{headers: headers});
+  }
+
+  //CAMBIARR CONTRASEÑA
+  changePassword(form,datos){
+    let json = JSON.stringify({form:form,datos:datos});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'usuario/cambiar', params,{headers: headers});
   }
 }
