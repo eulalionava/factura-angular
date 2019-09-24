@@ -1,0 +1,80 @@
+<div class="card">
+  <div class="card-header bg-primary">
+    <div class="row">
+      <div class="col-lg-3">
+        <a [routerLink]="['/administrador']">
+          <input type="button" value="Regresar" class="btn btn-info">
+        </a>
+      </div>
+      <div class="col-lg-6">
+          <h5>Detalle de factura</h5>
+      </div>
+    </div>
+    </div>
+    <div class="card-body">
+      <div class="fa-2x" *ngIf="cargando">
+        <i class="fa fa-spinner fa-pulse"></i>
+      </div>
+      <table class="table">
+        <tr>
+          <td>Folio fiscal</td>
+          <td>{{facturas.Folio_fiscal}}</td>
+        </tr>
+        <tr>
+          <td>Emisor</td>
+          <td>{{facturas.Emisor}}</td>
+        </tr>
+        <tr>
+          <td>RFC-Emisor</td>
+          <td>{{facturas.E_rfc}}</td>
+        </tr>
+        <tr>
+          <td>Receptor</td>
+          <td>{{facturas.Receptor}}</td>
+        </tr>
+        <tr>
+          <td>RFC-Receptor</td>
+          <td>{{facturas.R_rfc}}</td>
+        </tr>
+        <tr>
+          <td>Folio</td>
+          <td>{{facturas.Folio}}</td>
+        </tr>
+        <tr>
+          <td>Metodo de pagp</td>
+          <td>{{facturas.MetodoPago}}</td>
+        </tr>
+        <tr>
+          <td>Subtotal</td>
+          <td>$ {{facturas.SubTotal}}</td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td>$ {{facturas.Total}}</td>
+        </tr>
+      </table>
+      <hr>
+        <h5>Prefacturas relacionadas</h5>
+      <hr>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>N.</th>
+            <th>Prefactura</th>
+            <th>Folio</th>
+            <th>Fecha</th>
+            <th>Importe</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let prefactura of prefacturas; let i = index">
+          <tr>
+            <td>{{i+1}}</td>
+            <td>{{prefactura['Doc_clave']}}</td>
+            <td>{{prefactura['REG_folio']}}</td>
+            <td>{{prefactura['Doc_fecreg']}}</td>
+            <td>$ {{prefactura['Doc_importe']}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

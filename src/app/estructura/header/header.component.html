@@ -16,12 +16,6 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="nav navbar-nav ml-auto">
-              <!-- <li class="nav-item active" (click)="logout()" style="cursor: pointer;">
-                  <a class="nav-link">
-                    Cerrar sesion
-                  </a>
-              </li> -->
-
                 <div class="container-fluid" style="margin: 10px;">
                   <ul class="nav navbar-nav navbar-right">
                     <li>
@@ -31,7 +25,7 @@
                         <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" role="nemu" aria-labelledby="dropdownmenu1">
-                        <li>
+                        <li *ngIf="_service.authTipo()==1">
                           <a [routerLink]="['password']">Cambiar Contraseña.</a>
                         </li>
                         <li class="divider"></li>

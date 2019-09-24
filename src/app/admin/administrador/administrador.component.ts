@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-administrador',
@@ -28,6 +29,7 @@ export class AdministradorComponent implements OnInit {
   listado(){
     this._service.listado().subscribe(
       response=>{
+        console.log(response);
         this.cargando = false;
         this.listas= response;
       },
@@ -36,6 +38,28 @@ export class AdministradorComponent implements OnInit {
       }
 
     )
+  }
+
+  cancelar(folio_fiscal){
+    if(confirm("Esta seguro cancelar esta factura ???")){
+      this.cargando = true;
+      this._service.deleteFactura(folio_fiscal).subscribe(
+        response=>{
+          this.cargando = false;
+          if(response['status']=='success'){
+            swal.fire('correcto',response['msj'],'success');
+            this._router.navigate(['/administrador']);
+          }else{
+            swal.fire('Fallo',response['msj'],'error');
+          }
+        },
+        error=>{
+          this.cargando = false;
+          console.log(<any>error);
+        }
+      )
+
+    }
   }
 
 }

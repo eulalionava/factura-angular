@@ -23,6 +23,7 @@ import { TramitePorAutoComponent } from './components/tramite-por-auto/tramite-p
 import { AdministradorComponent } from './admin/administrador/administrador.component';
 import { EstatusComponent } from './admin/estatus/estatus.component';
 import { PasswordComponent } from './components/password/password.component';
+import { DetalleAdminComponent } from './admin/detalle-admin/detalle-admin.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { PasswordComponent } from './components/password/password.component';
     TramitePorAutoComponent,
     AdministradorComponent,
     EstatusComponent,
-    PasswordComponent
+    PasswordComponent,
+    DetalleAdminComponent
   ],
   imports: [
     BrowserModule,

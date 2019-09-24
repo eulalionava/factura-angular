@@ -13,6 +13,7 @@ import { TramitePorAutoComponent } from './components/tramite-por-auto/tramite-p
 import { AdministradorComponent } from './admin/administrador/administrador.component';
 import { EstatusComponent } from './admin/estatus/estatus.component';
 import { PasswordComponent } from './components/password/password.component';
+import { DetalleAdminComponent } from './admin/detalle-admin/detalle-admin.component';
 
 //Rutas
 const appRoutes:Routes = [
@@ -28,6 +29,7 @@ const appRoutes:Routes = [
   {path:'administrador', component:AdministradorComponent},
   {path:'estatus', component:EstatusComponent},
   {path:'password', component:PasswordComponent},
+  {path:'detalle-admin/:folio', component:DetalleAdminComponent},
 
   {path:'**', component:LoginComponent}
 

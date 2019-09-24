@@ -37,5 +37,25 @@ export class AdminService{
     return this._http.get(this.url +'admin/estatus',{headers:headers});
   }
 
+  //servicio que obtiene la factura
+  getFactura(foliofiscal){
+    let json = JSON.stringify({foliofiscal:foliofiscal});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'admin/detalle-factura', params,{headers: headers});
+  }
+
+  //Servicio para cancelar una factura y sus prefacturas
+  deleteFactura(foliofiscal){
+    let json = JSON.stringify({foliofiscal:foliofiscal});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'admin/cancelar-factura', params,{headers: headers});
+  }
+
 
 }

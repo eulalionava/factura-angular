@@ -21,7 +21,6 @@ export class PasswordComponent implements OnInit {
     private _router:Router,
     private _userService:UserService
   ){
-    console.log(JSON.parse(localStorage.getItem('sesion')));
    }
 
   ngOnInit() {
