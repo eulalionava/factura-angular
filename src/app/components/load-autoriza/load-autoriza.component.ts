@@ -49,11 +49,12 @@ export class LoadAutorizaComponent implements OnInit {
         },
         error=>{
           this.cargando = false;
+          swal.fire('Error','Upps, algo salio mal !!','error');
           console.log(<any>error);
         }
       )
     }else{
-      swal.fire('Aviso','debes seleccionar tus archivos','warning');
+      swal.fire('Aviso','debes seleccionar tus archivos','error');
     }
   }
 

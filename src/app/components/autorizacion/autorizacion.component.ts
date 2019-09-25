@@ -29,6 +29,7 @@ export class AutorizacionComponent implements OnInit {
 
   facturasXprovedor(){
     let factura = JSON.parse(localStorage.getItem('autorizacion'));
+
     this._service.facXautoriza(factura[0]['AUM_clave'],factura[0]['MOA_claveint']).subscribe(
       response=>{
         this.cargando = false;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -71,6 +72,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error=>{
+        swal.fire('AA###_#','Estructura de acceso','info');
         console.log(<any>error);
       }
     )

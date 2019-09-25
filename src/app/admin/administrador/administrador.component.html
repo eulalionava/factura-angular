@@ -3,50 +3,56 @@
     Listado
   </div>
   <div class="card-body">
-    <div class="fa-3x" *ngIf="cargando">
-        <i class="fas fa-spinner fa-pulse"></i>
+    <div *ngIf="listas == 'null' ">
+      <div class="alert alert-danger">No hay facturas tramitadas</div>
     </div>
-    <div class="table-resposive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Folio fiscal</th>
-            <th>Importe</th>
-            <th>Iva</th>
-            <th>Total</th>
-            <th>Fecha documento</th>
-            <th>Fecha carga</th>
-            <th>Metodo pago</th>
-            <th>Estatus</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let lista of listas">
-          <tr>
-            <td>{{lista.Folio_fiscal}}</td>
-            <td>{{lista.Importe}}</td>
-            <td>{{lista.Importe}}</td>
-            <td>{{lista.Total}}</td>
-            <td>{{lista.Fecha_emision}}</td>
-            <td>{{lista.fechaTramite}}</td>
-            <td>{{lista.MetodoPago}}</td>
-            <td>{{lista.statusTramite_desc}}</td>
-            <td>
-              <div class="btn-group">
-                <a [routerLink]="['/detalle-admin',lista.Folio_fiscal]">
-                    <input type="button" value="Ver" class="btn btn-info btn-sm">
-                </a>
-                <input type="button" value="Cancelar" class="btn btn-danger btn-sm"
-                (click)="cancelar(lista.Folio_fiscal)">
-              </div>
-            </td>
-            <td>
-                <div class="fa-2x" *ngIf="cargando">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div *ngIf="listas != 'null' ">
+        <div class="fa-3x" *ngIf="cargando">
+            <i class="fas fa-spinner fa-pulse"></i>
+        </div>
+        <div class="table-resposive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Folio fiscal</th>
+                <th>Importe</th>
+                <th>Iva</th>
+                <th>Total</th>
+                <th>Fecha documento</th>
+                <th>Fecha carga</th>
+                <th>Metodo pago</th>
+                <th>Estatus</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let lista of listas">
+              <tr>
+                <td>{{lista.Folio_fiscal}}</td>
+                <td>{{lista.Importe}}</td>
+                <td>{{lista.Importe}}</td>
+                <td>{{lista.Total}}</td>
+                <td>{{lista.Fecha_emision}}</td>
+                <td>{{lista.fechaTramite}}</td>
+                <td>{{lista.MetodoPago}}</td>
+                <td>{{lista.statusTramite_desc}}</td>
+                <td>
+                  <div class="btn-group">
+                    <a [routerLink]="['/detalle-admin',lista.Folio_fiscal]">
+                        <input type="button" value="Ver" class="btn btn-info btn-sm">
+                    </a>
+                    <input type="button" value="Cancelar" class="btn btn-danger btn-sm"
+                    (click)="cancelar(lista.Folio_fiscal)">
+                  </div>
+                </td>
+                <td>
+                    <div class="fa-2x" *ngIf="cargando">
+                        <i class="fas fa-spinner fa-pulse"></i>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
     </div>
+
   </div>
 </div>

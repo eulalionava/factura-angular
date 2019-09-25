@@ -107,16 +107,15 @@ export class CargandoComponent implements OnInit {
       this.cargando = true;
       this._service.validadDoc(this.files).subscribe(
         response=>{
-          console.log(response);
           this.cargando = false;
-          // if(response['status']=='success'){
-          //   this.validado = true;
-          //   localStorage.setItem('validacion',JSON.stringify(response['data']));
-          //   swal.fire('',response['msj'],'success');
-          // }else{
-          //   this.cargando = false;
-          //   swal.fire('Error',response['msj'],'error');
-          // }
+          if(response['status']=='success'){
+            this.validado = true;
+            localStorage.setItem('validacion',JSON.stringify(response['data']));
+            swal.fire('',response['msj'],'success');
+          }else{
+            this.cargando = false;
+            swal.fire('Error',response['msj'],'error');
+          }
         },
         error=>{
           this.cargando = false;
