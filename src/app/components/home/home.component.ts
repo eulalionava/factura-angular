@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../services/home.service';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
   usuario       = [];
   opciones      = [];
   cont          = 0;
-  importe: any = 0;
+  importe: any  = 0;
   indice:number;
   porempresa  = '';
   busqueda    = '';
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
     private _router:Router
   ){
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
+
     //Verifica si existe la sesion
     if(! localStorage.getItem('sesion')){
       this._router.navigate(['login']);
@@ -38,6 +40,7 @@ export class HomeComponent implements OnInit {
     this.proveedores();
     this.Facturas();
   }
+
 
   seleccionado(aseg,event){
     if(event.target.checked){
@@ -54,7 +57,6 @@ export class HomeComponent implements OnInit {
           }
         )
       }
-
     }else{
       this.cont = this.cont - 1;
       //Numero de posicion
@@ -96,10 +98,44 @@ export class HomeComponent implements OnInit {
     )
   }
 
-
+  //SIGUIENTE PASO
   verifica(){
     if(this.cont != 0){
       this._router.navigate(['cargar']);
+    }else{
+      swal.fire('Debes seleccionar tus prefacturas','','info');
+    }
+  }
+
+  selectAll(event){
+    if(event.target.checked){
+      let checkboxes=document.getElementsByTagName('input');
+      for( let i = 0; i < checkboxes.length; i++){
+        if(checkboxes[i].type == 'checkbox'){
+          checkboxes[i].checked = true;
+          //buscar el id en el array
+            if(! this.opciones.includes(checkboxes[i].value) ){
+              //Guarda todas la claves de factura
+              this.opciones.push(checkboxes[i].value);
+              //LLama el servicio
+              this._service.buscarFactura(checkboxes[i].value).subscribe(
+                response=>{
+                  //Suma el importe
+                  this.importe = this.importe + parseInt(response['data'][0].Doc_importe);
+                }
+              )
+            }
+        }
+      }
+    }else{
+      let checkboxes=document.getElementsByTagName('input');
+      //console.log(checkboxes);
+      for( let i = 0; i < checkboxes.length+1; i++){
+        if(checkboxes[i].type == 'checkbox'){
+          checkboxes[i].checked = false;
+          console.log(checkboxes[i].value);
+        }
+      }
     }
   }
 

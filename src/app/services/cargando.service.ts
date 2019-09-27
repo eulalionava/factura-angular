@@ -42,6 +42,16 @@ export class CargandoService{
     return this._http.post(this.url+'cargando/validar',params,{headers: headers});
   }
 
+  //Servicio que valida con la appi inactiva
+  validadSinAppi(docs){
+    let json = JSON.stringify({info:docs});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'cargando/appinactivo',params,{headers: headers});
+  }
+
   //Servicio que inserta el tramite
   insertramite(tramite,total,pro_clave){
     let claves = JSON.parse(localStorage.getItem('claves'));

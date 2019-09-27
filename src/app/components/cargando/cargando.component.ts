@@ -18,6 +18,7 @@ export class CargandoComponent implements OnInit {
   public seleccionadas = [];
   public xml:any;
   public pdf:any;
+  public tipoRadio:string;
   claves      = [];
   usuario     = [];
   prefacturas = [];
@@ -42,6 +43,7 @@ export class CargandoComponent implements OnInit {
     this.errorPdf = false;
     this.validado = false;
     this.quitar   = false;
+    this.tipoRadio = 'activo';
    }
 
   ngOnInit() {
@@ -54,6 +56,13 @@ export class CargandoComponent implements OnInit {
       this._router.navigate(['login']);
     }
   }
+
+  //METODO QUE VERIFICA SI ACTIVA O DESACTIVA LA VALIDACION MEDIANTE APPI REST
+  aciveAppi(event){
+    this.tipoRadio = event.target.value;
+    console.log(this.tipoRadio);
+  }
+
 
   regresar(){
     if(confirm("Si regresa,perdera sus prefacturas seleccionada !!")){
@@ -101,28 +110,45 @@ export class CargandoComponent implements OnInit {
 
   }
 
-  //Validar los documentos
+  //EVENTO QUE VALIDA LA FACTURA
   validar(){
+    //se encuentran seleccionados
     if(this.files.namexml != '' && this.files.namepdf != ''){
-      this.cargando = true;
-      this._service.validadDoc(this.files).subscribe(
-        response=>{
-          this.cargando = false;
-          if(response['status']=='success'){
-            this.validado = true;
-            localStorage.setItem('validacion',JSON.stringify(response['data']));
-            swal.fire('',response['msj'],'success');
-          }else{
+      if(this.tipoRadio == 'activo'){
+        this.cargando = true;
+        //Servicio validado por la appi rest
+        this._service.validadDoc(this.files).subscribe(
+          response=>{
             this.cargando = false;
-            swal.fire('Error',response['msj'],'error');
+            if(response['status']=='success'){
+              this.validado = true;
+              localStorage.setItem('validacion',JSON.stringify(response['data']));
+              swal.fire('',response['msj'],'success');
+            }else{
+              this.cargando = false;
+              swal.fire('Error',response['msj'],'error');
+            }
+          },
+          error=>{
+            this.cargando = false;
+            swal.fire('Upps','Servicio Appi,esta fallando !!','error');
+            console.log(<any>error);
           }
-        },
-        error=>{
-          this.cargando = false;
-          swal.fire('Error','Upps, algo salio mal !!','error');
-          console.log(<any>error);
-        }
-      )
+        )
+      }else{
+        // Servicio de appi inactivo
+        this.cargando = true;
+        this._service.validadSinAppi(this.files).subscribe(
+          response=>{
+            this.cargando = false;
+            console.log(response);
+          },
+          error=>{
+            this.cargando = false;
+            console.log(<any>error);
+          }
+        )
+      }
     }else{
       swal.fire('','Debes seleccionar tus archivos','warning');
     }

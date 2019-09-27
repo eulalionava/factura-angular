@@ -3,8 +3,24 @@
     <h6>Prefacturas que se relaciona con tu (CFDI)</h6>
   </div>
   <div class="card-body">
-    <div class="row">
 
+    <div class="card">
+      <div class="card-header">
+        Servicio de APPI
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <input type="radio" name="appi" value="activo" checked (change)="aciveAppi($event)">Activar
+          </div>
+          <div class="col-md-3">
+              <input type="radio" name="appi" value="inactivo" (change)="aciveAppi($event)">Desactivar
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
       <div class="col-md-6">
         <div class="card">
           <div class="card-header">
