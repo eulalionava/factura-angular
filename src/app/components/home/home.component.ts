@@ -113,7 +113,9 @@ export class HomeComponent implements OnInit {
       for( let i = 0; i < checkboxes.length; i++){
         if(checkboxes[i].type == 'checkbox'){
           checkboxes[i].checked = true;
-          //buscar el id en el array
+          if(i > 1){
+            this.cont = this.cont + 1;
+            //buscar el id en el array
             if(! this.opciones.includes(checkboxes[i].value) ){
               //Guarda todas la claves de factura
               this.opciones.push(checkboxes[i].value);
@@ -125,18 +127,38 @@ export class HomeComponent implements OnInit {
                 }
               )
             }
-        }
-      }
-    }else{
-      let checkboxes=document.getElementsByTagName('input');
-      //console.log(checkboxes);
-      for( let i = 0; i < checkboxes.length+1; i++){
-        if(checkboxes[i].type == 'checkbox'){
-          checkboxes[i].checked = false;
-          console.log(checkboxes[i].value);
+          }
         }
       }
     }
+    else
+    {
+      let checkboxes=document.getElementsByTagName('input');
+      //console.log(checkboxes);
+      for( let i = 0; i < checkboxes.length; i++){
+        //solo botones de tipo check
+        if(checkboxes[i].type == 'checkbox'){
+          checkboxes[i].checked = false;
+          if( i > 1){
+            this.cont = this.cont - 1;
+            //buscar el id en el array
+            if(this.opciones.includes(checkboxes[i].value) ){
+             //Numero de posicion
+              this.indice  = this.opciones.indexOf(checkboxes[i].value);
+              this.opciones.splice(this.indice,1);
+              //LLama el servicio
+              this._service.buscarFactura(checkboxes[i].value).subscribe(
+                response=>{
+                  //Suma el importe
+                  this.importe = this.importe - parseInt(response['data'][0].Doc_importe);
+                }
+              )
+            }
+          }
+        }
+      }
+    }
+    localStorage.setItem('claves',JSON.stringify(this.opciones));
   }
 
 

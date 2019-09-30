@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
+import * as CryptoJS from 'crypto-js';
+
 
 @Component({
   selector: 'app-login',
@@ -54,6 +56,7 @@ export class LoginComponent implements OnInit {
         }
       },
       error=>{
+        this.cargando = false;
         console.log(<any>error);
       }
     )

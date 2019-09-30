@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CargandoService } from '../../services/cargando.service';
-import swal from 'sweetalert2'
-import { forEach } from '@angular/router/src/utils/collection';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cargando',
@@ -141,7 +140,11 @@ export class CargandoComponent implements OnInit {
         this._service.validadSinAppi(this.files).subscribe(
           response=>{
             this.cargando = false;
-            console.log(response);
+            if(response['status']=="success"){
+              swal.fire('Exito',response['msj'],'success');
+            }else{
+              swal.fire('Error',response['msj'],'error');
+            }
           },
           error=>{
             this.cargando = false;

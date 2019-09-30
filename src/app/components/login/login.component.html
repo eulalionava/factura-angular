@@ -4,7 +4,7 @@
     <div class="card-body">
         <form #loginForm=ngForm (ngSubmit)="onSubmit()" *ngIf="!autorizar">
           <div class="alert alert-danger" *ngIf="error">
-            Usuario y/o Contraseña son incorrectos
+            Fue imposible acceder
           </div>
 
             <div class="form-group">
