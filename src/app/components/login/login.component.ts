@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(){
+  onSubmit(form){
     this.cargando = true;
     this._service.login(this.form).subscribe(
       response=>{
@@ -53,6 +53,8 @@ export class LoginComponent implements OnInit {
         }else{
           this.error = true;
           this.cargando = false;
+          //Limpiamos el formulario
+          form.reset();
         }
       },
       error=>{

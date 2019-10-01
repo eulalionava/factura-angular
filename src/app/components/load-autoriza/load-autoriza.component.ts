@@ -37,12 +37,14 @@ export class LoadAutorizaComponent implements OnInit {
       this.cargando = true;
       this._service.validaDoc(this.files).subscribe(
         response=>{
+          console.log(response);
           this.cargando = false;
           if(response['status']=='success'){
             //tramite valido
             this.valido =  true;
             //Variable de sesion que almacena los datos del xml
             localStorage.setItem('datos',JSON.stringify(response['data']));
+            swal.fire('Exito',response['msj'],'success');
           }else{
             swal.fire('Error',response['msj'],'error');
           }
