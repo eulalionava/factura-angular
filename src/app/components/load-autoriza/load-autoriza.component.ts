@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { AutorizaService } from '../../services/autoriza.service';
+import { CargandoService } from '../../services/cargando.service';
 import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-load-autoriza',
   templateUrl: './load-autoriza.component.html',
-  providers:[AutorizaService]
+  providers:[AutorizaService,CargandoService]
 })
 export class LoadAutorizaComponent implements OnInit {
   public errorXml:boolean;
@@ -22,7 +23,8 @@ export class LoadAutorizaComponent implements OnInit {
   constructor(
     private _route:ActivatedRoute,
     private _router:Router,
-    private _service:AutorizaService
+    private _service:AutorizaService,
+    private _cargandoService:CargandoService
   ) {
     this.valido =  false;
    }
@@ -61,19 +63,35 @@ export class LoadAutorizaComponent implements OnInit {
   }
 
   finaliza(){
-    let datos:any =JSON.parse( localStorage.getItem('datos'));
-    this._service.insertTramite(datos).subscribe(
+    //Obtenemos los datos
+    let datos:any = JSON.parse( localStorage.getItem('datos'));
+    let anio = datos['Fecha'].split("-");
+    let rfc  = datos['E_RFC'];
+
+    this._cargandoService.crearDirectorios(anio[0],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
       response=>{
-        console.log(response);
-        if(response['status']='success'){
-          alert("Tramite realizado correctamente");
-          this._router.navigate(['autorizacion']);
-        }
+        this._service.insertTramite(datos).subscribe(
+          response=>{
+            console.log(response);
+            if(response['status']='success'){
+              swal.fire('Exito',response['msj'],'success');
+              this._router.navigate(['autorizacion']);
+            }else{
+              this.cargando =  false;
+              swal.fire('Error',response['msj'],'error');
+            }
+          },
+          error=>{
+            this.cargando =  false;
+            console.log(error);
+          }
+        )
       },
       error=>{
         console.log(error);
       }
     )
+
   }
   //Evento que regresa
   regresar(){

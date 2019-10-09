@@ -39,7 +39,7 @@
           <input type="button" value="Validar documentos" class="form-control" (click)="validar()">
         </div>
         <div class="col-md-4">
-          <input type="button" value="Finalizar" class="form-control" *ngIf="valido" (click)="finaliza()">
+          <input type="button" value="Finalizar" class="form-control btn btn-success" *ngIf="valido" (click)="finaliza()">
           <input type="button" value="Finalizar" class="form-control" *ngIf="!valido" disabled>
         </div>
     </div>

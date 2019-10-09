@@ -9,6 +9,8 @@ export class CargandoService{
   public url:string;
   // public url_servidor = "http://localhost:8080/facturaAppi/app/cargarArchivo.php";
   public url_servidor = "http://appfacturando.orthofam.com.mx/app/cargarArchivo.php";
+  public directorio = "http://appfacturando.orthofam.com.mx/app/appendFile.php";
+
   constructor(
     private _router:Router,
     private _http:HttpClient
@@ -32,6 +34,17 @@ export class CargandoService{
     return this._http.post(this.url_servidor, formData);
   }
 
+  //Servicio que crea las carpetas y mueve los archivos y elimina
+  crearDirectorios(anio,rfc,pdf,xml,foliofiscal){
+    const formData = new FormData();
+    formData.append('anio', anio);
+    formData.append('rfc' , rfc);
+    formData.append('pdf' , pdf);
+    formData.append('xml' , xml);
+    formData.append('foliofiscal' , foliofiscal);
+    return this._http.post(this.directorio, formData);
+  }
+
   //Servicio que valida los documentos
   validadDoc(docs){
     let json = JSON.stringify({info:docs});
@@ -53,9 +66,16 @@ export class CargandoService{
   }
 
   //Servicio que inserta el tramite
-  insertramite(tramite,total,pro_clave){
+  insertramite(tramite,total,pro_clave,usuario){
     let claves = JSON.parse(localStorage.getItem('claves'));
-    let json = JSON.stringify({datos:tramite,claves:claves,total:total,pro_cve:pro_clave});
+    let json = JSON.stringify({
+      datos   : tramite,
+      claves  : claves,
+      total   : total,
+      pro_cve : pro_clave,
+      usuario : usuario
+    });
+
     let params = 'json='+json;
     let headers = new HttpHeaders();
 

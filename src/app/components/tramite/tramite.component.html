@@ -6,7 +6,10 @@
     <div class="fa-3x" *ngIf="cargando">
       <i class="fas fa-spinner fa-pulse"></i>
     </div>
-    <table class="table">
+    <div *ngIf="tramites == '' ">
+      <div class="alert alert-danger">No hay tramites</div>
+    </div>
+    <table class="table" *ngIf="tramites != '' ">
       <thead>
         <tr>
           <th>Folio fiscal</th>
@@ -24,7 +27,7 @@
           <td>{{tramite.Receptor}}</td>
           <td>{{tramite.Fecha_emision}}</td>
           <td>{{tramite.Importe}}</td>
-          <td>{{tramite.status}}</td>
+          <td>Enviado</td>
           <td>
             <a [routerLink]="['/detalle',tramite.Folio_fiscal]">
               <input type="button" value="detalle" class="btn btn-info btn-sm">

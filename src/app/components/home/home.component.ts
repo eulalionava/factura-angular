@@ -28,12 +28,14 @@ export class HomeComponent implements OnInit {
     private _service:HomeService,
     private _router:Router
   ){
+
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
 
     //Verifica si existe la sesion
     if(! localStorage.getItem('sesion')){
       this._router.navigate(['login']);
     }
+
   }
 
   ngOnInit() {
@@ -75,7 +77,7 @@ export class HomeComponent implements OnInit {
 
   //Obtener la facturas
   Facturas(){
-    this._service.getfacturas(this.usuario[0]['Pro_clave']).subscribe(
+    this._service.getfacturas(this.cveProvedores()).subscribe(
       response=>{
         this.facturas = response['data'];
         this.cargando= false;
@@ -106,7 +108,7 @@ export class HomeComponent implements OnInit {
       swal.fire('Debes seleccionar tus prefacturas','','info');
     }
   }
-
+  //SELECCIONAR TODOS LOS CHECK
   selectAll(event){
     if(event.target.checked){
       let checkboxes=document.getElementsByTagName('input');
@@ -130,9 +132,7 @@ export class HomeComponent implements OnInit {
           }
         }
       }
-    }
-    else
-    {
+    }else{
       let checkboxes=document.getElementsByTagName('input');
       //console.log(checkboxes);
       for( let i = 0; i < checkboxes.length; i++){
@@ -161,6 +161,18 @@ export class HomeComponent implements OnInit {
     localStorage.setItem('claves',JSON.stringify(this.opciones));
   }
 
+  //CLAVES DE PROVEEDORES
+  cveProvedores(){
+    let prove='';
+    for(let i = 0; i < this.usuario.length; i++){
+      if(i == this.usuario.length-1){
+        prove = prove + this.usuario[i]['Pro_clave'];
+      }else{
+        prove = prove + this.usuario[i]['Pro_clave']+',';
+      }
+    }
+    return prove;
+  }
 
 
 

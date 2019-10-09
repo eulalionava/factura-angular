@@ -62,7 +62,10 @@
     <div class="fa-3x" *ngIf="cargando">
       <i class="fas fa-spinner fa-pulse"></i>
     </div>
-    <div class="table-responsive">
+    <div *ngIf="facturas == '' ">
+      <div class="alert alert-danger">Autorizacion,pertenece a una factura !!</div>
+    </div>
+    <div class="table-responsive" *ngIf="facturas != '' ">
       <table class="table">
         <thead>
           <tr>

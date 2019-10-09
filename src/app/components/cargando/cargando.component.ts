@@ -54,6 +54,7 @@ export class CargandoComponent implements OnInit {
     if(! localStorage.getItem('sesion')){
       this._router.navigate(['login']);
     }
+
   }
 
   //METODO QUE VERIFICA SI ACTIVA O DESACTIVA LA VALIDACION MEDIANTE APPI REST
@@ -159,29 +160,42 @@ export class CargandoComponent implements OnInit {
 
   //Evento que finaliza y guarda el tramite
   finalizar(){
+
     if(localStorage.getItem('validacion')){
       this.cargando = true;
+
       //obtiene la variable de sesion
       let datos:any = JSON.parse(localStorage.getItem('validacion'));
-      //llama el servicio
-      this._service.insertramite(datos,this.total,this.usuario[0].Pro_clave).subscribe(
+      let anio = datos['Fecha'].split("-");
+      let rfc  = datos['E_RFC'];
+      //Servicio que creara carpetas
+      this._service.crearDirectorios(anio[0],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
         response=>{
-          this.cargando = false;
-          // peticion correcta
-          if(response['status']=='success'){
-            swal.fire('',response['msj'],'success');
-            this._router.navigate(['home']);
-          }else{
-            swal.fire('Error','El tramite no se pudo realizar','error');
-          }
+          //llama el servicio para realizar el tramite
+          this._service.insertramite(datos,this.total,this.usuario[0].Pro_clave,this.usuario[0]['PUUsu_login']).subscribe(
+            response=>{
+              this.cargando = false;
+              //peticion correcta
+              if(response['status']=='success'){
+                swal.fire('',response['msj'],'success');
+                this._router.navigate(['home']);
+              }else{
+                swal.fire('Error','El tramite no se pudo realizar','error');
+              }
+            },
+            error=>{
+              this.cargando = false;
+              console.log(<any>error);
+            }
+          )
         },
         error=>{
-          this.cargando = false;
-          console.log(<any>error);
+          console.log(error);
         }
       )
     }
   }
+
   //OPCIONES SELECCIONADAS
   seleccion(event){
     if(event.target.checked){

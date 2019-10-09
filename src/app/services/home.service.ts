@@ -23,7 +23,9 @@ export class HomeService{
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url+'home/facturas', params,{headers: headers});
+
   }
+
   //Servicio que obtiene una factura especifica
   buscarFactura(clave){
     let json = JSON.stringify({clave:clave});
