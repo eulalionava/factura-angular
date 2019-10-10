@@ -10,10 +10,10 @@
         <div class="card">
           <div class="card-header">
             <div class="row">
-              <div class="col-md-10">
+              <div class="col-md-9">
                 Informacion Detallada del Tramite
               </div>
-              <div class="col-md-2">Tramite: {{tramite.cveTramite}}</div>
+              <div class="col-md-3">Tramite: {{tramite.cveTramite}}</div>
             </div>
           </div>
           <div class="card-body">
@@ -24,7 +24,7 @@
                 <td>Folio fiscal</td><td>{{tramite.Folio_fiscal}}</td>
               </tr>
               <tr>
-                <td>Usuario que emitio el tramite</td><td></td>
+                <td>Usuario que emitio el tramite</td><td>{{nombre}}</td>
               </tr>
               <tr>
                 <td>Fecha trámite</td><td>{{tramite.Fecha_emision}}</td>
@@ -82,7 +82,7 @@
                     <td>{{pref.Doc_clave}}</td>
                     <td>{{pref.REG_folio}}</td>
                     <td>{{pref.Doc_fecreg}}</td>
-                    <td>{{pref.Doc_importe}}</td>
+                    <td>$ {{pref.Doc_importe}}</td>
                     <td>
                         <input type="button" value="Ver" class="btn btn-info btn-sm" (click)="archivo(pref.Doc_clave)">
                     </td>

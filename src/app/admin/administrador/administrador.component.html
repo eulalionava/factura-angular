@@ -39,18 +39,46 @@
                     <a [routerLink]="['/detalle-admin',lista.Folio_fiscal]">
                         <input type="button" value="Ver" class="btn btn-info btn-sm">
                     </a>
-                    <input type="button" value="Cancelar" class="btn btn-danger btn-sm"
-                    (click)="cancelar(lista.Folio_fiscal)">
+                    <a href="#mymodal{{lista.Folio_fiscal}}" role="button" class="btn btn-danger btn-sm" data-toggle="modal">
+                      Cancelar
+                    </a>
                   </div>
                 </td>
-                <td>
-                    <div class="fa-2x" *ngIf="cargando">
-                        <i class="fas fa-spinner fa-pulse"></i>
-                    </div>
-                </td>
               </tr>
+              <!-- Modal -->
+              <div class="modal fade" id="mymodal{{lista.Folio_fiscal}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">¿Seguro que desea cancelar esta factura?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form #cancelarForm=ngForm (ngSubmit)="onSubmit(loginForm)">
+                        <div class="form-group">
+                          <div>
+                            <label>Motivo de cancelación:</label>
+                            <textarea name="nota" #nota="ngModel" [(ngModel)]="form.motivo" required class="form-control"></textarea>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-success" data-dismiss="modal"
+                      (click)="cancelar(lista.Folio_fiscal)" [disabled]="!cancelarForm.valid">
+                        Aceptar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </tbody>
           </table>
+
         </div>
     </div>
 

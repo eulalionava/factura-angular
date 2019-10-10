@@ -48,8 +48,13 @@ export class AdminService{
   }
 
   //Servicio para cancelar una factura y sus prefacturas
-  deleteFactura(foliofiscal){
-    let json = JSON.stringify({foliofiscal:foliofiscal});
+  deleteFactura(usuario,motivo,foliofiscal){
+    let json = JSON.stringify({
+      usuario     :usuario,
+      motivo      :motivo,
+      foliofiscal :foliofiscal
+    });
+
     let params = 'json='+json;
     let headers = new HttpHeaders();
 

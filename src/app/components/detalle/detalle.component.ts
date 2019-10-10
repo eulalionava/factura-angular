@@ -11,12 +11,15 @@ export class DetalleComponent implements OnInit {
   public prefacturas:any = [];
   public tramite:any = [];
   public url:string;
+  public nombre;
 
   constructor(
     private _route:ActivatedRoute,
     private _router:Router,
     private _service:TramiteService
     ){
+      let usuario = JSON.parse(localStorage.getItem('sesion'));
+      this.nombre = usuario[0]['PUUsu_nombre']+" "+usuario[0]['PUUsu_apaterno']+" "+usuario[0]['PUUsu_amaterno'];
 
    }
 

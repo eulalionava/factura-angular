@@ -11,6 +11,11 @@ import swal from 'sweetalert2';
 export class AdministradorComponent implements OnInit {
   public listas:any;
   public cargando:boolean;
+  public eliminar:boolean;
+
+  form = {
+    motivo:null
+  }
 
   constructor(
     private _router:Router,
@@ -40,26 +45,25 @@ export class AdministradorComponent implements OnInit {
   }
 
   cancelar(folio_fiscal){
-    if(confirm("Esta seguro cancelar esta factura ???")){
-      this.cargando = true;
-      //llama el servicio,pasando el folio fiscal de la factura
-      this._service.deleteFactura(folio_fiscal).subscribe(
+      let usuario:any = JSON.parse(localStorage.getItem('admin'));
+
+      // llama el servicio,pasando el folio fiscal de la factura
+      this._service.deleteFactura(usuario,this.form.motivo,folio_fiscal).subscribe(
         response=>{
-          this.cargando = false;
+          this.form.motivo = null;
+          console.log(response);
           if(response['status']=='success'){
-            swal.fire('correcto',response['msj'],'success');
             this._router.navigate(['/administrador']);
+            swal.fire('Cancelado',response['msj'],'success');
           }else{
             swal.fire('Fallo',response['msj'],'error');
           }
         },
         error=>{
-          this.cargando = false;
+          this.eliminar = false;
           console.log(<any>error);
         }
       )
-
-    }
   }
 
 }

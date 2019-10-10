@@ -31,6 +31,7 @@ export class DetalleAdminComponent implements OnInit {
         this.cargando = false;
         this.facturas = response['factura'][0];
         this.prefacturas = response['prefactura'];
+        console.log(this.prefacturas);
       },
       error=>{
         this.cargando =  false;
