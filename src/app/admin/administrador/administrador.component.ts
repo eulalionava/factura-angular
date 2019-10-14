@@ -53,8 +53,9 @@ export class AdministradorComponent implements OnInit {
           this.form.motivo = null;
           console.log(response);
           if(response['status']=='success'){
-            this._router.navigate(['/administrador']);
             swal.fire('Cancelado',response['msj'],'success');
+            location.reload();
+
           }else{
             swal.fire('Fallo',response['msj'],'error');
           }

@@ -13,7 +13,7 @@
           <div class="col-md-3">
             <input type="radio" name="appi" value="activo" checked (change)="aciveAppi($event)">Activar
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3" *ngIf="appi == 'error' ">
               <input type="radio" name="appi" value="inactivo" (change)="aciveAppi($event)">Desactivar
           </div>
         </div>

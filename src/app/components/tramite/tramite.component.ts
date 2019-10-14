@@ -24,7 +24,6 @@ export class TramiteComponent implements OnInit {
   //Obtiene todos los tramites realizados
   vertramites(){
     let datos:any = JSON.parse(localStorage.getItem('sesion'));
-    console.log(datos);
     this._service.getTramites(datos[0]['PUUsu_login']).subscribe(
       response=>{
         this.cargando = false;

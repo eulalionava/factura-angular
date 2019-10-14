@@ -35,9 +35,10 @@ export class CargandoService{
   }
 
   //Servicio que crea las carpetas y mueve los archivos y elimina
-  crearDirectorios(anio,rfc,pdf,xml,foliofiscal){
+  crearDirectorios(anio,mes,rfc,pdf,xml,foliofiscal){
     const formData = new FormData();
     formData.append('anio', anio);
+    formData.append('mes' , mes);
     formData.append('rfc' , rfc);
     formData.append('pdf' , pdf);
     formData.append('xml' , xml);
@@ -46,8 +47,8 @@ export class CargandoService{
   }
 
   //Servicio que valida los documentos
-  validadDoc(docs){
-    let json = JSON.stringify({info:docs});
+  validadDoc(docs,importeTotal){
+    let json = JSON.stringify({info:docs,importe:importeTotal});
     let params = 'json='+json;
     let headers = new HttpHeaders();
 
@@ -81,6 +82,12 @@ export class CargandoService{
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url+'cargando/tramite',params,{headers: headers});
+  }
+
+  getAppi(){
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.get(this.url+'cargando/appi',{headers: headers});
+
   }
 
 }

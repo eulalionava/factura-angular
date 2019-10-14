@@ -68,7 +68,7 @@ export class LoadAutorizaComponent implements OnInit {
     let anio = datos['Fecha'].split("-");
     let rfc  = datos['E_RFC'];
 
-    this._cargandoService.crearDirectorios(anio[0],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
+    this._cargandoService.crearDirectorios(anio[0],anio[1],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
       response=>{
         this._service.insertTramite(datos).subscribe(
           response=>{

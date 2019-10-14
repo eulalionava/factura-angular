@@ -18,6 +18,8 @@ export class CargandoComponent implements OnInit {
   public xml:any;
   public pdf:any;
   public tipoRadio:string;
+  public appi:string='';
+
   claves      = [];
   usuario     = [];
   prefacturas = [];
@@ -50,6 +52,7 @@ export class CargandoComponent implements OnInit {
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
     this.totalPre = this.claves.length;
     this.verprefacturas();
+    this.funcionamientoAPPI();
 
     if(! localStorage.getItem('sesion')){
       this._router.navigate(['login']);
@@ -60,7 +63,21 @@ export class CargandoComponent implements OnInit {
   //METODO QUE VERIFICA SI ACTIVA O DESACTIVA LA VALIDACION MEDIANTE APPI REST
   aciveAppi(event){
     this.tipoRadio = event.target.value;
-    console.log(this.tipoRadio);
+  }
+
+  funcionamientoAPPI(){
+    this._service.getAppi().subscribe(
+      response=>{
+        if(response['status'] == 'success'){
+          this.appi = 'success';
+        }else{
+          this.appi = 'error';
+        }
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    )
   }
 
 
@@ -117,7 +134,7 @@ export class CargandoComponent implements OnInit {
       if(this.tipoRadio == 'activo'){
         this.cargando = true;
         //Servicio validado por la appi rest
-        this._service.validadDoc(this.files).subscribe(
+        this._service.validadDoc(this.files,this.totalPre).subscribe(
           response=>{
             this.cargando = false;
             if(response['status']=='success'){
@@ -160,7 +177,6 @@ export class CargandoComponent implements OnInit {
 
   //Evento que finaliza y guarda el tramite
   finalizar(){
-
     if(localStorage.getItem('validacion')){
       this.cargando = true;
 
@@ -169,7 +185,7 @@ export class CargandoComponent implements OnInit {
       let anio = datos['Fecha'].split("-");
       let rfc  = datos['E_RFC'];
       //Servicio que creara carpetas
-      this._service.crearDirectorios(anio[0],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
+      this._service.crearDirectorios(anio[0],anio[1],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
         response=>{
           //llama el servicio para realizar el tramite
           this._service.insertramite(datos,this.total,this.usuario[0].Pro_clave,this.usuario[0]['PUUsu_login']).subscribe(

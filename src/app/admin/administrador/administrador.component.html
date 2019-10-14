@@ -3,10 +3,10 @@
     Listado
   </div>
   <div class="card-body">
-    <div *ngIf="listas == 'null' ">
-      <div class="alert alert-danger">No hay facturas tramitadas</div>
+    <div *ngIf="listas == '' ">
+      <div class="alert alert-danger">No hay tramites</div>
     </div>
-    <div *ngIf="listas != 'null' ">
+    <div *ngIf="listas != '' ">
         <div class="fa-3x" *ngIf="cargando">
             <i class="fas fa-spinner fa-pulse"></i>
         </div>
