@@ -18,7 +18,7 @@ import { DetalleAdminComponent } from './admin/detalle-admin/detalle-admin.compo
 //Rutas
 const appRoutes:Routes = [
   {path:'', component:LoginComponent},
-  {path:'login' , component:LoginComponent},
+  {path:'login/:folio' , component:LoginComponent},
   {path:'home'  , component:HomeComponent},
   {path:'cargar', component:CargandoComponent},
   {path:'tramite', component:TramiteComponent},

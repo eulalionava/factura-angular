@@ -64,6 +64,9 @@
             <th>Folio</th>
             <th>Fecha</th>
             <th>Importe</th>
+            <th>Facturado</th>
+            <th>Cobrado</th>
+
           </tr>
         </thead>
         <tbody *ngFor="let prefactura of prefacturas; let i = index">
@@ -73,6 +76,22 @@
             <td>{{prefactura['REG_folio']}}</td>
             <td>{{prefactura['Doc_fecreg']}}</td>
             <td>$ {{prefactura['Doc_importe']}}</td>
+            <td >
+              <div class="fa-1x" *ngIf="prefactura['Doc_facturadoMv'] == '' ">
+                <i class="fa fa-times"></i>
+              </div>
+              <div class="fa-1x" *ngIf="prefactura['Doc_facturadoMv'] != '' ">
+                <i class="fa fa-check-square"></i>
+              </div>
+            </td>
+            <td >
+              <div class="fa-1x" *ngIf="prefactura['Doc_cobradoUni'] == null ">
+                <i class="fa fa-times"></i>
+              </div>
+              <div class="fa-1x" *ngIf="prefactura['Doc_cobradoUni'] != null ">
+                <i class="fa fa-check-square"></i>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>

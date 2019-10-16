@@ -14,6 +14,7 @@ export class FiltroXempresa implements PipeTransform {
       if(post.ASE_nomCorto.indexOf(arg) > -1 ){
         //Lo agrega
         resultado.push(post);
+        console.log(post);
       }
     }
     return resultado;

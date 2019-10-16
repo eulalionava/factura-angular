@@ -4,7 +4,7 @@
   </div>
   <div class="card-body">
 
-    <div class="card">
+    <div class="card" *ngIf="appi == 'error' ">
       <div class="card-header">
         Servicio de APPI
       </div>
@@ -13,7 +13,7 @@
           <div class="col-md-3">
             <input type="radio" name="appi" value="activo" checked (change)="aciveAppi($event)">Activar
           </div>
-          <div class="col-md-3" *ngIf="appi == 'error' ">
+          <div class="col-md-3">
               <input type="radio" name="appi" value="inactivo" (change)="aciveAppi($event)">Desactivar
           </div>
         </div>

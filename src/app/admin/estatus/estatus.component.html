@@ -40,6 +40,10 @@
               <td>{{tramite.Importe}}</td>
               <td>{{tramite.fechaTramite}}</td>
               <td>{{tramite.statusTramite_desc}}</td>
+              <td *ngIf="tramite.idPUStatusTramite == 3 || tramite.idPUStatusTramite == 4">
+                <input type="button" class="btn btn-success" value="Visto bueno">
+              </td>
+
             </tr>
           </tbody>
         </table>

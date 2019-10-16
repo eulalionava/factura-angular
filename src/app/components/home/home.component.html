@@ -11,16 +11,27 @@
       </div>
       <div class="col-md-6">
         <div class="alert alert-info">
-          Suma antes de impuestos: $ {{importe}}
+          Suma antes de impuestos: $ {{importe }}
         </div>
       </div>
     </div>
     <hr>
     <div class="row">
-      <div class="col-md-6">
-        <select name="" id="" class="form-control" [(ngModel)]="porempresa">
+      <div class="col-md-2">
+        <select name="" class="form-control" [(ngModel)]="cantidad">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <select name="" class="form-control" [(ngModel)]="porempresa">
           <option value="0">Seleccionar por empresa</option>
-          <option *ngFor="let prove of provedores">{{prove.ASE_nomCorto}}</option>
+          <option *ngFor="let prove of provedores">
+            {{prove.ASE_nomCorto}}
+          </option>
         </select>
       </div>
       <div class="col-md-6">
@@ -48,7 +59,7 @@
             <th>Importe antes de impuesto</th>
           </tr>
         </thead>
-        <tbody *ngFor="let factura of facturas | paginate: {itemsPerPage:10,currentPage:pageNum} | filtraEmpresa:porempresa | filtraCampos:busqueda">
+        <tbody *ngFor="let factura of facturas | paginate: {itemsPerPage:cantidad,currentPage:pageNum} | filtraEmpresa:porempresa | filtraCampos:busqueda">
           <tr>
             <td>
                 <input type="checkbox" name="options" value="{{factura.Doc_clave}}"

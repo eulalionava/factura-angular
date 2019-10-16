@@ -24,7 +24,7 @@ export class CargandoComponent implements OnInit {
   usuario     = [];
   prefacturas = [];
   totalPre    = 0;
-  total       = 0;
+  total:number      = 0;
 
   public prueba;
 
@@ -280,11 +280,12 @@ export class CargandoComponent implements OnInit {
   verprefacturas(){
     this._service.getPrefacturaSeleccionadas(this.claves).subscribe(
       response=>{
+        console.log(response);
         this.prefacturas = response['data'];
         //recorremos los datos
         for(let i=0; i < response['data'].length; i++){
           //contador
-          this.total += parseInt(response['data'][i][0]['Doc_importe']);
+          this.total += parseFloat(response['data'][i][0]['Doc_importe']);
         }
       },
       error=>{
