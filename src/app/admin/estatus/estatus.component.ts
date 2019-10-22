@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-estatus',
@@ -48,6 +49,23 @@ export class EstatusComponent implements OnInit {
       error=>{
         console.log(<any>error);
 
+      }
+    )
+  }
+
+  vobo(foliofiscal){
+    this._service.vistobueno(foliofiscal).subscribe(
+      response=>{
+        console.log(response);
+        if(response['status']=='success'){
+          swal.fire('Exito',response['msj'],'success');
+          this._router.navigate(['/administrador']);
+        }else{
+          swal.fire('Fallo',response['msj'],'error');
+        }
+      },
+      error=>{
+        console.log(<any>error);
       }
     )
   }

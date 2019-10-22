@@ -191,7 +191,7 @@ export class CargandoComponent implements OnInit {
           this._service.insertramite(datos,this.total,this.usuario[0].Pro_clave,this.usuario[0]['PUUsu_login']).subscribe(
             response=>{
               this.cargando = false;
-              //peticion correcta
+              // peticion correcta
               if(response['status']=='success'){
                 swal.fire('',response['msj'],'success');
                 this._router.navigate(['home']);
