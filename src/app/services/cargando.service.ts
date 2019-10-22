@@ -67,14 +67,15 @@ export class CargandoService{
   }
 
   //Servicio que inserta el tramite
-  insertramite(tramite,total,pro_clave,usuario){
+  insertramite(tramite,total,pro_clave,usuario,appi){
     let claves = JSON.parse(localStorage.getItem('claves'));
     let json = JSON.stringify({
       datos   : tramite,
       claves  : claves,
       total   : total,
       pro_cve : pro_clave,
-      usuario : usuario
+      usuario : usuario,
+      appi    : appi
     });
 
     let params = 'json='+json;

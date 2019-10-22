@@ -131,7 +131,7 @@ export class CargandoComponent implements OnInit {
   validar(){
     //se encuentran seleccionados
     if(this.files.namexml != '' && this.files.namepdf != ''){
-      if(this.tipoRadio == 'activo'){
+      if(this.appi == 'success'){
         this.cargando = true;
         //Servicio validado por la appi rest
         this._service.validadDoc(this.files,this.totalPre).subscribe(
@@ -188,7 +188,7 @@ export class CargandoComponent implements OnInit {
       this._service.crearDirectorios(anio[0],anio[1],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
         response=>{
           //llama el servicio para realizar el tramite
-          this._service.insertramite(datos,this.total,this.usuario[0].Pro_clave,this.usuario[0]['PUUsu_login']).subscribe(
+          this._service.insertramite(datos,this.total,this.usuario[0].Pro_clave,this.usuario[0]['PUUsu_login'],this.appi).subscribe(
             response=>{
               this.cargando = false;
               // peticion correcta

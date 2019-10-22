@@ -3,9 +3,7 @@
     Listado
   </div>
   <div class="card-body">
-    <div *ngIf="listas == '' ">
-      <div class="alert alert-danger">No hay tramites</div>
-    </div>
+
     <div *ngIf="listas != '' ">
         <div class="fa-3x" *ngIf="cargando">
             <i class="fas fa-spinner fa-pulse"></i>
@@ -80,6 +78,9 @@
           </table>
 
         </div>
+    </div>
+    <div *ngIf="listas == '' ">
+      <div class="alert alert-danger">No hay tramites</div>
     </div>
 
   </div>
