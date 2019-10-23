@@ -72,6 +72,9 @@ export class CargandoComponent implements OnInit {
           this.appi = 'success';
         }else{
           this.appi = 'error';
+          this._service.sendEmail().subscribe(
+            response=>{}
+          )
         }
       },
       error=>{

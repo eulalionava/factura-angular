@@ -10,6 +10,7 @@ export class CargandoService{
   // public url_servidor = "http://localhost:8080/facturaAppi/app/cargarArchivo.php";
   public url_servidor = "http://appfacturando.orthofam.com.mx/app/cargarArchivo.php";
   public directorio = "http://appfacturando.orthofam.com.mx/app/appendFile.php";
+  public url_correo = "http://appfacturando.orthofam.com.mx/app/enviarCorreo.php";
 
   constructor(
     private _router:Router,
@@ -84,11 +85,16 @@ export class CargandoService{
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url+'cargando/tramite',params,{headers: headers});
   }
-
+  //Verifica si no hay fallos en la appi
   getAppi(){
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url+'cargando/appi',{headers: headers});
-
   }
+
+  //Enviar correo en caso del fallo de la appi
+  sendEmail(){
+    return this._http.get(this.url_correo);
+  }
+
 
 }

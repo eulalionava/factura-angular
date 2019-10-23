@@ -55,7 +55,9 @@ export class HomeComponent implements OnInit {
         this._service.buscarFactura(event.target.value).subscribe(
           response=>{
             //Suma el importe
-            this.importe = this.importe + parseFloat(response['data'][0].Doc_importe);
+            this.importe = this.importe + parseFloat( response['data'][0].Doc_importe );
+            this.importe = Math.round(this.importe * 100)  / 100;
+
           }
         )
       }
@@ -68,9 +70,8 @@ export class HomeComponent implements OnInit {
       this._service.buscarFactura(event.target.value).subscribe(
         response=>{
           //Resta el importe
-          console.log(this.importe);
-          console.log(response['data'][0].Doc_importe);
           this.importe -= response['data'][0].Doc_importe;
+          this.importe = Math.round(this.importe * 100) / 100;
 
         }
       )
@@ -83,7 +84,7 @@ export class HomeComponent implements OnInit {
     this._service.getfacturas(this.cveProvedores()).subscribe(
       response=>{
         this.facturas = response['data'];
-        this.cargando= false;
+        this.cargando = false;
       },
       error=>{
         console.log(<any>error);
