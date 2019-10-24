@@ -41,9 +41,13 @@
               <td>{{tramite.fechaTramite}}</td>
               <td>{{tramite.statusTramite_desc}}</td>
               <td *ngIf="tramite.idPUStatusTramite == 3 || tramite.idPUStatusTramite == 4">
-                <input type="button" class="btn btn-success" value="Vobo" (click)="vobo(tramite['Folio_fiscal'])">
+                <div class="btn-group">
+                  <a [routerLink]="['/detalle-admin',tramite['Folio_fiscal']]">
+                    <input type="button" value="Ver" class="btn btn-info btn-sm">
+                  </a>
+                  <input type="button" class="btn btn-success btn-sm" value="Vobo" (click)="vobo(tramite['Folio_fiscal'])">
+                </div>
               </td>
-
             </tr>
           </tbody>
         </table>
