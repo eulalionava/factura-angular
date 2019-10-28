@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit{
   }
 
 
-
+  //Cerrar session
   logout(){
     localStorage.clear();
     this._router.navigate(['login']);

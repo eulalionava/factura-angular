@@ -46,15 +46,27 @@ export class AutorizaService{
     return this._http.post(this.url+'autorizaciones/validar',params,{headers: headers});
   }
 
+  //Servicio que valida con la appi inactiva
+  validadSinAppi(docs){
+    let json = JSON.stringify({info:docs});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'autorizaciones/appinactivo',params,{headers: headers});
+  }
+
+
   //Servicio que ingresa un tramite
-  insertTramite(datos){
+  insertTramite(datos,appi){
     //Datos de usuario por autorizacion
     let usuario:any = JSON.parse(localStorage.getItem('autorizacion'));
     //Parametros
     let json = JSON.stringify({
       datos:datos,
       autoriza:usuario[0]['AUM_clave'],
-      clave:usuario[0]['MOA_claveint']
+      clave:usuario[0]['MOA_claveint'],
+      appi:appi
     });
 
     let params = 'json='+json;

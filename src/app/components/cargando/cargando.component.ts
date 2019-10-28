@@ -64,7 +64,7 @@ export class CargandoComponent implements OnInit {
   aciveAppi(event){
     this.tipoRadio = event.target.value;
   }
-
+  //Verifica el funcionamiento de la appi
   funcionamientoAPPI(){
     this._service.getAppi().subscribe(
       response=>{
@@ -162,6 +162,8 @@ export class CargandoComponent implements OnInit {
           response=>{
             this.cargando = false;
             if(response['status']=="success"){
+              this.validado = true;
+              localStorage.setItem('validacion',JSON.stringify(response['data']));
               swal.fire('Exito',response['msj'],'success');
             }else{
               swal.fire('Error',response['msj'],'error');
@@ -262,7 +264,8 @@ export class CargandoComponent implements OnInit {
         for(let i=0; i < response['data'].length; i++){
             this.totalPre -=1;
           //contador
-          this.total -= response['data'][i][0]['Doc_importe']
+          this.total -= response['data'][i][0]['Doc_importe'];
+          this.total = Math.round(this.total * 100)  / 100;
         }
 
         //Actualizamos nuevamente el listado de prefacturas
@@ -289,6 +292,7 @@ export class CargandoComponent implements OnInit {
         for(let i=0; i < response['data'].length; i++){
           //contador
           this.total += parseFloat(response['data'][i][0]['Doc_importe']);
+          this.total = Math.round(this.total * 100)  / 100;
         }
       },
       error=>{

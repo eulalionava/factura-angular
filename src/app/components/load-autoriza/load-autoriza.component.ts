@@ -14,6 +14,7 @@ export class LoadAutorizaComponent implements OnInit {
   public errorPdf:boolean;
   public valido:boolean;
   public cargando:boolean;
+  public appi:string='';
 
   files = {
     'namexml':'',
@@ -32,31 +33,72 @@ export class LoadAutorizaComponent implements OnInit {
   ngOnInit() {
 
   }
+  //VALIDA EL FUNCIONAMIENTO DE LA APPI
+  funcionamientoAPPI(){
+    this._cargandoService.getAppi().subscribe(
+      response=>{
+        if(response['status'] == 'success'){
+          this.appi = 'success';
+        }else{
+          this.appi = 'error';
+          this._cargandoService.sendEmail().subscribe(
+            response=>{}
+          )
+        }
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    )
+  }
 
   //evento que valida la informacion
   validar(){
     if(this.files.namepdf != '' && this.files.namexml != '' ){
       this.cargando = true;
-      this._service.validaDoc(this.files).subscribe(
-        response=>{
-          console.log(response);
-          this.cargando = false;
-          if(response['status']=='success'){
-            //tramite valido
-            this.valido =  true;
-            //Variable de sesion que almacena los datos del xml
-            localStorage.setItem('datos',JSON.stringify(response['data']));
-            swal.fire('Exito',response['msj'],'success');
-          }else{
-            swal.fire('Error',response['msj'],'error');
+      if(this.appi == 'success'){
+        //Valida la factura con la appi
+        this._service.validaDoc(this.files).subscribe(
+          response=>{
+            console.log(response);
+            this.cargando = false;
+            if(response['status']=='success'){
+              //tramite valido
+              this.valido =  true;
+              //Variable de sesion que almacena los datos del xml
+              localStorage.setItem('datos',JSON.stringify(response['data']));
+              swal.fire('Exito',response['msj'],'success');
+            }else{
+              swal.fire('Error',response['msj'],'error');
+            }
+          },
+          error=>{
+            this.cargando = false;
+            swal.fire('Error','Upps, algo salio mal !!','error');
+            console.log(<any>error);
           }
-        },
-        error=>{
-          this.cargando = false;
-          swal.fire('Error','Upps, algo salio mal !!','error');
-          console.log(<any>error);
-        }
-      )
+        )
+      }else{
+        //valida la factura sin la appi
+        this.cargando = true;
+        this._service.validadSinAppi(this.files).subscribe(
+          response=>{
+            this.cargando = false;
+            if(response['status']=="success"){
+              this.valido = true;
+              //Variable de sesion que almacena los datos del xml
+              localStorage.setItem('datos',JSON.stringify(response['data']));
+              swal.fire('Exito',response['msj'],'success');
+            }else{
+              swal.fire('Error',response['msj'],'error');
+            }
+          },
+          error=>{
+            this.cargando = false;
+            console.log(<any>error);
+          }
+        )
+      }
     }else{
       swal.fire('Aviso','debes seleccionar tus archivos','error');
     }
@@ -70,7 +112,7 @@ export class LoadAutorizaComponent implements OnInit {
 
     this._cargandoService.crearDirectorios(anio[0],anio[1],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
       response=>{
-        this._service.insertTramite(datos).subscribe(
+        this._service.insertTramite(datos,this.appi).subscribe(
           response=>{
             console.log(response);
             if(response['status']='success'){

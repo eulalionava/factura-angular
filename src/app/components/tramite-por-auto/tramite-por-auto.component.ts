@@ -25,7 +25,6 @@ export class TramitePorAutoComponent implements OnInit {
       response=>{
         if(response['status']=='success'){
           this.tramites = response['data'];
-          console.log(this.tramites);
         }
       },
       error=>{
