@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../services/home.service';
 import { Router } from '@angular/router';
-import { from } from 'rxjs';
+// import { Observable } from 'rxjs';
 import swal from 'sweetalert2';
 
 @Component({
