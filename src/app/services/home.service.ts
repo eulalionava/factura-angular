@@ -41,4 +41,5 @@ export class HomeService{
     let headers = new  HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url+'home/proveedores',{headers: headers});
   }
+
 }

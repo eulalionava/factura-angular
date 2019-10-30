@@ -22,11 +22,29 @@
   <app-root></app-root>
 </body>
 <script type="text/javascript">
+  var idleTime=0;
   $(document).ready(function () {
       $('#sidebarCollapse').on('click', function () {
           $('#sidebar').toggleClass('active');
           $(this).toggleClass('active');
       });
+
+      init();
+      //FUNCION QUE DETECTA LA INACTIVIDAD
+      function init(){
+        var mover = false;
+        $("body").mousemove(function(){
+          mover = true;
+        });
+        setInterval(function(){
+          if(!mover){
+            localStorage.clear();
+            window.location.href = 'login';
+          }else{
+            mover = false;
+          }
+        },300000);
+      }
   });
 </script>
 </html>
