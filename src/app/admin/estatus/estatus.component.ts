@@ -13,15 +13,13 @@ export class EstatusComponent implements OnInit {
   public totales:any;
   public tramites:any;
   public cargando:boolean;
+  pageNum:number=1;
 
   constructor(
     private _router:Router,
     private _service:AdminService
   ){
     this.cargando = true;
-    if(! localStorage.getItem('admin')){
-      this._router.navigate(['login']);
-    }
   }
 
   ngOnInit() {

@@ -17,9 +17,6 @@ export class AutorizacionComponent implements OnInit {
     private _service:AutorizaService
   ) {
     this.cargando = true;
-    if(!localStorage.getItem('autorizacion')){
-      this._router.navigate(['login']);
-    }
    }
 
   ngOnInit() {

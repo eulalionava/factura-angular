@@ -1,6 +1,8 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { UserGuard } from './services/user.guard';
+
 //Componentes
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
@@ -18,18 +20,18 @@ import { DetalleAdminComponent } from './admin/detalle-admin/detalle-admin.compo
 //Rutas
 const appRoutes:Routes = [
   {path:'', component:LoginComponent},
-  {path:'login/:folio' , component:LoginComponent},
-  {path:'home'  , component:HomeComponent},
-  {path:'cargar', component:CargandoComponent},
-  {path:'tramite', component:TramiteComponent},
-  {path:'tramiteAutorizacion', component:TramitePorAutoComponent},
-  {path:'detalle/:folio', component:DetalleComponent},
-  {path:'autorizacion', component:AutorizacionComponent},
-  {path:'autoriza/:clave', component:LoadAutorizaComponent},
-  {path:'administrador', component:AdministradorComponent},
-  {path:'estatus', component:EstatusComponent},
-  {path:'password', component:PasswordComponent},
-  {path:'detalle-admin/:folio', component:DetalleAdminComponent},
+  {path:'login' , component:LoginComponent},
+  {path:'home'  , component:HomeComponent,canActivate:[UserGuard]},
+  {path:'cargar', component:CargandoComponent,canActivate:[UserGuard]},
+  {path:'tramite', component:TramiteComponent,canActivate:[UserGuard]},
+  {path:'tramiteAutorizacion', component:TramitePorAutoComponent,canActivate:[UserGuard]},
+  {path:'detalle/:folio', component:DetalleComponent,canActivate:[UserGuard]},
+  {path:'autorizacion', component:AutorizacionComponent,canActivate:[UserGuard]},
+  {path:'autoriza/:clave', component:LoadAutorizaComponent,canActivate:[UserGuard]},
+  {path:'administrador', component:AdministradorComponent,canActivate:[UserGuard]},
+  {path:'estatus', component:EstatusComponent,canActivate:[UserGuard]},
+  {path:'password', component:PasswordComponent,canActivate:[UserGuard]},
+  {path:'detalle-admin/:folio', component:DetalleAdminComponent,canActivate:[UserGuard]},
 
   {path:'**', component:LoginComponent}
 

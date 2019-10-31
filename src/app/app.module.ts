@@ -10,6 +10,9 @@ import { LoginComponent } from './components/login/login.component';
 import { HeaderComponent } from './estructura/header/header.component';
 import { BodyComponent } from './estructura/body/body.component';
 import { HomeComponent } from './components/home/home.component';
+//Servicios
+import { UserService } from './services/user.service';
+import { UserGuard } from './services/user.guard';
 
 //Pipes
 import { FiltroXempresa } from './pipes/filtroXempresa.pipe';
@@ -24,6 +27,7 @@ import { AdministradorComponent } from './admin/administrador/administrador.comp
 import { EstatusComponent } from './admin/estatus/estatus.component';
 import { PasswordComponent } from './components/password/password.component';
 import { DetalleAdminComponent } from './admin/detalle-admin/detalle-admin.component';
+
 
 
 @NgModule({
@@ -53,7 +57,11 @@ import { DetalleAdminComponent } from './admin/detalle-admin/detalle-admin.compo
     HttpClientModule,
     NgxPaginationModule
   ],
-  providers: [appRoutingProviders],
+  providers: [
+    appRoutingProviders,
+    UserGuard,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

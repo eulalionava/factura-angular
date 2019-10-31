@@ -52,6 +52,7 @@ export class DetalleComponent implements OnInit {
     )
   }
 
+  //Lista las prefacturas
   verprefacturas(){
     let folio = this._route.snapshot.paramMap.get('folio');
     this._service.getPrefacturas(folio).subscribe(

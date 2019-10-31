@@ -22,6 +22,7 @@ export class DetalleAdminComponent implements OnInit {
     this.verfactura();
   }
 
+
   verfactura(){
     let folioFiscal = this._route.snapshot.paramMap.get('folio');
     this.cargando =  true;

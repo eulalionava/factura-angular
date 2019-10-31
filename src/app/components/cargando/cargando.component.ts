@@ -53,11 +53,6 @@ export class CargandoComponent implements OnInit {
     this.totalPre = this.claves.length;
     this.verprefacturas();
     this.funcionamientoAPPI();
-
-    if(! localStorage.getItem('sesion')){
-      this._router.navigate(['login']);
-    }
-
   }
 
   //METODO QUE VERIFICA SI ACTIVA O DESACTIVA LA VALIDACION MEDIANTE APPI REST
@@ -136,8 +131,8 @@ export class CargandoComponent implements OnInit {
     if(this.files.namexml != '' && this.files.namepdf != ''){
       if(this.appi == 'success'){
         this.cargando = true;
-        //Servicio validado por la appi rest
-        this._service.validadDoc(this.files,this.totalPre).subscribe(
+        // Servicio validado por la appi rest
+        this._service.validadDoc(this.files,this.total).subscribe(
           response=>{
             this.cargando = false;
             if(response['status']=='success'){
@@ -158,7 +153,7 @@ export class CargandoComponent implements OnInit {
       }else{
         // Servicio de appi inactivo
         this.cargando = true;
-        this._service.validadSinAppi(this.files).subscribe(
+        this._service.validadSinAppi(this.files,this.total).subscribe(
           response=>{
             this.cargando = false;
             if(response['status']=="success"){
@@ -286,7 +281,6 @@ export class CargandoComponent implements OnInit {
   verprefacturas(){
     this._service.getPrefacturaSeleccionadas(this.claves).subscribe(
       response=>{
-        console.log(response);
         this.prefacturas = response['data'];
         //recorremos los datos
         for(let i=0; i < response['data'].length; i++){

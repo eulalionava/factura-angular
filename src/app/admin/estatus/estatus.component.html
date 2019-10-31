@@ -32,7 +32,7 @@
               <th>Estatus</th>
             </tr>
           </thead>
-          <tbody *ngFor="let tramite of tramites">
+          <tbody *ngFor="let tramite of tramites |  paginate: {itemsPerPage:10,currentPage:pageNum}">
             <tr>
               <td>{{tramite['Folio_fiscal']}}</td>
               <td>{{tramite.SubTotal}}</td>
@@ -51,6 +51,7 @@
             </tr>
           </tbody>
         </table>
+        <pagination-controls (pageChange)="pageNum = $event"></pagination-controls>
       </div>
     </div>
   </div>

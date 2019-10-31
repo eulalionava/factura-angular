@@ -10,6 +10,8 @@ import { TramiteService } from '../../services/tramite.service';
 export class TramiteComponent implements OnInit {
   public tramites:any=[];
   public cargando:boolean;
+  //Numero de paginas
+  pageNum:number=1;
 
   constructor(
     private _router:Router,

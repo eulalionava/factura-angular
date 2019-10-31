@@ -22,9 +22,6 @@ export class AdministradorComponent implements OnInit {
     private _service:AdminService
   ){
     this.cargando = true;
-    if(! localStorage.getItem('admin')){
-      this._router.navigate(['login']);
-    }
   }
 
   ngOnInit() {

@@ -30,12 +30,6 @@ export class HomeComponent implements OnInit {
     private _router:Router
   ){
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
-
-    //Verifica si existe la sesion
-    if(! localStorage.getItem('sesion')){
-      this._router.navigate(['login']);
-    }
-
   }
 
   ngOnInit() {
