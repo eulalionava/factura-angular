@@ -13,7 +13,7 @@ export class EstatusComponent implements OnInit {
   public totales:any;
   public tramites:any;
   public cargando:boolean;
-  pageNum:number=1;
+  pageNum:number = 1;
 
   constructor(
     private _router:Router,

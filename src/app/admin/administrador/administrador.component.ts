@@ -12,6 +12,7 @@ export class AdministradorComponent implements OnInit {
   public listas:any;
   public cargando:boolean;
   public eliminar:boolean;
+  pageNum:number = 1;
 
   form = {
     motivo:null

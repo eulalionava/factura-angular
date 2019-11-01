@@ -22,7 +22,7 @@
                 <th>Estatus</th>
               </tr>
             </thead>
-            <tbody *ngFor="let lista of listas">
+            <tbody *ngFor="let lista of listas |  paginate: {itemsPerPage:10,currentPage:pageNum}">
               <tr>
                 <td>{{lista.Folio_fiscal}}</td>
                 <td>{{lista.Importe}}</td>
@@ -76,7 +76,7 @@
               </div>
             </tbody>
           </table>
-
+          <pagination-controls (pageChange)="pageNum = $event"></pagination-controls>
         </div>
     </div>
     <div *ngIf="listas == '' ">
