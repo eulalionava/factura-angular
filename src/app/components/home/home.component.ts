@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
     private _router:Router
   ){
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
+    console.log(this.usuario);
   }
 
   ngOnInit() {

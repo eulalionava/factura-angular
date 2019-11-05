@@ -17,15 +17,6 @@
     </div>
     <hr>
     <div class="row">
-      <div class="col-md-2">
-        <select name="" class="form-control" [(ngModel)]="cantidad">
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="200">200</option>
-        </select>
-      </div>
       <div class="col-md-4">
         <select name="" class="form-control" [(ngModel)]="porempresa">
           <option value="0">Seleccionar por empresa</option>
@@ -45,38 +36,39 @@
     <div *ngIf="facturas == ''">
       <div class="alert alert-danger">No tiene prefacturas este proveedor</div>
     </div>
-    <div *ngIf="facturas != '' ">
-      <table class="table">
-        <thead>
-          <tr>
-            <th><input type="checkbox" name="all" (click)="selectAll($event)"></th>
-            <th>Prefactura</th>
-            <th>Folio</th>
-            <th>Empresa</th>
-            <th>A cargo de</th>
-            <th>Lesionado</th>
-            <th>Fecha</th>
-            <th>Importe antes de impuesto</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let factura of facturas | paginate: {itemsPerPage:cantidad,currentPage:pageNum} | filtraEmpresa:porempresa | filtraCampos:busqueda">
-          <tr>
-            <td>
-                <input type="checkbox" name="options" value="{{factura.Doc_clave}}"
-                [(ngModel)]="factura.checked" (change)=seleccionado(aseg,$event)>
-            </td>
-            <td>{{factura.Doc_serie}}_{{factura.Doc_clave}}</td>
-            <td>{{factura.REG_folio}}</td>
-            <td>{{factura.ASE_nomCorto}}</td>
-            <td>{{factura.ASE_razonSocial}}</td>
-            <td>{{factura.REG_nombrecompleto}}</td>
-            <td>{{factura.Doc_fecreg}}</td>
-            <td>$ {{factura.Doc_importe}} </td>
-          </tr>
-        </tbody>
-      </table>
-      <pagination-controls (pageChange)="pageNum = $event"></pagination-controls>
+    <div style="height: 500px;">
+      <div *ngIf="facturas != '' " style="height: 500px; overflow: auto;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th><input type="checkbox" name="all" (click)="selectAll($event)"></th>
+              <th>Prefactura</th>
+              <th>Folio</th>
+              <th>Empresa</th>
+              <th>A cargo de</th>
+              <th>Lesionado</th>
+              <th>Fecha</th>
+              <th>Importe antes de impuesto</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let factura of facturas | filtraEmpresa:porempresa | filtraCampos:busqueda">
+            <tr>
+              <td>
+                  <input type="checkbox" name="options" value="{{factura.Doc_clave}}"
+                  [(ngModel)]="factura.checked" (change)=seleccionado(aseg,$event)>
+              </td>
+              <td>{{factura.Doc_serie}}_{{factura.Doc_clave}}</td>
+              <td>{{factura.REG_folio}}</td>
+              <td>{{factura.ASE_nomCorto}}</td>
+              <td>{{factura.ASE_razonSocial}}</td>
+              <td>{{factura.REG_nombrecompleto}}</td>
+              <td>{{factura.Doc_fecreg}}</td>
+              <td>$ {{factura.Doc_importe}} </td>
+            </tr>
+          </tbody>
+        </table>
 
+      </div>
       <input type="button" class="btn btn-success" (click)="verifica()" value="Siguiente paso">
     </div>
 

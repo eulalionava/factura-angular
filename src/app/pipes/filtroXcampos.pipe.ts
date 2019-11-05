@@ -25,6 +25,8 @@ export class FiltroXcampos implements PipeTransform {
       }
       else if(post.Doc_fecreg.indexOf(arg) > -1){
         resultado.push(post);
+      }else if(post.Doc_clave.indexOf(arg) > -1){
+        resultado.push(post);
       }
     }
     return resultado;
