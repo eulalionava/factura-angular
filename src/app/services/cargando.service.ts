@@ -48,8 +48,14 @@ export class CargandoService{
   }
 
   //Servicio que valida los documentos
-  validadDoc(docs,importeTotal){
-    let json = JSON.stringify({info:docs,importe:importeTotal});
+  validadDoc(docs,importeTotal,misma){
+    let claves = JSON.parse(localStorage.getItem('claves'));
+    let json = JSON.stringify({
+      info:docs,
+      importe:importeTotal,
+      claves:claves,
+      mismaComp:misma
+    });
     let params = 'json='+json;
     let headers = new HttpHeaders();
 
@@ -59,7 +65,11 @@ export class CargandoService{
 
   //Servicio que valida con la appi inactiva
   validadSinAppi(docs,importeTotal){
-    let json = JSON.stringify({info:docs,importe:importeTotal});
+    let json = JSON.stringify({
+      info:docs,
+      importe:importeTotal
+    });
+
     let params = 'json='+json;
     let headers = new HttpHeaders();
 
@@ -94,6 +104,17 @@ export class CargandoService{
   //Enviar correo en caso del fallo de la appi
   sendEmail(){
     return this._http.get(this.url_correo);
+  }
+
+  //VALIDA QUE PERTENESCAN A LA MIS COMPANIA
+  mismaCompania(){
+    let claves = JSON.parse(localStorage.getItem('claves'));
+    let json = JSON.stringify({claves:claves});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'cargando/mismaCompania',params,{headers: headers});
   }
 
 

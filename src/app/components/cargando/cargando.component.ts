@@ -19,6 +19,7 @@ export class CargandoComponent implements OnInit {
   public pdf:any;
   public tipoRadio:string;
   public appi:string='';
+  public mismaComp:boolean;
 
   claves      = [];
   usuario     = [];
@@ -53,6 +54,7 @@ export class CargandoComponent implements OnInit {
     this.totalPre = this.claves.length;
     this.verprefacturas();
     this.funcionamientoAPPI();
+    this.unaCompania();
   }
 
   //METODO QUE VERIFICA SI ACTIVA O DESACTIVA LA VALIDACION MEDIANTE APPI REST
@@ -132,7 +134,7 @@ export class CargandoComponent implements OnInit {
       if(this.appi == 'success'){
         this.cargando = true;
         // Servicio validado por la appi rest
-        this._service.validadDoc(this.files,this.total).subscribe(
+        this._service.validadDoc(this.files,this.total,this.mismaComp).subscribe(
           response=>{
             this.cargando = false;
             if(response['status']=='success'){
@@ -153,7 +155,7 @@ export class CargandoComponent implements OnInit {
       }else{
         // Servicio de appi inactivo
         this.cargando = true;
-        this._service.validadSinAppi(this.files,this.total).subscribe(
+        this._service.validadSinAppi(this.files,this.total,this.mismaComp).subscribe(
           response=>{
             this.cargando = false;
             if(response['status']=="success"){
@@ -290,6 +292,22 @@ export class CargandoComponent implements OnInit {
         }
       },
       error=>{
+        console.log(<any>error);
+      }
+    )
+  }
+
+  //SOLO UNA COMPANIA
+  unaCompania(){
+    this._service.mismaCompania().subscribe(
+      response =>{
+        if(response['status'] == "success"){
+          this.mismaComp = true;
+        }else{
+          this.mismaComp = false;
+        }
+      },
+      error =>{
         console.log(<any>error);
       }
     )
