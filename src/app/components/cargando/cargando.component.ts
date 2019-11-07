@@ -20,6 +20,7 @@ export class CargandoComponent implements OnInit {
   public tipoRadio:string;
   public appi:string='';
   public mismaComp:boolean;
+  public Ncompania:number;
 
   claves      = [];
   usuario     = [];
@@ -46,6 +47,7 @@ export class CargandoComponent implements OnInit {
     this.validado = false;
     this.quitar   = false;
     this.tipoRadio = 'activo';
+    this.Ncompania  = 0;
    }
 
   ngOnInit() {
@@ -134,8 +136,9 @@ export class CargandoComponent implements OnInit {
       if(this.appi == 'success'){
         this.cargando = true;
         // Servicio validado por la appi rest
-        this._service.validadDoc(this.files,this.total,this.mismaComp).subscribe(
+        this._service.validadDoc(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
           response=>{
+            console.log(response);
             this.cargando = false;
             if(response['status']=='success'){
               this.validado = true;
@@ -303,6 +306,7 @@ export class CargandoComponent implements OnInit {
       response =>{
         if(response['status'] == "success"){
           this.mismaComp = true;
+          this.Ncompania = response['compania'];
         }else{
           this.mismaComp = false;
         }

@@ -48,14 +48,16 @@ export class CargandoService{
   }
 
   //Servicio que valida los documentos
-  validadDoc(docs,importeTotal,misma){
+  validadDoc(docs,importeTotal,misma,compania){
     let claves = JSON.parse(localStorage.getItem('claves'));
     let json = JSON.stringify({
       info:docs,
       importe:importeTotal,
       claves:claves,
-      mismaComp:misma
+      mismaComp:misma,
+      compania:compania
     });
+
     let params = 'json='+json;
     let headers = new HttpHeaders();
 
@@ -64,10 +66,11 @@ export class CargandoService{
   }
 
   //Servicio que valida con la appi inactiva
-  validadSinAppi(docs,importeTotal){
+  validadSinAppi(docs,importeTotal,misma){
     let json = JSON.stringify({
       info:docs,
-      importe:importeTotal
+      importe:importeTotal,
+      mismaComp:misma
     });
 
     let params = 'json='+json;
