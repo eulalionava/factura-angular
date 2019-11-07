@@ -158,7 +158,7 @@ export class CargandoComponent implements OnInit {
       }else{
         // Servicio de appi inactivo
         this.cargando = true;
-        this._service.validadSinAppi(this.files,this.total,this.mismaComp).subscribe(
+        this._service.validadSinAppi(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
           response=>{
             this.cargando = false;
             if(response['status']=="success"){

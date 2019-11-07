@@ -66,11 +66,12 @@ export class CargandoService{
   }
 
   //Servicio que valida con la appi inactiva
-  validadSinAppi(docs,importeTotal,misma){
+  validadSinAppi(docs,importeTotal,misma,compania){
     let json = JSON.stringify({
       info:docs,
       importe:importeTotal,
-      mismaComp:misma
+      mismaComp:misma,
+      compania:compania
     });
 
     let params = 'json='+json;
