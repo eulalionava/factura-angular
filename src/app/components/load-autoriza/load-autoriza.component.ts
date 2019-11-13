@@ -112,6 +112,7 @@ export class LoadAutorizaComponent implements OnInit {
 
     this._cargandoService.crearDirectorios(anio[0],anio[1],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
       response=>{
+        console.log(response);
         this._service.insertTramite(datos,this.appi).subscribe(
           response=>{
             console.log(response);

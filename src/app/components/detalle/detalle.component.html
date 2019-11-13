@@ -30,7 +30,7 @@
                 <td>Fecha trámite</td><td>{{tramite.Fecha_emision}}</td>
               </tr>
               <tr>
-                <td>Importe</td><td>{{tramite.Importe}}</td>
+                <td>Importe</td><td>{{tramite.Importe | currency}}</td>
               </tr>
               <tr>
                 <td>Tipo</td>
@@ -82,7 +82,7 @@
                     <td>{{pref.Doc_clave}}</td>
                     <td>{{pref.REG_folio}}</td>
                     <td>{{pref.Doc_fecreg}}</td>
-                    <td>$ {{pref.Doc_importe}}</td>
+                    <td>{{pref.Doc_importe | currency}}</td>
                     <td>
                         <input type="button" value="Ver" class="btn btn-info btn-sm" (click)="archivo(pref.Doc_clave)">
                     </td>

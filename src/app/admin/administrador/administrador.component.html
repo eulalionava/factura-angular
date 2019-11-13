@@ -25,9 +25,9 @@
             <tbody *ngFor="let lista of listas |  paginate: {itemsPerPage:10,currentPage:pageNum}">
               <tr>
                 <td>{{lista.Folio_fiscal}}</td>
-                <td>{{lista.Importe}}</td>
-                <td>{{lista.Importe}}</td>
-                <td>{{lista.Total}}</td>
+                <td>{{lista.Importe | currency}}</td>
+                <td>{{lista.Iva | currency}}</td>
+                <td>{{lista.Total | currency}}</td>
                 <td>{{lista.Fecha_emision}}</td>
                 <td>{{lista.fechaTramite}}</td>
                 <td>{{lista.MetodoPago}}</td>
@@ -37,9 +37,9 @@
                     <a [routerLink]="['/detalle-admin',lista.Folio_fiscal]">
                         <input type="button" value="Ver" class="btn btn-info btn-sm">
                     </a>
-                    <a href="#mymodal{{lista.Folio_fiscal}}" role="button" class="btn btn-danger btn-sm" data-toggle="modal">
+                   <!-- <a href="#mymodal{{lista.Folio_fiscal}}" role="button" class="btn btn-danger btn-sm" data-toggle="modal">
                       Cancelar
-                    </a>
+                    </a> -->
                   </div>
                 </td>
               </tr>
