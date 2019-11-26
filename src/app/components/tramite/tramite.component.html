@@ -9,33 +9,35 @@
     <div *ngIf="tramites == '' ">
       <div class="alert alert-danger">No hay tramites</div>
     </div>
-    <table class="table" *ngIf="tramites != '' ">
-      <thead>
-        <tr>
-          <th>Folio fiscal</th>
-          <th>RFC(emisor)</th>
-          <th>RFC(receptor)</th>
-          <th>Fecha emision</th>
-          <th>Importe</th>
-          <th>Estatus</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let tramite of tramites | paginate: {itemsPerPage:10,currentPage:pageNum}">
-        <tr>
-          <td>{{tramite.Folio_fiscal}}</td>
-          <td>{{tramite.Emisor}}</td>
-          <td>{{tramite.Receptor}}</td>
-          <td>{{tramite.Fecha_emision}}</td>
-          <td>{{tramite.Importe | currency }}</td>
-          <td>Enviado</td>
-          <td>
-            <a [routerLink]="['/detalle',tramite.Folio_fiscal]">
-              <input type="button" value="detalle" class="btn btn-info btn-sm">
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <pagination-controls (pageChange)="pageNum = $event"></pagination-controls>
+    <div class="table-responsive">
+      <table class="table" *ngIf="tramites != '' ">
+        <thead>
+          <tr>
+            <th>Folio fiscal</th>
+            <th>RFC(emisor)</th>
+            <th>RFC(receptor)</th>
+            <th>Fecha emision</th>
+            <th>Importe</th>
+            <th>Estatus</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let tramite of tramites | paginate: {itemsPerPage:10,currentPage:pageNum}">
+          <tr>
+            <td>{{tramite.Folio_fiscal}}</td>
+            <td>{{tramite.Emisor}}</td>
+            <td>{{tramite.Receptor}}</td>
+            <td>{{tramite.Fecha_emision}}</td>
+            <td>{{tramite.Importe | currency }}</td>
+            <td>Enviado</td>
+            <td>
+              <a [routerLink]="['/detalle',tramite.Folio_fiscal]">
+                <input type="button" value="detalle" class="btn btn-info btn-sm">
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls (pageChange)="pageNum = $event"></pagination-controls>
+    </div>
   </div>
 </div>

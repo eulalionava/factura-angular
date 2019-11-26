@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit {
     if(this.cont != 0){
       this._router.navigate(['cargar']);
     }else{
-      swal.fire('Debes seleccionar tus prefacturas','','info');
+      swal.fire('Debes seleccionar tus prefacturas','','error');
     }
   }
   //SELECCIONAR TODOS LOS CHECK

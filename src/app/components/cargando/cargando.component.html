@@ -3,7 +3,6 @@
     <h6>Prefacturas que se relaciona con tu (CFDI)</h6>
   </div>
   <div class="card-body">
-
     <!-- <div class="card" *ngIf="appi == 'error' ">
       <div class="card-header">
         Servicio de APPI
@@ -64,7 +63,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <div class="responsive">
+            <div class="table-responsive">
               <table class="table">
                 <thead>
                   <tr>
@@ -114,13 +113,13 @@
     <div class="col-md-6">
       <div class="form-group">
         <label for="">Archivo xml</label>
-        <input type="file" id="xml" class="btn btn-outline-secondary" [(ngModel)]="xml" (change)="cargarxml($event.target.files)" multiple required>
+        <input type="file" id="xml" style="width:250px;" class="btn btn-outline-secondary" [(ngModel)]="xml" (change)="cargarxml($event.target.files)" multiple required>
       </div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
           <label for="">Archivo PDF</label>
-          <input type="file" id="pdf"  class="btn btn-outline-secondary" [(ngModel)]="pdf" (change)="cargarpdf($event.target.files)" multiple required >
+          <input type="file" id="pdf" style="width:250px;" class="btn btn-outline-secondary" [(ngModel)]="pdf" (change)="cargarpdf($event.target.files)" multiple required >
         </div>
     </div>
   </div>

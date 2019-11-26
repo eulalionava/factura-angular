@@ -138,7 +138,6 @@ export class CargandoComponent implements OnInit {
         // Servicio validado por la appi rest
         this._service.validadDoc(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
           response=>{
-            console.log(response);
             this.cargando = false;
             if(response['status']=='success'){
               this.validado = true;

@@ -35,9 +35,9 @@
           <tbody *ngFor="let tramite of tramites |  paginate: {itemsPerPage:10,currentPage:pageNum}">
             <tr>
               <td>{{tramite['Folio_fiscal']}}</td>
-              <td>{{tramite.SubTotal}}</td>
-              <td>{{tramite.Total}}</td>
-              <td>{{tramite.Importe}}</td>
+              <td>{{tramite.SubTotal | currency}}</td>
+              <td>{{tramite.Total | currency}}</td>
+              <td>{{tramite.Importe | currency}}</td>
               <td>{{tramite.fechaTramite}}</td>
               <td>{{tramite.statusTramite_desc}}</td>
               <td *ngIf="tramite.idPUStatusTramite == 3 || tramite.idPUStatusTramite == 4">

@@ -5,6 +5,7 @@ import { TramiteService } from '../../services/tramite.service';
 @Component({
   selector: 'app-detalle',
   templateUrl: './detalle.component.html',
+  styleUrls:['./detalle.component.css'],
   providers:[TramiteService]
 })
 export class DetalleComponent implements OnInit {

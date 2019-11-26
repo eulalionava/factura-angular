@@ -17,9 +17,7 @@
             </div>
           </div>
           <div class="card-body">
-            <b>Datos Generales</b>
-            <hr>
-            <table class="table">
+            <table class="table detalle">
               <tr>
                 <td>Folio fiscal</td><td>{{tramite.Folio_fiscal}}</td>
               </tr>
@@ -40,11 +38,8 @@
                 <td>Estatus</td><td>{{tramite.status}}</td>
               </tr>
             </table>
-            <hr>
-            <b>Datos Emisor</b>
-            <hr>
-
-            <table class="table">
+            Datos Emisor
+            <table class="table detalle">
               <tr>
                 <td>Emisor</td><td>{{tramite.Emisor}}</td>
               </tr>
@@ -52,10 +47,8 @@
                 <td>RFC</td><td>{{tramite.E_rfc}}</td>
               </tr>
             </table>
-            <hr>
-            <b>Datos Receptor</b>
-            <hr>
-            <table class="table">
+            Datos Receptor
+            <table class="table detalle">
               <tr>
                 <td>Receptor</td><td>{{tramite.Receptor}}</td>
               </tr>
@@ -63,33 +56,6 @@
                 <td>RFC</td><td>{{tramite.R_rfc}}</td>
               </tr>
             </table>
-            <hr>
-            <b>Listado de prefacturas relacionadas con el tramite</b>
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>N.</th>
-                    <th>Prefactura</th>
-                    <th>Folio</th>
-                    <th>Fecha</th>
-                    <th>Importe</th>
-                  </tr>
-                </thead>
-                <tbody *ngFor="let pref of prefacturas;let i=index">
-                  <tr>
-                    <td>{{i+1}}</td>
-                    <td>{{pref.Doc_clave}}</td>
-                    <td>{{pref.REG_folio}}</td>
-                    <td>{{pref.Doc_fecreg}}</td>
-                    <td>{{pref.Doc_importe | currency}}</td>
-                    <td>
-                        <input type="button" value="Ver" class="btn btn-info btn-sm" (click)="archivo(pref.Doc_clave)">
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
       </div>
@@ -109,8 +75,77 @@
             ver
           </a>
         </div>
+        <div class="card">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                Listado de prefacturas
+            </button>
+        </div>
       </div>
 
     </div>
   </div>
 </div>
+
+ <!-- The Modal -->
+ <div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Listado de prefacturas relacionadas con el tramite</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>N.</th>
+                  <th>Prefactura</th>
+                  <th>Folio</th>
+                  <th>Fecha</th>
+                  <th>Importe</th>
+                  <th>EnviadoPago</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let pref of prefacturas;let i=index">
+                <tr>
+                  <td>{{i+1}}</td>
+                  <td>{{pref.Doc_clave}}</td>
+                  <td>{{pref.REG_folio}}</td>
+                  <td>{{pref.Doc_fecreg}}</td>
+                  <td>{{pref.Doc_importe | currency}}</td>
+                  <td *ngIf="pref.Doc_tipoAdmin != 'T' || pref.Doc_cobroMv != 'S' || pref.Doc_facturaMv != ''; else noEnviado ">
+                    <div class="fa-x">
+                      <i class="fa fa-check-square"></i>
+                    </div>
+                  </td>
+                  <ng-template #noEnviado>
+                    <td>
+                      <div class="fa-x">
+                        <i class="fa fa-times"></i>
+                      </div>
+                    </td>
+                  </ng-template>
+                  <td>
+                      <input type="button" value="Ver" class="btn btn-info btn-sm" (click)="archivo(pref.Doc_clave)">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" *ngIf="quitar" (click)="eliminar()">Quitar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<!-- Fin modal -->
