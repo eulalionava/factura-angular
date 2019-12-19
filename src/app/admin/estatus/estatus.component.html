@@ -1,17 +1,19 @@
 <div class="row">
 <div class="col-md-3">
   <div class="card">
-    <div class="card-body">
+    <div class="card-body" style="background: #eaf0f3;">
       <div class="fa-3x" *ngIf="cargando">
           <i class="fas fa-spinner fa-pulse"></i>
       </div>
-      <div class="card" *ngFor="let tipo of tipos" style="margin-top: 10px;" (click)="detalle(tipo.idPUStatusTramite)">
-        <div class="card-header bg-primary">
-          {{tipo.statusTramite_desc}}
-        </div>
-        <div class="card-body">
-          <h4>{{totales[tipo.idPUStatusTramite]}}</h4>
-        </div>
+      <p class="font-weight-light">Estatus trámite</p>
+      <hr>
+      <div *ngFor="let tipo of tipos" style="margin-top: 10px;" (click)="detalle(tipo.idPUStatusTramite)">
+          <a class="btn btn-outline-primary btn-block text-black text-left" id="texto">
+            {{tipo.statusTramite_desc}}
+            <span class="badge badge-{{tipo.color}} float-right">
+                {{totales[tipo.idPUStatusTramite]}}
+            </span>
+          </a>
       </div>
     </div>
   </div>
@@ -21,7 +23,7 @@
   <div class="card" >
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table">
+        <table class="table table-sm">
           <thead>
             <tr>
               <th>Folio fiscal</th>

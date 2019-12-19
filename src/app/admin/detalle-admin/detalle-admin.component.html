@@ -6,8 +6,8 @@
           <input type="button" value="Regresar" class="btn btn-info">
         </a>
       </div>
-      <div class="col-lg-6">
-          <h5>Detalle del tramite</h5>
+      <div class="col-lg-6 text-white">
+          <h5>Detalle del trámite</h5>
       </div>
     </div>
     </div>
@@ -56,7 +56,7 @@
       <hr>
         <h5>Prefacturas relacionadas</h5>
       <hr>
-      <table class="table">
+      <table class="table table-sm">
         <thead>
           <tr>
             <th>N.</th>
@@ -85,10 +85,10 @@
               </div>
             </td>
             <td >
-              <div class="fa-1x" *ngIf="prefactura['Doc_cobradoUni'] == null ">
+              <div class="fa-1x" *ngIf="prefactura['Doc_cobroMv'] == '' ">
                 <i class="fa fa-times"></i>
               </div>
-              <div class="fa-1x" *ngIf="prefactura['Doc_cobradoUni'] != null ">
+              <div class="fa-1x" *ngIf="prefactura['Doc_cobroMv'] != '' ">
                 <i class="fa fa-check-square"></i>
               </div>
             </td>

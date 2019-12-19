@@ -62,6 +62,7 @@ export class AdminService{
     return this._http.post(this.url+'admin/cancelar-factura', params,{headers: headers});
   }
 
+  //SERVICIO PARA DAR VISTO BUENO.
   vistobueno(folio){
     let json = JSON.stringify({folio:folio});
 

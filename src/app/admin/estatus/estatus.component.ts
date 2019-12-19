@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 @Component({
   selector: 'app-estatus',
   templateUrl: './estatus.component.html',
+  styleUrls:['./estatus.component.css'],
   providers:[AdminService]
 })
 export class EstatusComponent implements OnInit {
@@ -40,6 +41,7 @@ export class EstatusComponent implements OnInit {
   estatus(){
     this._service.estatus().subscribe(
       response=>{
+        console.log(response);
         this.cargando = false;
         this.tipos = response['estatus'];
         this.totales = response['totales'];
@@ -51,6 +53,7 @@ export class EstatusComponent implements OnInit {
     )
   }
 
+  //Funcion que se encargar de dar el visto bueno.
   vobo(foliofiscal){
     this._service.vistobueno(foliofiscal).subscribe(
       response=>{
