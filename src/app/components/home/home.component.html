@@ -1,24 +1,25 @@
 <div class="card" >
-  <div class="card-header bg-primary">
+  <div class="card-header bg-primary text-white">
       Selecciona las prefacturas sobre las que subiras tus CFDI
   </div>
   <div class="card-body">
     <div class="row">
       <div class="col-md-3">
         <div class="alert alert-info">
-          Seleccionadas: {{cont}}
+          Seleccionadas:
+          <span class="badge badge-success">{{cont}}</span>
         </div>
       </div>
       <div class="col-md-6">
         <div class="alert alert-info">
-          Suma antes de impuestos:  {{importe | currency }}
+          Suma antes de impuestos:
+          <span class="badge badge-success">{{importe | currency }}</span>
         </div>
       </div>
     </div>
-    <hr>
     <div class="row">
       <div class="col-md-4">
-        <select name="" class="form-control" [(ngModel)]="porempresa">
+        <select name="" class="form-control form-control-sm" [(ngModel)]="porempresa">
           <option value="0">Seleccionar por empresa</option>
           <option *ngFor="let prove of provedores">
             {{prove.ASE_nomCorto}}
@@ -26,10 +27,10 @@
         </select>
       </div>
       <div class="col-md-6">
-        <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="busqueda">
+        <input type="text" class="form-control form-control-sm" placeholder="Buscar" [(ngModel)]="busqueda">
       </div>
     </div>
-    <hr>
+
     <div class="form-group">
       <img src="../../../assets/cargando.gif" alt="Imagen" width="100" *ngIf="cargando">
     </div>
@@ -38,7 +39,7 @@
     </div>
     <div style="height: 500px;">
       <div *ngIf="facturas != '' " style="height: 500px; overflow: auto;">
-        <table class="table table-sm">
+        <table class="table table-sm table-hover">
           <thead>
             <tr>
               <th><input type="checkbox" name="all" (click)="selectAll($event)"></th>
@@ -69,7 +70,7 @@
         </table>
 
       </div>
-      <input type="button" class="btn btn-success" (click)="verifica()" value="Siguiente paso">
+      <input type="button" class="btn btn-success btn-sm" (click)="verifica()" value="Siguiente paso">
     </div>
 
   </div>

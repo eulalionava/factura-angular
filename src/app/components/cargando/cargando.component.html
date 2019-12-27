@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header bg-primary">
+  <div class="card-header bg-primary text-white">
     <h6>Prefacturas que se relaciona con tu (CFDI)</h6>
   </div>
   <div class="card-body">
@@ -23,9 +23,7 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-header">
-            Prefacturas Selecionadas
-          </div>
-          <div class="card-body">
+            Prefacturas Selecionadas:
             <h2>{{totalPre}}</h2>
           </div>
         </div>
@@ -34,9 +32,7 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-header">
-            Total de Importe
-          </div>
-          <div class="card-body">
+            Total de Importe:
             <h2>{{total | currency }}</h2>
           </div>
         </div>
@@ -46,80 +42,55 @@
     <br>
 
   <!-- Modal -->
-    <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#myModal">
-        Ver prefacturas
-    </button>
+    <div style="height: 100px;">
+      <div *ngIf="facturas != '' " style="height: 100px; overflow: auto;">
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <td>Prefactura</td>
+              <td>Lesionado</td>
+              <td>Folio</td>
+              <td>Fecha</td>
+              <td>Importe antes de impuesto</td>
+            </tr>
+          </thead>
+          <tbody *ngFor="let factura of prefacturas">
+            <tr>
+              <td>{{factura[0].Doc_serie}}_{{factura[0].Doc_clave}}</td>
+              <td>{{factura[0].REG_nombrecompleto}}</td>
+              <td>{{factura[0].REG_folio}}</td>
+              <td>{{factura[0].Doc_fecreg}}</td>
+              <td>{{factura[0].Doc_importe}}</td>
+              <td>
+                <input type="checkbox" name="check" class="checkbox" value="{{factura[0].Doc_clave}}"
+                [(ngModel)]="factura.checked" (click)="seleccion($event)">
+              </td>
+            </tr>
+          </tbody>
+          <button type="button" class="btn btn-danger btn-sm" *ngIf="quitar" (click)="eliminar()">Quitar</button>
+        </table>
 
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Prefacturas seleccionadas</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Prefactura</th>
-                    <th>Lesionado</th>
-                    <th>Folio</th>
-                    <th>Fecha</th>
-                    <th>Importe antes de impuesto</th>
-                  </tr>
-                </thead>
-                <tbody *ngFor="let factura of prefacturas">
-                  <tr>
-                    <td>{{factura[0].Doc_serie}}_{{factura[0].Doc_clave}}</td>
-                    <td>{{factura[0].REG_nombrecompleto}}</td>
-                    <td>{{factura[0].REG_folio}}</td>
-                    <td>{{factura[0].Doc_fecreg}}</td>
-                    <td>{{factura[0].Doc_importe}}</td>
-                    <td>
-                      <input type="checkbox" name="check" class="checkbox" value="{{factura[0].Doc_clave}}"
-                      [(ngModel)]="factura.checked" (click)="seleccion($event)">
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" *ngIf="quitar" (click)="eliminar()">Quitar</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-          </div>
-
-        </div>
       </div>
     </div>
-  <!-- Fin modal -->
   <hr>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6 col-md-6">
       <div class="alert alert-danger" *ngIf="errorXml">Archivo xml selecionado incorrectamente</div>
     </div>
-    <div class="col-md-6">
-      <div class="alert alert-danger" *ngIf="errorPdf">Archivo pdf selecionado incorrectamente</div>
+    <div class="col-sm-6 col-md-6">
+      <div class="alert alert-danger alert-sm" *ngIf="errorPdf">Archivo pdf selecionado incorrectamente</div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-sm-6 col-md-6">
       <div class="form-group">
-        <label for="">Archivo xml</label>
-        <input type="file" id="xml" style="width:250px;" class="btn btn-outline-secondary" [(ngModel)]="xml" (change)="cargarxml($event.target.files)" multiple required>
+        <label for="xml">Archivo xml</label>
+        <input type="file" id="xml" style="width:250px;" class="btn btn-outline-secondary btn-sm" [(ngModel)]="xml" (change)="cargarxml($event.target.files)" multiple required>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-sm-6 col-md-6">
       <div class="form-group">
-          <label for="">Archivo PDF</label>
-          <input type="file" id="pdf" style="width:250px;" class="btn btn-outline-secondary" [(ngModel)]="pdf" (change)="cargarpdf($event.target.files)" multiple required >
+          <label for="pdf">Archivo PDF</label>
+          <input type="file" id="pdf" style="width:250px;" class="btn btn-outline-secondary btn-sm" [(ngModel)]="pdf" (change)="cargarpdf($event.target.files)" multiple required >
         </div>
     </div>
   </div>
@@ -129,15 +100,17 @@
   </div>
 
   <div class="row">
-    <div class="col-md-4">
-      <input type="button" value="Regresar" class="btn btn-danger form-control" (click)="regresar()" style="background: #ce6666;">
+    <div class="col-sm-4 col-md-4">
+      <input type="button" value="Regresar" class="btn btn-outline-danger btn-sm form-control"
+      (click)="regresar()">
     </div>
-    <div class="col-md-4">
-      <input type="button" value="Validar documentos" class="btn btn-primary form-control" (click)="validar()" >
+    <div class="col-sm-4 col-md-4">
+      <input type="button" value="Validar documentos" class="btn btn-outline-primary btn-sm form-control"
+      (click)="validar()" >
     </div>
-    <div class="col-md-4">
-        <input type="button" value="Finalizar" class="btn btn-success form-control" *ngIf="validado" (click)="finalizar()">
-        <input type="button" value="Finalizar" class="btn btn-success form-control" *ngIf="!validado" disabled>
+    <div class="col-sm-4 col-md-4">
+        <input type="button" value="Finalizar" class="btn btn-outline-success btn-sm form-control" *ngIf="validado" (click)="finalizar()">
+        <input type="button" value="Finalizar" class="btn btn-outline-success btn-sm form-control" *ngIf="!validado" disabled>
     </div>
   </div>
   </div>

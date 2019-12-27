@@ -1,61 +1,65 @@
-<div class="mt-4 col-4" style="position: relative; left: 35%;">
-  <div class="card">
-    <div class="card-header bg-primary"><p style="font-size: 25px;"><b>Portal de Factura</b></p></div>
-    <div class="card-body">
-        <form #loginForm=ngForm (ngSubmit)="onSubmit(loginForm)" *ngIf="!autorizar">
-          <div class="alert alert-danger" *ngIf="error">
-            usuario y/o contraseña incorrectos
-          </div>
-
-            <div class="form-group">
-              <div class="col-sm-12">
-                <label for="inputEmail3">Usuario</label>
-                <input type="text" name="usuario" class="form-control" #usuario="ngModel"
-                placeholder="Nombre de usuario" [(ngModel)]="form.usuario" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-12">
-                <label for="inputPassword3">Contraseña</label>
-                <input type="password" name="password" #password="ngModel" class="form-control"
-                id="inputPassword3" placeholder="Contraseña" [(ngModel)]="form.password" required>
-              </div>
+<div class="row justify-content-center">
+  <div class="mt-4 col-sm-12 col-md-6 col-lg-4">
+    <div class="card">
+      <div class="card-header bg-primary text-center text-white">
+        <h5>Portal de Factura</h5>
+      </div>
+      <div class="card-body">
+          <form #loginForm=ngForm (ngSubmit)="onSubmit(loginForm)" *ngIf="!autorizar">
+            <div class="alert alert-danger" *ngIf="error">
+              usuario y/o contraseña incorrectos
             </div>
 
-            <div class="form-group">
-              <div class="col-sm-12">
-                <button type="submit" class="btn btn-primary btn-sm" [disabled]="!loginForm.valid">Iniciar</button>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <label for="inputEmail3">Usuario</label>
+                  <input type="text" name="usuario" class="form-control" #usuario="ngModel"
+                  placeholder="Nombre de usuario" [(ngModel)]="form.usuario" required>
+                </div>
               </div>
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <label for="inputPassword3">Contraseña</label>
+                  <input type="password" name="password" #password="ngModel" class="form-control"
+                  id="inputPassword3" placeholder="Contraseña" [(ngModel)]="form.password" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <button type="submit" class="btn btn-primary btn-sm btn-block" [disabled]="!loginForm.valid">Iniciar</button>
+                </div>
+              </div>
+            </form>
+            <div class="form-group" *ngIf="cargando" style="text-align: center;">
+              <img src="../../../assets/cargando.gif" alt="Imagen" width="200">
             </div>
-          </form>
-          <div class="form-group" *ngIf="cargando" style="text-align: center;">
-            <img src="../../../assets/cargando.gif" alt="Imagen" width="200">
-          </div>
-          <hr>
-          <div class="form-group" *ngIf="!autorizar">
-            <a href="#" (click)="verAutorizacion()">Ingresar Por Autorizacion MV</a>
-          </div>
-          <div class="form-group" *ngIf="autorizar">
+            <hr>
+            <div class="form-group" *ngIf="!autorizar">
+              <a href="#" (click)="verAutorizacion()">Ingresar Por Autorizacion MV</a>
+            </div>
+            <div class="form-group" *ngIf="autorizar">
               <a href="#" (click)="verProvedor()">Ingresar Por Proveedor</a>
             </div>
-          <!-- Por autorizacion -->
-          <div *ngIf="autorizar">
-              <div class="alert alert-danger" *ngIf="errorAuto">Datos incorrectos</div>
-              <div class="form-group row">
-                <div class="col-sm-8">
-                  <input type="text" name="autorizacion" #autorizacion="ngModel" class="form-control"
-                  id="inputEmail3" placeholder="Codigo de autorización" [(ngModel)]="auto.autorizacion" required>
+            <!-- Por autorizacion -->
+            <div *ngIf="autorizar">
+                <div class="alert alert-danger" *ngIf="errorAuto">Datos incorrectos</div>
+                <div class="form-group row">
+                  <div class="col-sm-8">
+                    <input type="text" name="autorizacion" #autorizacion="ngModel" class="form-control"
+                    id="inputEmail3" placeholder="Codigo de autorización" [(ngModel)]="auto.autorizacion" required>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-sm-10">
-                  <button type="button" class="btn btn-primary btn-sm" (click)="ingresar()">Ingresar</button>
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <button type="button" class="btn btn-primary btn-sm btn-block" (click)="ingresar()">Ingresar</button>
+                  </div>
                 </div>
-              </div>
-          </div>
-          <!--  -->
+            </div>
+            <!--  -->
 
 
+      </div>
     </div>
   </div>
 </div>
