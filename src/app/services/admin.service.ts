@@ -63,8 +63,8 @@ export class AdminService{
   }
 
   //SERVICIO PARA DAR VISTO BUENO.
-  vistobueno(folio){
-    let json = JSON.stringify({folio:folio});
+  vistobueno(tramite,datos){
+    let json = JSON.stringify({tramite:tramite,datos:datos});
 
     let params = 'json='+json;
     let headers = new HttpHeaders();

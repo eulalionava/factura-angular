@@ -135,7 +135,7 @@ export class CargandoComponent implements OnInit {
     if(this.files.namexml != '' && this.files.namepdf != ''){
       if(this.appi == 'success'){
         this.cargando = true;
-        // Servicio validado por la appi rest
+        //Servicio validado por la appi rest
         this._service.validadDoc(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
           response=>{
             this.cargando = false;
@@ -145,7 +145,7 @@ export class CargandoComponent implements OnInit {
               swal.fire('',response['msj'],'success');
             }else{
               this.cargando = false;
-              swal.fire('Error',response['msj'],'error');
+              swal.fire('Upps!!',response['msj'],'error');
             }
           },
           error=>{
@@ -154,6 +154,7 @@ export class CargandoComponent implements OnInit {
             console.log(<any>error);
           }
         )
+
       }else{
         // Servicio de appi inactivo
         this.cargando = true;

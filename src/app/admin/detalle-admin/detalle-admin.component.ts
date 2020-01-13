@@ -29,6 +29,7 @@ export class DetalleAdminComponent implements OnInit {
     //llama el servicio
     this._adminService.getFactura(folioFiscal).subscribe(
       response=>{
+        console.log(response['factura'][0]);
         this.cargando = false;
         this.facturas = response['factura'][0];
         this.prefacturas = response['prefactura'];

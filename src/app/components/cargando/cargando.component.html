@@ -84,13 +84,13 @@
     <div class="col-sm-6 col-md-6">
       <div class="form-group">
         <label for="xml">Archivo xml</label>
-        <input type="file" id="xml" style="width:250px;" class="btn btn-outline-secondary btn-sm" [(ngModel)]="xml" (change)="cargarxml($event.target.files)" multiple required>
+        <input type="file" id="xml" class="btn btn-outline-secondary btn-sm form-control" [(ngModel)]="xml" (change)="cargarxml($event.target.files)" multiple required>
       </div>
     </div>
     <div class="col-sm-6 col-md-6">
       <div class="form-group">
           <label for="pdf">Archivo PDF</label>
-          <input type="file" id="pdf" style="width:250px;" class="btn btn-outline-secondary btn-sm" [(ngModel)]="pdf" (change)="cargarpdf($event.target.files)" multiple required >
+          <input type="file" id="pdf" class="btn btn-outline-secondary btn-sm form-control" [(ngModel)]="pdf" (change)="cargarpdf($event.target.files)" multiple required >
         </div>
     </div>
   </div>

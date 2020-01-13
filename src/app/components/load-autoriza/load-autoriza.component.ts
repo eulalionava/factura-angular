@@ -31,7 +31,7 @@ export class LoadAutorizaComponent implements OnInit {
    }
 
   ngOnInit() {
-
+    this.funcionamientoAPPI();
   }
   //VALIDA EL FUNCIONAMIENTO DE LA APPI
   funcionamientoAPPI(){
@@ -52,7 +52,7 @@ export class LoadAutorizaComponent implements OnInit {
     )
   }
 
-  //evento que valida la informacion
+  //EVENTO QUE VALIDA LA INFORMACION DE LA FACTURA
   validar(){
     if(this.files.namepdf != '' && this.files.namexml != '' ){
       this.cargando = true;
@@ -60,7 +60,6 @@ export class LoadAutorizaComponent implements OnInit {
         //Valida la factura con la appi
         this._service.validaDoc(this.files).subscribe(
           response=>{
-            console.log(response);
             this.cargando = false;
             if(response['status']=='success'){
               //tramite valido
@@ -83,6 +82,7 @@ export class LoadAutorizaComponent implements OnInit {
         this.cargando = true;
         this._service.validadSinAppi(this.files).subscribe(
           response=>{
+            console.log(response);
             this.cargando = false;
             if(response['status']=="success"){
               this.valido = true;

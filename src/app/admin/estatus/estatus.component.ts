@@ -14,22 +14,26 @@ export class EstatusComponent implements OnInit {
   public totales:any;
   public tramites:any;
   public cargando:boolean;
+  public datos:any;
   pageNum:number = 1;
 
   constructor(
     private _router:Router,
-    private _service:AdminService
+    private _serviceAdmin:AdminService
   ){
     this.cargando = true;
   }
 
   ngOnInit() {
     this.estatus();
+    //Datos del usuario
+    this.datos = JSON.parse(localStorage.getItem('admin'));
   }
 
   detalle(id){
-    this._service.porStatus(id).subscribe(
+    this._serviceAdmin.porStatus(id).subscribe(
       response=>{
+        console.log(response);
         this.tramites = response;
       },
       error=>{
@@ -39,7 +43,7 @@ export class EstatusComponent implements OnInit {
   }
 
   estatus(){
-    this._service.estatus().subscribe(
+    this._serviceAdmin.estatus().subscribe(
       response=>{
         console.log(response);
         this.cargando = false;
@@ -54,16 +58,17 @@ export class EstatusComponent implements OnInit {
   }
 
   //Funcion que se encargar de dar el visto bueno.
-  vobo(foliofiscal){
-    this._service.vistobueno(foliofiscal).subscribe(
+  vobo(idTramite){
+
+    this._serviceAdmin.vistobueno(idTramite,this.datos).subscribe(
       response=>{
         console.log(response);
-        if(response['status']=='success'){
-          swal.fire('Exito',response['msj'],'success');
-          this._router.navigate(['/administrador']);
-        }else{
-          swal.fire('Fallo',response['msj'],'error');
-        }
+        // if(response['status']=='success'){
+        //   swal.fire('Exito',response['msj'],'success');
+        //   this._router.navigate(['/administrador']);
+        // }else{
+        //   swal.fire('Fallo',response['msj'],'error');
+        // }
       },
       error=>{
         console.log(<any>error);
