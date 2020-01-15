@@ -44,14 +44,15 @@ export class AdministradorComponent implements OnInit {
 
   //CANCELA EL TRAMITE
   cancelar(folio_fiscal){
-
+      this.cargando = true;
       let usuario:any = JSON.parse(localStorage.getItem('admin'));
 
       // LLAama el servicio,pasando el folio fiscal de la factura
       this._service.deleteFactura(usuario,this.form.motivo,folio_fiscal).subscribe(
         response=>{
           this.form.motivo = null;
-          if(response['status']=='success'){
+          this.cargando = false;
+          if(response['status'] == 'success'){
             swal.fire('Cancelado',response['msj'],'success');
             location.reload();
           }else{
