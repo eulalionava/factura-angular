@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
     this.cargando = true;
     this._service.login(this.form).subscribe(
       response=>{
+        console.log(response);
         //correcto
         if(response['code'] == 200){
           //verifica el tipo de sesion

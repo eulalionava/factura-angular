@@ -39,7 +39,7 @@ export class CargandoComponent implements OnInit {
   }
 
   constructor(
-    private _service:CargandoService,
+    private _serviceCargando:CargandoService,
     private _router:Router
   ) {
     this.errorXml = false;
@@ -65,13 +65,13 @@ export class CargandoComponent implements OnInit {
   }
   //Verifica el funcionamiento de la appi
   funcionamientoAPPI(){
-    this._service.getAppi().subscribe(
+    this._serviceCargando.getAppi().subscribe(
       response=>{
         if(response['status'] == 'success'){
           this.appi = 'success';
         }else{
           this.appi = 'error';
-          this._service.sendEmail().subscribe(
+          this._serviceCargando.sendEmail().subscribe(
             response=>{}
           )
         }
@@ -93,7 +93,7 @@ export class CargandoComponent implements OnInit {
     //verifica que sea un archivo xml
     if(files[0].type == 'text/xml'){
       this.errorXml = false;
-        this._service.cargarArchivo(files[0]).subscribe(
+        this._serviceCargando.cargarArchivo(files[0]).subscribe(
           response=>{
             //Asignamos informacion
             this.files.rfc     = this.usuario[0]['Pro_rfc'];
@@ -113,7 +113,7 @@ export class CargandoComponent implements OnInit {
     //verifica que sea un archivo pdf
     if(files[0].type == 'application/pdf'){
       this.errorPdf = false;
-        this._service.cargarArchivo(files[0]).subscribe(
+        this._serviceCargando.cargarArchivo(files[0]).subscribe(
           response=>{
             //Asignamos informacion
             this.files.namepdf = response['data']['nombre'];
@@ -136,7 +136,7 @@ export class CargandoComponent implements OnInit {
       if(this.appi == 'success'){
         this.cargando = true;
         //Servicio validado por la appi rest
-        this._service.validadDoc(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
+        this._serviceCargando.validadDoc(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
           response=>{
             this.cargando = false;
             if(response['status']=='success'){
@@ -158,7 +158,7 @@ export class CargandoComponent implements OnInit {
       }else{
         // Servicio de appi inactivo
         this.cargando = true;
-        this._service.validadSinAppi(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
+        this._serviceCargando.validadSinAppi(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
           response=>{
             this.cargando = false;
             if(response['status']=="success"){
@@ -190,11 +190,12 @@ export class CargandoComponent implements OnInit {
       let anio = datos['Fecha'].split("-");
       let rfc  = datos['E_RFC'];
       //Servicio que creara carpetas
-      this._service.crearDirectorios(anio[0],anio[1],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
+      this._serviceCargando.crearDirectorios(anio[0],anio[1],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
         response=>{
           //llama el servicio para realizar el tramite
-          this._service.insertramite(datos,this.total,this.usuario[0].Pro_clave,this.usuario[0]['PUUsu_login'],this.appi).subscribe(
+          this._serviceCargando.insertramite(datos,this.total,this.appi).subscribe(
             response=>{
+              console.log(response);
               this.cargando = false;
               // peticion correcta
               if(response['status']=='success'){
@@ -258,7 +259,7 @@ export class CargandoComponent implements OnInit {
 
   //BORRAR PREFACTURAS YA SELECCIONADAS
   deletePrefacturas(){
-    this._service.getPrefacturaSeleccionadas(this.seleccionadas).subscribe(
+    this._serviceCargando.getPrefacturaSeleccionadas(this.seleccionadas).subscribe(
       response=>{
         // recorremos las seleccionadas
         for(let i=0; i < response['data'].length; i++){
@@ -269,7 +270,7 @@ export class CargandoComponent implements OnInit {
         }
 
         //Actualizamos nuevamente el listado de prefacturas
-        this._service.getPrefacturaSeleccionadas(this.claves).subscribe(
+        this._serviceCargando.getPrefacturaSeleccionadas(this.claves).subscribe(
           response=>{
             this.prefacturas = response['data'];
           }
@@ -284,7 +285,7 @@ export class CargandoComponent implements OnInit {
 
   //DATOS DE PREFACTURAS
   verprefacturas(){
-    this._service.getPrefacturaSeleccionadas(this.claves).subscribe(
+    this._serviceCargando.getPrefacturaSeleccionadas(this.claves).subscribe(
       response=>{
         this.prefacturas = response['data'];
         //recorremos los datos
@@ -302,7 +303,7 @@ export class CargandoComponent implements OnInit {
 
   //SOLO UNA COMPANIA
   unaCompania(){
-    this._service.mismaCompania().subscribe(
+    this._serviceCargando.mismaCompania().subscribe(
       response =>{
         if(response['status'] == "success"){
           this.mismaComp = true;

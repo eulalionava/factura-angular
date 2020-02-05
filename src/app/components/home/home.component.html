@@ -44,7 +44,8 @@
             <tr>
               <th><input type="checkbox" name="all" (click)="selectAll($event)"></th>
               <th>Prefactura</th>
-              <th>Folio</th>
+              <th>FolioZima</th>
+              <th>FolioMV</th>
               <th>Empresa</th>
               <th>A cargo de</th>
               <th>Lesionado</th>
@@ -60,6 +61,7 @@
               </td>
               <td>{{factura.Doc_serie}}_{{factura.Doc_clave}}</td>
               <td>{{factura.REG_folio}}</td>
+              <td>{{factura.REG_folioMV}}</td>
               <td>{{factura.ASE_nomCorto}}</td>
               <td>{{factura.ASE_razonSocial}}</td>
               <td>{{factura.REG_nombrecompleto}}</td>

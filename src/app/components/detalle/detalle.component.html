@@ -105,7 +105,8 @@
                 <tr>
                   <th>N.</th>
                   <th>Prefactura</th>
-                  <th>Folio</th>
+                  <th>FolioZima</th>
+                  <th>FolioMV</th>
                   <th>Fecha</th>
                   <th>Importe</th>
                   <th>EnviadoPago</th>
@@ -116,6 +117,7 @@
                   <td>{{i+1}}</td>
                   <td>{{pref.Doc_clave}}</td>
                   <td>{{pref.REG_folio}}</td>
+                  <td>{{pref.REG_folioMV}}</td>
                   <td>{{pref.Doc_fecreg}}</td>
                   <td>{{pref.Doc_importe | currency}}</td>
                   <td *ngIf="pref.Doc_tipoAdmin != 'T' || pref.Doc_cobroMv != 'S' || pref.Doc_facturaMv != ''; else noEnviado ">
