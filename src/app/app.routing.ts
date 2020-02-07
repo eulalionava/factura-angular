@@ -16,6 +16,7 @@ import { AdministradorComponent } from './admin/administrador/administrador.comp
 import { EstatusComponent } from './admin/estatus/estatus.component';
 import { PasswordComponent } from './components/password/password.component';
 import { DetalleAdminComponent } from './admin/detalle-admin/detalle-admin.component';
+import { ConsultaComponent } from './components/consulta/consulta.component';
 
 //Rutas
 const appRoutes:Routes = [
@@ -32,6 +33,7 @@ const appRoutes:Routes = [
   {path:'estatus', component:EstatusComponent,canActivate:[UserGuard]},
   {path:'password', component:PasswordComponent,canActivate:[UserGuard]},
   {path:'detalle-admin/:folio', component:DetalleAdminComponent,canActivate:[UserGuard]},
+  {path:'consulta', component:ConsultaComponent,canActivate:[UserGuard]},
 
   {path:'**', component:LoginComponent}
 

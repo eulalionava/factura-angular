@@ -27,6 +27,7 @@ import { AdministradorComponent } from './admin/administrador/administrador.comp
 import { EstatusComponent } from './admin/estatus/estatus.component';
 import { PasswordComponent } from './components/password/password.component';
 import { DetalleAdminComponent } from './admin/detalle-admin/detalle-admin.component';
+import { ConsultaComponent } from './components/consulta/consulta.component';
 
 
 
@@ -48,7 +49,8 @@ import { DetalleAdminComponent } from './admin/detalle-admin/detalle-admin.compo
     AdministradorComponent,
     EstatusComponent,
     PasswordComponent,
-    DetalleAdminComponent
+    DetalleAdminComponent,
+    ConsultaComponent
   ],
   imports: [
     BrowserModule,
