@@ -43,12 +43,12 @@
   <div class="col-md-3">
     <div class="form-group">
       <input type="text" placeholder="Fecha" class="form-control mt-3" id="fechaPicker"
-      name="fecha" #fecha="ngModel" [(ngModel)]="buscar.fecha">
+      [(ngModel)]="buscar.fecha">
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
-      <input type="text" placeholder="Folio fiscal" class="form-control mt-3" [(ngModel)]="buscar.folio">
+      <input type="text" placeholder="Folio de factura" class="form-control mt-3" [(ngModel)]="buscar.folio">
     </div>
   </div>
   <div class="col-md-2">
@@ -66,18 +66,16 @@
         <table class="table table-sm">
           <thead>
             <tr>
-              <th>Folio fiscal</th>
-              <th>Emisor</th>
+              <th>Factura</th>
               <th>Subtotal</th>
               <th>Total</th>
               <th>Fecha</th>
               <th>Estatus</th>
             </tr>
           </thead>
-          <tbody *ngFor="let tramite of tramites |  paginate: {itemsPerPage:10,currentPage:pageNum}">
+          <tbody *ngFor="let tramite of tramites | paginate: {itemsPerPage:10,currentPage:pageNum}">
             <tr>
               <td>{{tramite['Folio_fiscal']}}</td>
-              <td>{{tramite['E_rfc']}}</td>
               <td>{{tramite.SubTotal | currency}}</td>
               <td>{{tramite.Total | currency}}</td>
               <td>{{tramite.fechaTramite}}</td>

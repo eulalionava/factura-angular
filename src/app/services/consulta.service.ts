@@ -19,6 +19,7 @@ export class ConsultaService{
 
   }
 
+  //SERVICIO QUE BUSCA POR ESTATUS
   porStatus(id){
     let json = JSON.stringify({id:id});
     let params = 'json='+json;
@@ -28,10 +29,25 @@ export class ConsultaService{
     return this._http.post(this.url+'admin/detalle', params,{headers: headers});
   }
 
+  //SERVICIO QUE OBTIENE TODOS LOS ESTAUS
   estatus(){
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url +'admin/estatus',{headers:headers});
   }
+
+  //SERVICIO QUE BUSCA POR FOLIO FISCAL
+
+  busquedaGeneral(foliofiscal){
+    let json = JSON.stringify({folio:foliofiscal});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-type','application/x-www-form-urlencoded');
+    return this._http.post(this.url + 'admin/busqueda',params,{headers:headers});
+
+  }
+
+
 
 
 }
