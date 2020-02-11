@@ -26,9 +26,9 @@ export class ConsultaComponent implements OnInit {
 
     this.getStatus();
 
-    $(document).ready(function(){
-
-    });
+    // $(document).ready(function() {
+    //   $("#fechaPicker").datepicker();
+    // });
 
   }
 
