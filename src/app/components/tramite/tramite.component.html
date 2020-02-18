@@ -9,10 +9,15 @@
     <div *ngIf="tramites == '' ">
       <div class="alert alert-danger">No hay tramites</div>
     </div>
+    <div class="form-group">
+      <input type="text" placeholder="Buscar Tramite" class="form-control"
+      (input)="buscaTramite($event.target.value)">
+    </div>
     <div class="table-responsive">
-      <table class="table" *ngIf="tramites != '' ">
+      <table class="table table-hover" *ngIf="tramites != '' ">
         <thead>
           <tr>
+            <th>N.</th>
             <th>Folio fiscal</th>
             <th>RFC(emisor)</th>
             <th>RFC(receptor)</th>
@@ -21,8 +26,9 @@
             <th>Estatus</th>
           </tr>
         </thead>
-        <tbody *ngFor="let tramite of tramites | paginate: {itemsPerPage:10,currentPage:pageNum}">
-          <tr>
+        <tbody *ngFor="let tramite of tramites | paginate: {itemsPerPage:10,currentPage:pageNum}; let i = index">
+          <tr style="font-size: 14px;">
+            <td>{{i + 1}}</td>
             <td>{{tramite.Folio_fiscal}}</td>
             <td>{{tramite.Emisor}}</td>
             <td>{{tramite.Receptor}}</td>

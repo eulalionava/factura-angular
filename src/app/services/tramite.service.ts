@@ -26,6 +26,7 @@ export class TramiteService{
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url+'tramites/tramites', params,{headers: headers});
   }
+
   //Servicio que muestra el detalle de un tramite
   detalleTramite(folio){
     let json = JSON.stringify({folio:folio});
@@ -55,5 +56,16 @@ export class TramiteService{
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url+'tramites/archivo', params,{headers: headers});
   }
+
+  buscarTramites(tramite){
+    let json = JSON.stringify({clave:tramite});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'tramites/buscartramites', params,{headers: headers});
+
+  }
+
 
 }

@@ -15,6 +15,7 @@ export class EstatusComponent implements OnInit {
   public tramites:any;
   public cargando:boolean;
   public datos:any;
+  public statusID;
   pageNum:number = 1;
 
   constructor(
@@ -24,6 +25,10 @@ export class EstatusComponent implements OnInit {
     this.cargando = true;
   }
 
+  public seleccionar = {
+    filtro:''
+  }
+
   ngOnInit() {
     this.estatus();
     //Datos del usuario
@@ -31,6 +36,7 @@ export class EstatusComponent implements OnInit {
   }
 
   detalle(id){
+    this.statusID = id;
     this._serviceAdmin.porStatus(id).subscribe(
       response=>{
         console.log(response);
@@ -62,18 +68,46 @@ export class EstatusComponent implements OnInit {
 
     this._serviceAdmin.vistobueno(idTramite,this.datos).subscribe(
       response=>{
-        console.log(response);
-        // if(response['status']=='success'){
-        //   swal.fire('Exito',response['msj'],'success');
-        //   this._router.navigate(['/administrador']);
-        // }else{
-        //   swal.fire('Fallo',response['msj'],'error');
-        // }
+        if(response['status']=='success'){
+          swal.fire('Exito',response['msj'],'success');
+          this._router.navigate(['/administrador']);
+        }else{
+          swal.fire('Fallo',response['msj'],'error');
+        }
       },
       error=>{
         console.log(<any>error);
       }
     )
+  }
+
+  //METODO DE BUSQUEDA GENERAL POR ESTATUS
+  busquedaGenStatus(buscar){
+    let status = this.statusID;
+
+    if(parseInt(this.seleccionar.filtro) == 1){
+      //REALIZA LA BUSQUEDA POR FOLIO FISCAL
+      this._serviceAdmin.generalStatus(buscar,status).subscribe(
+        response=>{
+          this.tramites = response;
+        },
+        error=>{
+          console.log(<any>error);
+        }
+      )
+    }else{
+      //REALIZA LA BUSQUEDA POR FECHA
+      this._serviceAdmin.generalFecha(buscar,status).subscribe(
+        response=>{
+          this.tramites = response;
+          this.seleccionar.filtro = '';
+        },
+        error=>{
+          console.log(<any>error);
+        }
+      )
+    }
+
   }
 
 }

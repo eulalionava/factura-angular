@@ -22,24 +22,42 @@
 <div class="col-md-9" *ngIf="tramites != null ">
   <div class="card" >
     <div class="card-body">
+
+      <div class="row mb-2">
+        <div class="col-md-2 col-sm-2 p-0">
+          <select class="form-control form-control-sm" [(ngModel)]="seleccionar.filtro">
+            <option value="1">Folio Fiscal</option>
+            <option value="2">Fecha</option>
+          </select>
+        </div>
+        <div class="col-md-6 col-ms-6 p-0" *ngIf="seleccionar.filtro == 1">
+          <input type="text" class="form-control form-control-sm" placeholder="Realizar busqueda"
+          (input)="busquedaGenStatus($event.target.value)">
+        </div>
+        <div class="col-md-4 col-ms-4 p-0" *ngIf="seleccionar.filtro == 2">
+          <input type="date" class="form-control form-control-sm" placeholder="Realizar busqueda"
+          (input)="busquedaGenStatus($event.target.value)">
+        </div>
+      </div>
+
       <div class="table-responsive">
-        <table class="table table-sm">
+        <table class="table table-sm table-hover">
           <thead>
             <tr>
+              <th>N.</th>
               <th>Folio fiscal</th>
               <th>Subtotal</th>
               <th>Total</th>
-              <th>Importe</th>
               <th>Fecha</th>
               <th>Estatus</th>
             </tr>
           </thead>
-          <tbody *ngFor="let tramite of tramites |  paginate: {itemsPerPage:10,currentPage:pageNum}">
-            <tr>
+          <tbody *ngFor="let tramite of tramites |  paginate: {itemsPerPage:10,currentPage:pageNum};let i=index">
+            <tr style="font-size: 12px;">
+              <td>{{i + 1}}</td>
               <td>{{tramite['Folio_fiscal']}}</td>
               <td>{{tramite.SubTotal | currency}}</td>
               <td>{{tramite.Total | currency}}</td>
-              <td>{{tramite.Importe | currency}}</td>
               <td>{{tramite.fechaTramite}}</td>
               <td>{{tramite.statusTramite_desc}}</td>
               <td *ngIf="tramite.idPUStatusTramite == 3 || tramite.idPUStatusTramite == 4">

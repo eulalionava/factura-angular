@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 @Component({
   selector: 'app-administrador',
   templateUrl: './administrador.component.html',
+  styleUrls:['./administrador.component.css'],
   providers:[AdminService]
 })
 export class AdministradorComponent implements OnInit {
@@ -15,12 +16,13 @@ export class AdministradorComponent implements OnInit {
   pageNum:number = 1;
 
   form = {
-    motivo:null
+    motivo:null,
+    busqueda:''
   }
 
   constructor(
     private _router:Router,
-    private _service:AdminService
+    private _serviceAdmin:AdminService
   ){
     this.cargando = true;
   }
@@ -30,7 +32,7 @@ export class AdministradorComponent implements OnInit {
   }
 
   listado(){
-    this._service.listado().subscribe(
+    this._serviceAdmin.listado().subscribe(
       response=>{
         this.cargando = false;
         this.listas= response;
@@ -48,7 +50,7 @@ export class AdministradorComponent implements OnInit {
       let usuario:any = JSON.parse(localStorage.getItem('admin'));
 
       // LLAama el servicio,pasando el folio fiscal de la factura
-      this._service.deleteFactura(usuario,this.form.motivo,folio_fiscal).subscribe(
+      this._serviceAdmin.deleteFactura(usuario,this.form.motivo,folio_fiscal).subscribe(
         response=>{
           this.form.motivo = null;
           this.cargando = false;
@@ -64,6 +66,18 @@ export class AdministradorComponent implements OnInit {
           console.log(<any>error);
         }
       )
+  }
+
+  //METODO QUE REALIZA UNA BUSQUEDA GENERAL BAJO CUALQUIER FILTRO
+  buscando(busqueda){
+    this._serviceAdmin.busquedaGeneral(busqueda).subscribe(
+      response=>{
+        this.listas = response;
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    )
   }
 
 }

@@ -39,21 +39,40 @@
       </div>
     </div>
   </div>
+</div>
 
-  <!-- <div class="col-md-3">
-    <div class="form-group">
-      <input type="text" placeholder="Fecha" class="form-control mt-3" id="fechaPicker"
-      [(ngModel)]="buscar.fecha">
-    </div>
-  </div> -->
+<div class="row mt-3">
   <div class="col-md-3">
-    <div class="form-group">
-      <input type="text" placeholder="Folio de factura" class="form-control mt-3" [(ngModel)]="buscar.folio">
+    <label class="sr-only">Fecha Inicio</label>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text">Inicio</div>
+      </div>
+      <input type="date" class="form-control" [(ngModel)]="buscar.fechaInicio">
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <label class="sr-only">Fecha Fin</label>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text">Fin</div>
+      </div>
+      <input type="date" class="form-control" [(ngModel)]="buscar.fechaFin">
+    </div>
+  </div>
+  <div class="col-md-3">
+    <label class="sr-only">Folio</label>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text">Folio</div>
+      </div>
+      <input type="text" class="form-control" [(ngModel)]="buscar.folio">
     </div>
   </div>
   <div class="col-md-2">
     <div class="form-group">
-      <input type="button" class="btn btn-primary mt-3" value="Buscar" (click)="busqueda()">
+      <input type="button" class="btn btn-primary" value="Buscar" (click)="busqueda()">
     </div>
   </div>
 </div>
@@ -66,6 +85,7 @@
         <table class="table table-sm">
           <thead>
             <tr>
+              <th>N.</th>
               <th>Factura</th>
               <th>Subtotal</th>
               <th>Total</th>
@@ -73,8 +93,9 @@
               <th>Estatus</th>
             </tr>
           </thead>
-          <tbody *ngFor="let tramite of tramites | paginate: {itemsPerPage:10,currentPage:pageNum}">
+          <tbody *ngFor="let tramite of tramites | paginate: {itemsPerPage:10,currentPage:pageNum};let i=index">
             <tr>
+              <td>{{i + 1}}</td>
               <td>{{tramite['Folio_fiscal']}}</td>
               <td>{{tramite.SubTotal | currency}}</td>
               <td>{{tramite.Total | currency}}</td>

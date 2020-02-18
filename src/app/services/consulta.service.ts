@@ -37,8 +37,8 @@ export class ConsultaService{
 
   //SERVICIO QUE BUSCA POR FOLIO FISCAL
 
-  busquedaGeneral(foliofiscal){
-    let json = JSON.stringify({folio:foliofiscal});
+  busquedaGeneral(datos){
+    let json = JSON.stringify({datos:datos});
     let params = 'json='+json;
     let headers = new HttpHeaders();
 

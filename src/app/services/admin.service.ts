@@ -17,6 +17,7 @@ export class AdminService{
   ngOnInit(){
 
   }
+
   porStatus(id){
     let json = JSON.stringify({id:id});
     let params = 'json='+json;
@@ -73,5 +74,38 @@ export class AdminService{
     return this._http.post(this.url+'admin/vistoBueno', params,{headers: headers});
   }
 
+  //SERVICIO QUE REALIZA UNA BUSQUEDA EN GENERAL
+  busquedaGeneral(buscar){
+    let json = JSON.stringify({filtro:buscar});
+
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url + 'admin/busquedageneral',params,{headers:headers});
+  }
+
+  //SERVICIO DE BUSQUEDA POR ESTATUS
+  generalStatus(valor,status){
+    let json = JSON.stringify({filtro:valor,status:status});
+
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url + 'admin/generalStatus',params,{headers:headers});
+
+  }
+
+  //SERVICIO DE BUSQUEDA POR FECHA
+  generalFecha(valor,status){
+    let json = JSON.stringify({filtro:valor,status:status});
+
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url + 'admin/generalFecha',params,{headers:headers});
+  }
 
 }

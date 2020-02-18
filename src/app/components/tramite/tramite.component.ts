@@ -13,9 +13,11 @@ export class TramiteComponent implements OnInit {
   //Numero de paginas
   pageNum:number=1;
 
+  public busca = { tramite : '' }
+
   constructor(
     private _router:Router,
-    private _service:TramiteService
+    private _serviceTramite:TramiteService
   ){
     this.cargando = true;
   }
@@ -26,7 +28,7 @@ export class TramiteComponent implements OnInit {
   //Obtiene todos los tramites realizados
   vertramites(){
     let datos:any = JSON.parse(localStorage.getItem('sesion'));
-    this._service.getTramites(datos[0]['PUUsu_login']).subscribe(
+    this._serviceTramite.getTramites(datos[0]['PUUsu_login']).subscribe(
       response=>{
 
         this.cargando = false;
@@ -39,8 +41,15 @@ export class TramiteComponent implements OnInit {
     )
   }
 
-  detalle(folio){
-    console.log(folio);
+  buscaTramite(cadena){
+    this._serviceTramite.buscarTramites(cadena).subscribe(
+      response=>{
+        this.tramites = response;
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    )
   }
 
 

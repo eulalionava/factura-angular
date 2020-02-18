@@ -8,10 +8,17 @@
         <div class="fa-3x" *ngIf="cargando">
             <i class="fas fa-spinner fa-pulse"></i>
         </div>
-        <div class="table-resposive">
+        <div class="col-md-6 col-sm-6 p-0">
+          <div class="form-group">
+            <input type="text" placeholder="Busqueda general" class="form-control form-control-sm" (input)="buscando($event.target.value)">
+          </div>
+        </div>
+
+        <div class="table-responsive" id="tabla_listado">
           <table class="table table-hover">
             <thead>
               <tr>
+                <th>N.</th>
                 <th>Folio fiscal</th>
                 <th>Importe</th>
                 <th>Iva</th>
@@ -22,8 +29,9 @@
                 <th>Estatus</th>
               </tr>
             </thead>
-            <tbody *ngFor="let lista of listas |  paginate: {itemsPerPage:10,currentPage:pageNum}">
+            <tbody *ngFor="let lista of listas |  paginate: {itemsPerPage:10,currentPage:pageNum};let i=index">
               <tr>
+                <td>{{i + 1}}</td>
                 <td>{{lista.Folio_fiscal}}</td>
                 <td>{{lista.Importe | currency}}</td>
                 <td>{{lista.Iva | currency}}</td>
@@ -31,7 +39,7 @@
                 <td>{{lista.Fecha_emision}}</td>
                 <td>{{lista.fechaTramite}}</td>
                 <td>{{lista.MetodoPago}}</td>
-                <td>{{lista.statusTramite_desc}}</td>
+                <td style="font-size: 12px;">{{lista.statusTramite_desc}}</td>
                 <td>
                   <div class="btn-group">
                     <a [routerLink]="['/detalle-admin',lista.Folio_fiscal]">

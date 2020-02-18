@@ -14,7 +14,7 @@ export class ConsultaComponent implements OnInit {
   public estatus=[];
   public totales=[];
 
-  public buscar = { fecha:'', folio:'' }
+  public buscar = { fechaInicio:'', fechaFin:'',folio:'' }
 
   constructor(
     private _router:Router,
@@ -25,10 +25,6 @@ export class ConsultaComponent implements OnInit {
   ngOnInit() {
 
     this.getStatus();
-
-    // $(document).ready(function() {
-    //   $("#fechaPicker").datepicker();
-    // });
 
   }
 
@@ -61,10 +57,12 @@ export class ConsultaComponent implements OnInit {
 
   //FILTRO DE BUSQUEDA
   busqueda(){
-    this._serviceConsulta.busquedaGeneral(this.buscar.folio).subscribe(
+    this._serviceConsulta.busquedaGeneral(this.buscar).subscribe(
       response=>{
         this.tramites = response;
-        this.buscar.folio = '';
+        this.buscar.fechaInicio = '';
+        this.buscar.fechaFin    = '';
+        this.buscar.folio       = '';
       },
       error=>{
         console.log(<any>error);
