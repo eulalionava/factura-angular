@@ -4,7 +4,7 @@
   </div>
   <div class="card-body">
 
-    <div *ngIf="listas != '' ">
+    <div *ngIf="listas != null ">
         <div class="fa-3x" *ngIf="cargando">
             <i class="fas fa-spinner fa-pulse"></i>
         </div>
@@ -73,7 +73,7 @@
                       </form>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                       <button type="button" class="btn btn-success" data-dismiss="modal"
                       (click)="cancelar(lista.Folio_fiscal)" [disabled]="!cancelarForm.valid">
                         Aceptar
@@ -86,9 +86,6 @@
           </table>
           <pagination-controls (pageChange)="pageNum = $event"></pagination-controls>
         </div>
-    </div>
-    <div *ngIf="listas == '' ">
-      <div class="alert alert-danger">No hay tramites</div>
     </div>
 
   </div>

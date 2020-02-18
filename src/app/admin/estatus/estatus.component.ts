@@ -26,7 +26,7 @@ export class EstatusComponent implements OnInit {
   }
 
   public seleccionar = {
-    filtro:''
+    fecha:''
   }
 
   ngOnInit() {
@@ -84,30 +84,33 @@ export class EstatusComponent implements OnInit {
   //METODO DE BUSQUEDA GENERAL POR ESTATUS
   busquedaGenStatus(buscar){
     let status = this.statusID;
+    //REALIZA LA BUSQUEDA POR FOLIO FISCAL
+    this._serviceAdmin.generalStatus(buscar,status).subscribe(
+      response=>{
+        this.tramites = response;
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    )
+  }
 
-    if(parseInt(this.seleccionar.filtro) == 1){
-      //REALIZA LA BUSQUEDA POR FOLIO FISCAL
-      this._serviceAdmin.generalStatus(buscar,status).subscribe(
-        response=>{
-          this.tramites = response;
-        },
-        error=>{
-          console.log(<any>error);
-        }
-      )
-    }else{
-      //REALIZA LA BUSQUEDA POR FECHA
-      this._serviceAdmin.generalFecha(buscar,status).subscribe(
-        response=>{
-          this.tramites = response;
-          this.seleccionar.filtro = '';
-        },
-        error=>{
-          console.log(<any>error);
-        }
-      )
-    }
-
+  busquedaPorFecha(buscar){
+    let status = this.statusID;
+    //REALIZA LA BUSQUEDA POR FECHA
+    this._serviceAdmin.generalFecha(buscar,status).subscribe(
+      response=>{
+        this.tramites = response;
+      },
+      error=>{
+        console.log(<any>error);
+      }
+    )
+  }
+  //LIMPIA LAS CAJAS DE TEXTO
+  limpiarCajas(){
+    this.seleccionar.fecha = '';
+    this.busquedaPorFecha('');
   }
 
 }
