@@ -57,6 +57,7 @@ export class CargandoComponent implements OnInit {
     this.verprefacturas();
     this.funcionamientoAPPI();
     this.unaCompania();
+    swal.fire('Upps!!','Error 400, sintaxis de peticion incorrecta.','error');
   }
 
   //METODO QUE VERIFICA SI ACTIVA O DESACTIVA LA VALIDACION MEDIANTE APPI REST
@@ -72,7 +73,9 @@ export class CargandoComponent implements OnInit {
         }else{
           this.appi = 'error';
           this._serviceCargando.sendEmail().subscribe(
-            response=>{}
+            response=>{
+              console.log("Servicio de appi, no esta funcionando.");
+            }
           )
         }
       },
@@ -88,6 +91,7 @@ export class CargandoComponent implements OnInit {
       this._router.navigate(['home']);
     }
   }
+
   //carga el archivo y obtener la informacion del archivo
   cargarxml(files:any){
     //verifica que sea un archivo xml
@@ -102,6 +106,7 @@ export class CargandoComponent implements OnInit {
           },
           error=>{
             console.log(<any>error);
+            swal.fire('Upps!!','Error 400, sintaxis de peticion incorrecta.','error');
           }
         )
     }else{
@@ -121,6 +126,7 @@ export class CargandoComponent implements OnInit {
           },
           error=>{
             console.log(<any>error);
+            swal.fire('Upps!!','Error 400, sintaxis de peticion incorrecta.','error');
           }
         )
     }else{
@@ -138,6 +144,7 @@ export class CargandoComponent implements OnInit {
         //Servicio validado por la appi rest
         this._serviceCargando.validadDoc(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
           response=>{
+            console.log(this.files);
             this.cargando = false;
             if(response['status']=='success'){
               this.validado = true;
@@ -150,7 +157,7 @@ export class CargandoComponent implements OnInit {
           },
           error=>{
             this.cargando = false;
-            swal.fire('Upps','Servicio Appi,esta fallando !!','error');
+            swal.fire('Upps','error 400, sintaxis de peticion incorrecta.','error');
             console.log(<any>error);
           }
         )
@@ -172,6 +179,7 @@ export class CargandoComponent implements OnInit {
           error=>{
             this.cargando = false;
             console.log(<any>error);
+            swal.fire('Upps','error 400, sintaxis de peticion incorrecta.','error');
           }
         )
       }
@@ -208,6 +216,7 @@ export class CargandoComponent implements OnInit {
             error=>{
               this.cargando = false;
               console.log(<any>error);
+              swal.fire('Upps','error 400, sintaxis de peticion incorrecta.','error');
             }
           )
         },
@@ -287,6 +296,7 @@ export class CargandoComponent implements OnInit {
   verprefacturas(){
     this._serviceCargando.getPrefacturaSeleccionadas(this.claves).subscribe(
       response=>{
+        console.log(response);
         this.prefacturas = response['data'];
         //recorremos los datos
         for(let i=0; i < response['data'].length; i++){

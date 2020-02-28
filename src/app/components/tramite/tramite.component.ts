@@ -30,7 +30,6 @@ export class TramiteComponent implements OnInit {
     let datos:any = JSON.parse(localStorage.getItem('sesion'));
     this._serviceTramite.getTramites(datos[0]['PUUsu_login']).subscribe(
       response=>{
-
         this.cargando = false;
         this.tramites = response
         console.log(this.tramites);

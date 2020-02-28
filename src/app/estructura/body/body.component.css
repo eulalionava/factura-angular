@@ -93,9 +93,9 @@ a, a:hover, a:focus {
     display: block;
 }
 #sidebar ul li a:hover {
-    color: #7386D5;
+    color: white;
     font-weight: bold;
-    background: #c7c5c561;
+    background: #a0a6a7;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {

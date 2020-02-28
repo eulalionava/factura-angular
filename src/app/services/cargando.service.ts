@@ -11,6 +11,7 @@ export class CargandoService{
   public url_servidor = "http://appfacturando.orthofam.com.mx/app/cargarArchivo.php";
   public directorio = "http://appfacturando.orthofam.com.mx/app/appendFile.php";
   public url_correo = "http://appfacturando.orthofam.com.mx/app/enviarCorreo.php";
+  public correo_validacion = "http://appfacturando.orthofam.com.mx/app/errorValidacion.php";
 
   constructor(
     private _router:Router,
@@ -109,6 +110,10 @@ export class CargandoService{
   //Enviar correo en caso del fallo de la appi
   sendEmail(){
     return this._http.get(this.url_correo);
+  }
+
+  sendEmailError(){
+    return this._http.get(this.correo_validacion);
   }
 
   //VALIDA QUE PERTENESCAN A LA MIS COMPANIA
