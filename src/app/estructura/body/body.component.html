@@ -23,10 +23,10 @@
       </li>
   </ul>
   <ul class="list-unstyled components" *ngIf="_service.authTipo() == '3'">
-      <li>
+      <li [routerLinkActive]="['active']">
           <a [routerLink]="['administrador']">Listado</a>
       </li>
-      <li>
+      <li [routerLinkActive]="['active']">
           <a [routerLink]="['estatus']">Estatus</a>
       </li>
   </ul>

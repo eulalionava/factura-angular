@@ -21,12 +21,16 @@ export class CargandoComponent implements OnInit {
   public appi:string='';
   public mismaComp:boolean;
   public Ncompania:number;
+  public deducible:any = 0;
+  public digitarDeducible:boolean;
+  public activarDedudcible:boolean;
 
   claves      = [];
   usuario     = [];
   prefacturas = [];
   totalPre    = 0;
   total:number      = 0;
+
 
   public prueba;
 
@@ -46,6 +50,8 @@ export class CargandoComponent implements OnInit {
     this.errorPdf = false;
     this.validado = false;
     this.quitar   = false;
+    this.digitarDeducible= false;
+    this.activarDedudcible = false;
     this.tipoRadio = 'activo';
     this.Ncompania  = 0;
    }
@@ -57,7 +63,6 @@ export class CargandoComponent implements OnInit {
     this.verprefacturas();
     this.funcionamientoAPPI();
     this.unaCompania();
-    swal.fire('Upps!!','Error 400, sintaxis de peticion incorrecta.','error');
   }
 
   //METODO QUE VERIFICA SI ACTIVA O DESACTIVA LA VALIDACION MEDIANTE APPI REST
@@ -72,9 +77,9 @@ export class CargandoComponent implements OnInit {
           this.appi = 'success';
         }else{
           this.appi = 'error';
-          this._serviceCargando.sendEmail().subscribe(
+          this._serviceCargando.sendEmail(1).subscribe(
             response=>{
-              console.log("Servicio de appi, no esta funcionando.");
+              console.log("Servicio de appi cloudcore, no esta funcionando.");
             }
           )
         }
@@ -144,10 +149,10 @@ export class CargandoComponent implements OnInit {
         //Servicio validado por la appi rest
         this._serviceCargando.validadDoc(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
           response=>{
-            console.log(this.files);
             this.cargando = false;
             if(response['status']=='success'){
               this.validado = true;
+              this.activarDedudcible = true;
               localStorage.setItem('validacion',JSON.stringify(response['data']));
               swal.fire('',response['msj'],'success');
             }else{
@@ -201,7 +206,7 @@ export class CargandoComponent implements OnInit {
       this._serviceCargando.crearDirectorios(anio[0],anio[1],rfc,this.files.namepdf,this.files.namexml,datos['FolioFiscal']).subscribe(
         response=>{
           //llama el servicio para realizar el tramite
-          this._serviceCargando.insertramite(datos,this.total,this.appi).subscribe(
+          this._serviceCargando.insertramite(datos,this.total,this.appi,this.deducible).subscribe(
             response=>{
               console.log(response);
               this.cargando = false;
@@ -327,5 +332,18 @@ export class CargandoComponent implements OnInit {
       }
     )
   }
+
+  aciveDeducible(accion){
+    if(accion == 'activo'){
+      this.digitarDeducible = true;
+    }else{
+      this.digitarDeducible = false;
+    }
+  }
+
+  changeDeducible(valor){
+      this.deducible = valor;
+  }
+
 
 }

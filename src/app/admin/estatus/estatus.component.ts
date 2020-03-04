@@ -65,10 +65,15 @@ export class EstatusComponent implements OnInit {
 
   //Funcion que se encargar de dar el visto bueno.
   vobo(idTramite){
-
     this._serviceAdmin.vistobueno(idTramite,this.datos).subscribe(
       response=>{
         if(response['status']=='success'){
+          //ENVIO DE CORREO
+          this._serviceAdmin.sendEmail(idTramite,2).subscribe(
+            response =>{
+              console.log("Tramite enviado a pagos con VOBO ");
+            }
+          )
           swal.fire('Exito',response['msj'],'success');
           this._router.navigate(['/administrador']);
         }else{

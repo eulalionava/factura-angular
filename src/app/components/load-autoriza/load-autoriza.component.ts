@@ -41,7 +41,7 @@ export class LoadAutorizaComponent implements OnInit {
           this.appi = 'success';
         }else{
           this.appi = 'error';
-          this._cargandoService.sendEmail().subscribe(
+          this._cargandoService.sendEmail(1).subscribe(
             response=>{}
           )
         }
@@ -60,6 +60,7 @@ export class LoadAutorizaComponent implements OnInit {
         //Valida la factura con la appi
         this._service.validaDoc(this.files).subscribe(
           response=>{
+            console.log(response);
             this.cargando = false;
             if(response['status']=='success'){
               //tramite valido
@@ -68,7 +69,7 @@ export class LoadAutorizaComponent implements OnInit {
               localStorage.setItem('datos',JSON.stringify(response['data']));
               swal.fire('Exito',response['msj'],'success');
             }else{
-              swal.fire('Error',response['msj'],'error');
+              swal.fire('Upps!',response['msj'],'error');
             }
           },
           error=>{

@@ -6,6 +6,7 @@ import { GLOBAL } from './global';
 
 @Injectable()
 export class AdminService{
+  public url_correo = "http://appfacturando.orthofam.com.mx/app/enviarCorreo.php";
   public url:string;
 
   constructor(
@@ -106,6 +107,18 @@ export class AdminService{
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url + 'admin/generalFecha',params,{headers:headers});
+  }
+
+  //ENVIO DE CORREO
+  sendEmail(tramite,num){
+    const datos = JSON.parse(localStorage.getItem('admin'));
+    const completo = datos[0]['Nombre']+" "+datos[0]['ApellidoP']+" "+datos[0]['ApellidoM'];
+    const formdata = new FormData();
+    formdata.append('tramite',tramite);
+    formdata.append("numero",num);
+    formdata.append("nombrecompleto",completo);
+
+    return this._http.post(this.url_correo,formdata);
   }
 
 }

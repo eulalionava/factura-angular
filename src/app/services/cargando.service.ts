@@ -83,7 +83,7 @@ export class CargandoService{
   }
 
   //Servicio que inserta el tramite
-  insertramite(tramite,total,appi){
+  insertramite(tramite,total,appi,deducible){
     let claves    = JSON.parse(localStorage.getItem('claves'));
     let registros = JSON.parse(localStorage.getItem('sesion'));
 
@@ -92,7 +92,8 @@ export class CargandoService{
       claves  : claves,
       total   : total,
       registro:registros,
-      appi    : appi
+      appi    : appi,
+      deducible:deducible
     });
 
     let params = 'json='+json;
@@ -108,8 +109,10 @@ export class CargandoService{
   }
 
   //Enviar correo en caso del fallo de la appi
-  sendEmail(){
-    return this._http.get(this.url_correo);
+  sendEmail(num){
+    const formdata = new FormData();
+    formdata.append("numero",num);
+    return this._http.post(this.url_correo,formdata);
   }
 
   sendEmailError(){
