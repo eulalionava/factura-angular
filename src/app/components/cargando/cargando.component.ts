@@ -58,6 +58,7 @@ export class CargandoComponent implements OnInit {
 
   ngOnInit() {
     this.claves = JSON.parse(localStorage.getItem('claves'));
+    console.log(this.claves);
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
     this.totalPre = this.claves.length;
     this.verprefacturas();
@@ -69,7 +70,8 @@ export class CargandoComponent implements OnInit {
   aciveAppi(event){
     this.tipoRadio = event.target.value;
   }
-  //Verifica el funcionamiento de la appi
+
+  //VERIFICA EL FUNCIONAMIENTO DE LA APPI
   funcionamientoAPPI(){
     this._serviceCargando.getAppi().subscribe(
       response=>{

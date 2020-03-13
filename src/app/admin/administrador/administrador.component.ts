@@ -29,6 +29,7 @@ export class AdministradorComponent implements OnInit {
 
   ngOnInit() {
     this.listado();
+
   }
 
   listado(){
@@ -40,7 +41,6 @@ export class AdministradorComponent implements OnInit {
       error=>{
         console.log(<any>error);
       }
-
     )
   }
 
