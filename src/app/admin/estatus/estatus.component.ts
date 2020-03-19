@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
+import { EstatusService } from '../../services/estatus.service';
 import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-estatus',
   templateUrl: './estatus.component.html',
   styleUrls:['./estatus.component.css'],
-  providers:[AdminService]
+  providers:[AdminService,EstatusService]
 })
 export class EstatusComponent implements OnInit {
   public tipos:any;
@@ -20,7 +21,8 @@ export class EstatusComponent implements OnInit {
 
   constructor(
     private _router:Router,
-    private _serviceAdmin:AdminService
+    private _serviceAdmin:AdminService,
+    private _serviceEstatus:EstatusService
   ){
     this.cargando = true;
   }
@@ -37,9 +39,8 @@ export class EstatusComponent implements OnInit {
 
   detalle(id){
     this.statusID = id;
-    this._serviceAdmin.porStatus(id).subscribe(
+    this._serviceEstatus.porStatus(id).subscribe(
       response=>{
-        console.log(response);
         this.tramites = response;
       },
       error=>{
@@ -49,9 +50,8 @@ export class EstatusComponent implements OnInit {
   }
 
   estatus(){
-    this._serviceAdmin.estatus().subscribe(
+    this._serviceEstatus.estatus().subscribe(
       response=>{
-        console.log(response);
         this.cargando = false;
         this.tipos = response['estatus'];
         this.totales = response['totales'];

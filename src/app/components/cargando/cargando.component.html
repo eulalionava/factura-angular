@@ -17,7 +17,10 @@
         <div class="card">
           <div class="card-header">
             Total de Importe:
-            <h2>{{total | currency }}</h2>
+            <h2>
+              <i class="fas fa-spinner fa-pulse" *ngIf="load"></i>
+              {{total | currency }}
+            </h2>
           </div>
         </div>
       </div>

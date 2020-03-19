@@ -3,6 +3,7 @@
     <div class="card" (click)="detalle(estatus[0]['idPUStatusTramite'])" style="cursor: pointer;">
       <div class="card-body bg-primary text-white">
         Registros
+        <i class="fas fa-spinner fa-pulse" *ngIf="cargando"></i>
         <span class="badge badge-secondary float-right">
           <h6>{{totales[1]}}</h6>
         </span>
@@ -13,6 +14,7 @@
     <div class="card" (click)="detalle(estatus[6]['idPUStatusTramite'])" style="cursor: pointer;">
       <div class="card-body bg-warning text-white">
         Tramites en Proceso
+        <i class="fas fa-spinner fa-pulse" *ngIf="cargando"></i>
         <span class="badge badge-secondary float-right">
           <h6>{{totales[7]}}</h6>
         </span>
@@ -23,6 +25,7 @@
     <div class="card" (click)="detalle(estatus[7]['idPUStatusTramite'])" style="cursor: pointer;">
       <div class="card-body bg-success text-white">
         Tramites Pagados
+        <i class="fas fa-spinner fa-pulse" *ngIf="cargando"></i>
         <span class="badge badge-secondary float-right">
           <h6>{{totales[8]}}</h6>
         </span>
@@ -33,6 +36,7 @@
     <div class="card" (click)="detalle(estatus[8]['idPUStatusTramite'])" style="cursor: pointer;">
       <div class="card-body bg-danger text-white">
         Tramites Rechazados
+        <i class="fas fa-spinner fa-pulse" *ngIf="cargando"></i>
         <span class="badge badge-secondary float-right">
           <h6>{{ totales[9] }}</h6>
         </span>
@@ -65,7 +69,7 @@
     <label class="sr-only">Folio</label>
     <div class="input-group mb-2">
       <div class="input-group-prepend">
-        <div class="input-group-text">Folio</div>
+        <div class="input-group-text">Folio Factura</div>
       </div>
       <input type="text" class="form-control" [(ngModel)]="buscar.folio">
     </div>
@@ -78,6 +82,9 @@
 </div>
 
 <hr>
+<div class="col-md-6">
+  <i class="fas fa-spinner fa-pulse" *ngIf="upload"></i>
+</div>
 <div class="col-md-12 col-sm-12" *ngIf="tramites != null ">
   <div class="card" >
     <div class="card-body">

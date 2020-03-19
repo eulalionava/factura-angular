@@ -16,14 +16,23 @@ export class HomeService{
   }
 
   //Servicio de logeo
-  getfacturas(pro_clave){
+  getfacturas(pro_clave:any){
     let json = JSON.stringify({clave:pro_clave});
-    let params = 'json='+json;
+    let params = 'json=' + json;
     let headers = new HttpHeaders();
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url+'home/facturas', params,{headers: headers});
 
+  }
+
+  getprovedores(uniclave){
+    let json = JSON.stringify({clave:uniclave});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'home/getprovedores', params,{headers: headers});
   }
 
   //Servicio que obtiene una factura especifica

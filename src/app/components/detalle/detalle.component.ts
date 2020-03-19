@@ -17,7 +17,7 @@ export class DetalleComponent implements OnInit {
   constructor(
     private _route:ActivatedRoute,
     private _router:Router,
-    private _service:TramiteService
+    private _serviceTramite:TramiteService
     ){
       let usuario = JSON.parse(localStorage.getItem('sesion'));
       this.nombre = usuario[0]['PUUsu_nombre']+" "+usuario[0]['PUUsu_apaterno']+" "+usuario[0]['PUUsu_amaterno'];
@@ -30,7 +30,7 @@ export class DetalleComponent implements OnInit {
   }
 
   archivo(clave){
-    this._service.getArchivo(clave).subscribe(
+    this._serviceTramite.getArchivo(clave).subscribe(
       response=>{
         this.url ="http://pmzima.net/PU"+response;
         window.open(this.url);
@@ -43,8 +43,9 @@ export class DetalleComponent implements OnInit {
 
   verdetalle(){
     let folio = this._route.snapshot.paramMap.get('folio');
-    this._service.detalleTramite(folio).subscribe(
+    this._serviceTramite.detalleTramite(folio).subscribe(
       response=>{
+        console.log(response);
         this.tramite = response[0];
       },
       error=>{
@@ -56,7 +57,7 @@ export class DetalleComponent implements OnInit {
   //Lista las prefacturas
   verprefacturas(){
     let folio = this._route.snapshot.paramMap.get('folio');
-    this._service.getPrefacturas(folio).subscribe(
+    this._serviceTramite.getPrefacturas(folio).subscribe(
       response=>{
         this.prefacturas=response;
       },

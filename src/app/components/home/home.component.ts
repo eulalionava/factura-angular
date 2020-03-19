@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   indice:number;
   porempresa  = '';
   busqueda    = '';
+  public prove = "";
   cantidad    = 10;
   cargando = true;
   //Numero de paginas
@@ -30,9 +31,11 @@ export class HomeComponent implements OnInit {
     private _router:Router
   ){
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
+    console.log(this.usuario);
   }
 
   ngOnInit() {
+    // this.cveProvedores();
     this.proveedores();
     this.Facturas();
   }
@@ -75,15 +78,34 @@ export class HomeComponent implements OnInit {
 
   //Obtener la facturas
   Facturas(){
-    this._service.getfacturas(this.cveProvedores()).subscribe(
+    this._service.getprovedores(this.usuario[0]['PUUni_clave']).subscribe(
       response=>{
-        this.facturas = response['data'];
-        this.cargando = false;
+        for(let i = 0; i < response['data'].length; i++){
+
+          if(i == response['data'].length-1){
+            this.prove = this.prove + response['data'][i]['Pro_clave'];
+          }else{
+            this.prove = this.prove + response['data'][i]['Pro_clave']+',';
+          }
+        }
+
+        //get prefacturas
+        this._service.getfacturas( this.prove ).subscribe(
+          response=>{
+            this.facturas = response['data'];
+            this.cargando = false;
+          },
+          error=>{
+            console.log(<any>error);
+          }
+        )
+
       },
       error=>{
         console.log(<any>error);
       }
     )
+
   }
 
   //Obtener los proveedores
@@ -154,19 +176,6 @@ export class HomeComponent implements OnInit {
       }
     }
     localStorage.setItem('claves',JSON.stringify(this.opciones));
-  }
-
-  //CLAVES DE PROVEEDORES
-  cveProvedores(){
-    let prove='';
-    for(let i = 0; i < this.usuario.length; i++){
-      if(i == this.usuario.length-1){
-        prove = prove + this.usuario[i]['Pro_clave'];
-      }else{
-        prove = prove + this.usuario[i]['Pro_clave']+',';
-      }
-    }
-    return prove;
   }
 
 

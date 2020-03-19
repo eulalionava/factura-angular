@@ -20,8 +20,8 @@ export class ConsultaService{
   }
 
   //SERVICIO QUE BUSCA POR ESTATUS
-  porStatus(id){
-    let json = JSON.stringify({id:id});
+  porStatus(id,usuario){
+    let json = JSON.stringify({id:id,user:usuario});
     let params = 'json='+json;
     let headers = new HttpHeaders();
 
@@ -30,13 +30,17 @@ export class ConsultaService{
   }
 
   //SERVICIO QUE OBTIENE TODOS LOS ESTAUS
-  estatus(){
-    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return this._http.get(this.url +'admin/estatus',{headers:headers});
+  estatus(usuario){
+    let json = JSON.stringify({user:usuario});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url +'admin/estatus',params,{headers:headers});
+
   }
 
   //SERVICIO QUE BUSCA POR FOLIO FISCAL
-
   busquedaGeneral(datos){
     let json = JSON.stringify({datos:datos});
     let params = 'json='+json;

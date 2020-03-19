@@ -22,6 +22,7 @@ export class CargandoService{
 
   //Servicio para obtener los datos de las prefacturas seleccionadas
   getPrefacturaSeleccionadas(prefacturas){
+
     let json = JSON.stringify({claves:prefacturas});
     let params = 'json='+json;
     let headers = new HttpHeaders();

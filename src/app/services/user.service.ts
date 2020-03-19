@@ -7,6 +7,7 @@ import { GLOBAL } from './global';
 @Injectable()
 export class UserService{
   public url:string;
+  public nombre;
 
   constructor(
     private _router:Router,
@@ -50,7 +51,13 @@ export class UserService{
     if( sessionStorage.getItem('sesion') || localStorage.getItem('sesion')){
       //Por proveedor
       let datos = JSON.parse(localStorage.getItem('sesion'));
-      return datos[0]['Pro_rc'];
+      const unidad = this.getUnidad(datos[0]['PUUni_clave']).subscribe(
+        response=>{
+          this.nombre = response['data'][0]['UNI_nomCorto'];
+        }
+      );
+
+      return this.nombre;
 
     }else if(sessionStorage.getItem('autorizacion')|| localStorage.getItem('autorizacion')){
       //Por autorizacion
@@ -61,6 +68,15 @@ export class UserService{
       let datos =JSON.parse(localStorage.getItem('admin'));
       return datos[0]['Nombre']+" "+datos[0]['ApellidoP']+" "+datos[0]['ApellidoM'];
     }
+  }
+
+  getUnidad(idunidad){
+    let json = JSON.stringify({clave:idunidad});
+    let params = 'json='+json;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url+'usuario/unidad', params,{headers: headers});
   }
 
   //Servicio de logeo

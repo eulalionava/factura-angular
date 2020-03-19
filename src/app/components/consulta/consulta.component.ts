@@ -10,9 +10,12 @@ import * as $ from 'jquery';
   providers:[ConsultaService]
 })
 export class ConsultaComponent implements OnInit {
+  public cargando:boolean;
+  public upload:boolean;
   public tramites:any;
   public estatus=[];
   public totales=[];
+  public usuario:any;
 
   public buscar = { fechaInicio:'', fechaFin:'',folio:'' }
 
@@ -20,19 +23,24 @@ export class ConsultaComponent implements OnInit {
     private _router:Router,
     private _serviceConsulta:ConsultaService
 
-  ) { }
+  ){
+    this.usuario = JSON.parse(localStorage.getItem('sesion'));
+  }
 
   ngOnInit() {
-
+    this.cargando = false;
+    this.upload = false;
     this.getStatus();
-
   }
 
   //BUSCA UN ESTATUS ESPECIFICO
   detalle(id){
-    this._serviceConsulta.porStatus(id).subscribe(
+    this.upload =  true;
+    const user = this.usuario[0]['PUUsu_login'];
+    this._serviceConsulta.porStatus(id,user).subscribe(
       response=>{
         this.tramites = response;
+        this.upload = false;
         console.log(this.tramites);
       },
       error=>{
@@ -43,11 +51,13 @@ export class ConsultaComponent implements OnInit {
 
   //OBTIENE TODOS LOS ESTATUS DE TRAMITE
   getStatus(){
-    this._serviceConsulta.estatus().subscribe(
+    this.cargando = true;
+    this._serviceConsulta.estatus(this.usuario[0]['PUUsu_login']).subscribe(
       response=>{
         console.log(response);
         this.estatus = response['estatus'];
         this.totales = response['totales'];
+        this.cargando= false;
       },
       error=>{
         console.log(<any>error);

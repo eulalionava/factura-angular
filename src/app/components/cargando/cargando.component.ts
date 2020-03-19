@@ -13,6 +13,7 @@ export class CargandoComponent implements OnInit {
   public errorPdf:boolean;
   public validado:boolean;
   public cargando:boolean;
+  public load:boolean;
   public quitar:boolean;
   public seleccionadas = [];
   public xml:any;
@@ -35,11 +36,11 @@ export class CargandoComponent implements OnInit {
   public prueba;
 
   files = {
-    'namexml':'',
-    'rutaxml':'',
-    'namepdf':'',
-    'rutapdf':'',
-    'rfc'    :''
+    'namexml' :'',
+    'rutaxml' :'',
+    'namepdf' :'',
+    'rutapdf' :'',
+    'rfc'     :''
   }
 
   constructor(
@@ -58,7 +59,6 @@ export class CargandoComponent implements OnInit {
 
   ngOnInit() {
     this.claves = JSON.parse(localStorage.getItem('claves'));
-    console.log(this.claves);
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
     this.totalPre = this.claves.length;
     this.verprefacturas();
@@ -107,7 +107,6 @@ export class CargandoComponent implements OnInit {
         this._serviceCargando.cargarArchivo(files[0]).subscribe(
           response=>{
             //Asignamos informacion
-            this.files.rfc     = this.usuario[0]['Pro_rfc'];
             this.files.namexml = response['data']['nombre'];
             this.files.rutaxml = response['data']['ruta'];
           },
@@ -148,6 +147,7 @@ export class CargandoComponent implements OnInit {
     if(this.files.namexml != '' && this.files.namepdf != ''){
       if(this.appi == 'success'){
         this.cargando = true;
+
         //Servicio validado por la appi rest
         this._serviceCargando.validadDoc(this.files,this.total,this.mismaComp,this.Ncompania).subscribe(
           response=>{
@@ -301,15 +301,27 @@ export class CargandoComponent implements OnInit {
 
   //DATOS DE PREFACTURAS
   verprefacturas(){
+    this.load = true;
     this._serviceCargando.getPrefacturaSeleccionadas(this.claves).subscribe(
       response=>{
-        console.log(response);
+        this.load = false;
         this.prefacturas = response['data'];
         //recorremos los datos
         for(let i=0; i < response['data'].length; i++){
           //contador
           this.total += parseFloat(response['data'][i][0]['Doc_importe']);
           this.total = Math.round(this.total * 100)  / 100;
+        }
+
+        //recorre los provedores por la unidad actual
+        const unidad  = this.prefacturas[0][0]['UNI_clave'];
+        const ase     = this.prefacturas[0][0]['ASE_clave'];
+
+        for(let i=0; i < this.usuario.length; i++){
+
+          if(unidad == this.usuario[i]['PUUni_clave'] &&  ase == this.usuario[i]['ASE_clave'] ){
+            this.files.rfc = this.usuario[i]['Pro_rfc'];
+          }
         }
       },
       error=>{
