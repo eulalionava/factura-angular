@@ -107,6 +107,7 @@ export class CargandoComponent implements OnInit {
         this._serviceCargando.cargarArchivo(files[0]).subscribe(
           response=>{
             //Asignamos informacion
+            this.files.rfc = this.usuario[0]['Pro_rfc'];
             this.files.namexml = response['data']['nombre'];
             this.files.rutaxml = response['data']['ruta'];
           },
@@ -306,6 +307,7 @@ export class CargandoComponent implements OnInit {
       response=>{
         this.load = false;
         this.prefacturas = response['data'];
+        console.log(this.prefacturas);
         //recorremos los datos
         for(let i=0; i < response['data'].length; i++){
           //contador
