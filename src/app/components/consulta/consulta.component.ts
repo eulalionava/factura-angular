@@ -11,6 +11,8 @@ import * as $ from 'jquery';
 })
 export class ConsultaComponent implements OnInit {
   public cargando:boolean;
+  public porRegistro:boolean;
+  public porFactura:boolean;
   public upload:boolean;
   public tramites:any;
   public estatus=[];
@@ -25,6 +27,8 @@ export class ConsultaComponent implements OnInit {
 
   ){
     this.usuario = JSON.parse(localStorage.getItem('sesion'));
+    this.porFactura = false;
+    this.porRegistro = false;
   }
 
   ngOnInit() {
@@ -79,4 +83,19 @@ export class ConsultaComponent implements OnInit {
       }
     )
   }
+
+  tipobusqueda(event){
+    if(event == 1)
+    {
+      this.porRegistro = true;
+      this.porFactura = false;
+    }
+
+    if(event == 2)
+    {
+      this.porFactura = true;
+      this.porRegistro = false;
+    }
+  }
+
 }

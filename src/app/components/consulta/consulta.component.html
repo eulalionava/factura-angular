@@ -2,7 +2,7 @@
   <div class="col-md-3 col-sm-3">
     <div class="card" (click)="detalle(estatus[0]['idPUStatusTramite'])" style="cursor: pointer;">
       <div class="card-body bg-primary text-white">
-        Registros
+        Registrados
         <i class="fas fa-spinner fa-pulse" *ngIf="cargando"></i>
         <span class="badge badge-secondary float-right">
           <h6>{{totales[1]}}</h6>
@@ -46,45 +46,60 @@
 </div>
 
 <div class="row mt-3">
-  <div class="col-md-12">
-    <!-- <select name="busqueda" id="">
-      <option value="0">Busqueda...</option>
-      <option value="1"></option>
-    </select> -->
-  </div>
   <div class="col-md-3">
-    <label class="sr-only">Fecha Inicio</label>
-    <div class="input-group mb-2">
-      <div class="input-group-prepend">
-        <div class="input-group-text">Inicio</div>
+    <select name="busqueda" id="" class="form-control" (change)="tipobusqueda($event.target.value)" >
+      <option value="0">Buscar por......</option>
+      <option value="1">Fecha de resgistro</option>
+      <option value="2">Folio de factura</option>
+    </select>
+  </div>
+  <div *ngIf="porRegistro" class="col-md-9">
+    <div class="row">
+      <div class="col-md-4">
+        <label class="sr-only">Fecha Inicio</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Inicio</div>
+          </div>
+          <input type="date" class="form-control" [(ngModel)]="buscar.fechaInicio">
+        </div>
       </div>
-      <input type="date" class="form-control" [(ngModel)]="buscar.fechaInicio">
+      <div class="col-md-4">
+        <label class="sr-only">Fecha Fin</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Fin</div>
+          </div>
+          <input type="date" class="form-control" [(ngModel)]="buscar.fechaFin">
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <input type="button" class="btn btn-primary" value="Buscar" (click)="busqueda()">
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="col-md-3">
-    <label class="sr-only">Fecha Fin</label>
-    <div class="input-group mb-2">
-      <div class="input-group-prepend">
-        <div class="input-group-text">Fin</div>
+  <div *ngIf="porFactura" class="col-md-9">
+    <div class="row">
+      <div class="col-md-6">
+        <label class="sr-only">Folio</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Folio Factura</div>
+          </div>
+          <input type="text" class="form-control" [(ngModel)]="buscar.folio">
+        </div>
       </div>
-      <input type="date" class="form-control" [(ngModel)]="buscar.fechaFin">
-    </div>
-  </div>
-  <div class="col-md-3">
-    <label class="sr-only">Folio</label>
-    <div class="input-group mb-2">
-      <div class="input-group-prepend">
-        <div class="input-group-text">Folio Factura</div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <input type="button" class="btn btn-primary" value="Buscar" (click)="busqueda()">
+        </div>
       </div>
-      <input type="text" class="form-control" [(ngModel)]="buscar.folio">
     </div>
   </div>
-  <div class="col-md-2">
-    <div class="form-group">
-      <input type="button" class="btn btn-primary" value="Buscar" (click)="busqueda()">
-    </div>
-  </div>
+
 </div>
 
 <hr>
